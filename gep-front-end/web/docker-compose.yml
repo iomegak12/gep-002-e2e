@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gep-scm-web:latest
+    container_name: gep-scm-web
+    ports:
+      - "8080:80"
+    restart: unless-stopped

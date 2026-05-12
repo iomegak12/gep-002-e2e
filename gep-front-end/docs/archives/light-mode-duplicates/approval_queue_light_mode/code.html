@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Approval Queue - Order Oasis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#b05e3d",
+                        "on-secondary-container": "#004f7b",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9ff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-surface": "#0b1c30",
+                        "tertiary": "#924628",
+                        "outline-variant": "#bcc9c6",
+                        "on-surface-variant": "#3d4947",
+                        "secondary-fixed": "#cde5ff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#94ccff",
+                        "on-secondary-fixed": "#001d32",
+                        "on-tertiary-fixed": "#370e00",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdbce",
+                        "secondary": "#006399",
+                        "on-primary-container": "#f4fffc",
+                        "surface-variant": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "outline": "#6d7a77",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#004b74",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#89f5e7",
+                        "secondary-container": "#7bc2ff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#6bd8cb",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "surface-container-high": "#dce9ff",
+                        "primary-container": "#008378",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "surface-tint": "#006a61",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary": "#00685f",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#00201d",
+                        "on-background": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "table-cell-padding": "8px 12px",
+                        "sidebar-collapsed": "64px",
+                        "base": "4px",
+                        "widget-gap": "16px",
+                        "sidebar-width": "240px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Roboto"],
+                        "label-caps": ["Roboto"],
+                        "display-lg": ["Roboto"],
+                        "body-base": ["Roboto"],
+                        "headline-md": ["Roboto"],
+                        "title-sm": ["Roboto"],
+                        "data-mono": ["Roboto Mono"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-base": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "title-sm": ["15px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-base antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+<!-- TopAppBar -->
+<header class="hidden md:flex items-center justify-between px-container-padding ml-sidebar-collapsed w-[calc(100%-spacing.sidebar-collapsed)] bg-background docked full-width top-0 h-16 flat no shadows z-40 fixed">
+<div class="flex items-center gap-4">
+<!-- Search Bar (on_left) -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-DEFAULT focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-sm text-on-surface placeholder:text-on-surface-variant transition-colors" placeholder="Search orders..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors duration-150 relative">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="hover:text-primary transition-colors duration-150 relative">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</button>
+<button class="hover:text-primary transition-colors duration-150 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-background"></span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-DEFAULT font-title-sm hover:bg-surface-tint transition-colors shadow-sm">
+                Create PO
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A professional headshot of a person wearing a subtle corporate uniform, looking directly at the camera with a neutral expression. The background is a soft, blurred office environment with cool teal and blue tones, consistent with a modern corporate aesthetic. The lighting is balanced and bright, reflecting a light mode UI style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcJEYYAXFwxc4z8LOz65Ps01YZrr9F0e8ZULvOxMRLKpM1ilwzwCRJuPo1_3QFPYFZqF7u9nu9dc5D0HqvjkbPL-9gzbGjZWmZPH--lR8g6Oz312KVAgglDzQDPSt4phz8Cvs4FlPTqqX3zC31ERBVkagZC-k04C504Ho_AM6eFkhmhQ9ra9JTY-6Ack5y_Ii9_r10thVAT0Qnm9O0Z8OhOfggqSQJ-i0E5KAmh1EMjfjnVp1Xyl-c7yfHq0ND03-gw9Zqd3rDvDeV"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-base bg-surface border-r border-outline-variant docked full-height left-0 w-sidebar-collapsed flat no shadows z-50">
+<div class="flex flex-col items-center mb-8 pt-4">
+<div class="w-10 h-10 rounded-DEFAULT bg-primary-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">package_2</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-2 px-2">
+<a class="flex flex-col items-center justify-center p-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out group" href="#" title="Dashboard">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity absolute left-14 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded-DEFAULT whitespace-nowrap z-50 pointer-events-none">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center p-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out group" href="#" title="Suppliers">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity absolute left-14 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded-DEFAULT whitespace-nowrap z-50 pointer-events-none">Suppliers</span>
+</a>
+<a class="flex flex-col items-center justify-center p-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out group" href="#" title="Orders">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity absolute left-14 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded-DEFAULT whitespace-nowrap z-50 pointer-events-none">Orders</span>
+</a>
+<!-- Active Tab -->
+<a class="flex flex-col items-center justify-center p-2 rounded-DEFAULT text-primary border-l-4 border-primary bg-surface-container-high transition-all duration-200 ease-in-out group relative" href="#" title="Approvals">
+<span class="material-symbols-outlined mb-1" data-icon="rule" style="font-variation-settings: 'FILL' 1;">rule</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity absolute left-14 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded-DEFAULT whitespace-nowrap z-50 pointer-events-none">Approvals</span>
+</a>
+<a class="flex flex-col items-center justify-center p-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out group" href="#" title="Users">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" data-icon="group">group</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity absolute left-14 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded-DEFAULT whitespace-nowrap z-50 pointer-events-none">Users</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2 px-2 pb-4 border-t border-outline-variant pt-4">
+<a class="flex flex-col items-center justify-center p-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out group" href="#" title="Settings">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity absolute left-14 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded-DEFAULT whitespace-nowrap z-50 pointer-events-none">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-sidebar-collapsed pt-16 min-h-screen flex flex-col">
+<div class="px-container-padding py-6 flex-1 flex flex-col max-w-[1600px] mx-auto w-full">
+<!-- Page Header & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-1">Approval Queue</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Review and manage pending purchase orders requiring your authorization.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Amount</label>
+<select class="bg-surface border border-outline-variant rounded-DEFAULT font-body-sm text-body-sm text-on-surface py-1.5 pl-3 pr-8 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>Any Amount</option>
+<option>&lt; $10k (Limit)</option>
+<option>&gt; $10k (Escalated)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Date Range</label>
+<select class="bg-surface border border-outline-variant rounded-DEFAULT font-body-sm text-body-sm text-on-surface py-1.5 pl-3 pr-8 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>Custom Range</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Buyer</label>
+<select class="bg-surface border border-outline-variant rounded-DEFAULT font-body-sm text-body-sm text-on-surface py-1.5 pl-3 pr-8 focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>All Buyers</option>
+<option>Sarah Jenkins</option>
+<option>Marcus Chen</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Bulk Actions Bar (Sticky) -->
+<div class="bg-surface-container-low border border-outline-variant rounded-t-DEFAULT p-3 flex items-center justify-between sticky top-16 z-30">
+<div class="flex items-center gap-3">
+<input class="w-4 h-4 rounded-DEFAULT border-outline-variant text-primary focus:ring-primary ml-2 cursor-pointer" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-bold text-on-surface">0</span> selected</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 border border-outline-variant rounded-DEFAULT font-body-sm text-body-sm text-on-surface bg-surface hover:bg-surface-variant transition-colors flex items-center gap-1 opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined" style="font-size: 16px;">close</span> Reject Selected
+                    </button>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded-DEFAULT font-body-sm text-body-sm hover:bg-surface-tint transition-colors flex items-center gap-1 opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined" style="font-size: 16px;">check</span> Approve Selected
+                    </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface border-x border-b border-outline-variant rounded-b-DEFAULT flex-1 overflow-x-auto shadow-[0px_4px_12px_rgba(0,0,0,0.05)]">
+<table class="w-full text-left border-collapse min-w-[1000px]">
+<thead class="bg-surface-bright border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant uppercase">
+<tr>
+<th class="p-table-cell-padding w-12 text-center"></th>
+<th class="p-table-cell-padding">PO Number</th>
+<th class="p-table-cell-padding">Supplier</th>
+<th class="p-table-cell-padding">Buyer</th>
+<th class="p-table-cell-padding">Submitted Date</th>
+<th class="p-table-cell-padding text-right">Amount</th>
+<th class="p-table-cell-padding text-center w-48">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-base text-on-surface divide-y divide-outline-variant/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="w-4 h-4 rounded-DEFAULT border-outline-variant text-primary focus:ring-primary cursor-pointer opacity-50 group-hover:opacity-100 transition-opacity" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-data-mono text-primary font-medium cursor-pointer hover:underline">PO-2023-8942</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div class="font-medium">Global Tech Components</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Semiconductors</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-caps text-[10px]">SJ</div>
+<span>Sarah Jenkins</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div>Oct 24, 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">14:32 EST</div>
+</div>
+</td>
+<td class="p-table-cell-padding text-right">
+<div class="font-data-mono text-data-mono font-medium">$42,500.00</div>
+<div class="font-body-sm text-body-sm text-error bg-error-container/50 px-1.5 py-0.5 rounded inline-block mt-1">Over Limit</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center justify-center gap-2">
+<button class="w-8 h-8 rounded-DEFAULT border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-error hover:border-error hover:bg-error-container/20 transition-colors" title="Reject">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+<button class="w-8 h-8 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center hover:bg-surface-tint transition-colors" title="Approve">
+<span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="w-4 h-4 rounded-DEFAULT border-outline-variant text-primary focus:ring-primary cursor-pointer opacity-50 group-hover:opacity-100 transition-opacity" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-data-mono text-primary font-medium cursor-pointer hover:underline">PO-2023-8941</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div class="font-medium">Apex Packaging Solutions</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Cardboard &amp; Plastics</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-caps text-[10px]">MC</div>
+<span>Marcus Chen</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div>Oct 24, 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">11:15 EST</div>
+</div>
+</td>
+<td class="p-table-cell-padding text-right">
+<div class="font-data-mono text-data-mono font-medium">$8,250.00</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center justify-center gap-2">
+<button class="w-8 h-8 rounded-DEFAULT border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-error hover:border-error hover:bg-error-container/20 transition-colors" title="Reject">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+<button class="w-8 h-8 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center hover:bg-surface-tint transition-colors" title="Approve">
+<span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="w-4 h-4 rounded-DEFAULT border-outline-variant text-primary focus:ring-primary cursor-pointer opacity-50 group-hover:opacity-100 transition-opacity" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-data-mono text-primary font-medium cursor-pointer hover:underline">PO-2023-8938</span>
+<span class="material-symbols-outlined text-tertiary" style="font-size: 16px;" title="Urgent Request">warning</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div class="font-medium">Northeast Logistics</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Freight Services</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-caps text-[10px]">SJ</div>
+<span>Sarah Jenkins</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div>Oct 23, 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">16:45 EST</div>
+</div>
+</td>
+<td class="p-table-cell-padding text-right">
+<div class="font-data-mono text-data-mono font-medium">$12,400.00</div>
+<div class="font-body-sm text-body-sm text-error bg-error-container/50 px-1.5 py-0.5 rounded inline-block mt-1">Over Limit</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center justify-center gap-2">
+<button class="w-8 h-8 rounded-DEFAULT border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-error hover:border-error hover:bg-error-container/20 transition-colors" title="Reject">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+<button class="w-8 h-8 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center hover:bg-surface-tint transition-colors" title="Approve">
+<span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="w-4 h-4 rounded-DEFAULT border-outline-variant text-primary focus:ring-primary cursor-pointer opacity-50 group-hover:opacity-100 transition-opacity" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-data-mono text-primary font-medium cursor-pointer hover:underline">PO-2023-8935</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div class="font-medium">Oasis Office Supplies</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Internal Operations</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-caps text-[10px]">AL</div>
+<span>Amanda Lee</span>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div>
+<div>Oct 23, 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">09:10 EST</div>
+</div>
+</td>
+<td class="p-table-cell-padding text-right">
+<div class="font-data-mono text-data-mono font-medium">$1,150.00</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center justify-center gap-2">
+<button class="w-8 h-8 rounded-DEFAULT border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-error hover:border-error hover:bg-error-container/20 transition-colors" title="Reject">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+<button class="w-8 h-8 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center hover:bg-surface-tint transition-colors" title="Approve">
+<span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between py-4 font-body-sm text-body-sm text-on-surface-variant">
+<div>Showing 1-4 of 12 pending approvals</div>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+</button>
+<button class="w-6 h-6 rounded bg-primary-container text-on-primary-container font-medium flex items-center justify-center">1</button>
+<button class="w-6 h-6 rounded hover:bg-surface-container-low flex items-center justify-center">2</button>
+<button class="w-6 h-6 rounded hover:bg-surface-container-low flex items-center justify-center">3</button>
+<button class="p-1 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

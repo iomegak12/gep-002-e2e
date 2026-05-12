@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S22 — Create PO · Step 1 Supplier — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S22 Create PO Wizard — Step 1 of 4 (Supplier).
+  Typeahead: GET /suppliers/search?q=
+  Preview: GET /suppliers/{id} for chosen supplier.
+  Block "Next" if supplier is not ACTIVE.
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item active" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><a class="crumb" href="s20-po-list.html">Purchase orders</a><span class="sep">›</span><span class="crumb active">New PO</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">PR</span><span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Create purchase order</h1>
+          <div class="lede">Step 1 of 4 — pick the supplier this PO is for.</div>
+        </div>
+        <div class="actions"><a class="btn btn-ghost" href="s20-po-list.html">Cancel</a></div>
+      </div>
+
+      <!-- Stepper -->
+      <div class="card" style="padding:16px 20px;">
+        <div class="stepper">
+          <div class="step active"><div class="dot">1</div> Supplier</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">2</div> Line items</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">3</div> Delivery &amp; terms</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">4</div> Review &amp; submit</div>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+
+          <section class="card">
+            <div class="card-header"><h3>Find supplier</h3></div>
+            <div class="field">
+              <label>Search</label>
+              <input class="input" placeholder="Search by name, code, or category…" value="acme">
+              <span class="help">Only <strong>Active</strong> suppliers can be selected. Pending or blacklisted suppliers appear but are disabled.</span>
+            </div>
+
+            <div class="table-wrap" style="margin-top:8px;border:0;box-shadow:none;background:transparent;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Supplier</th>
+                    <th>Code</th>
+                    <th>Category</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th class="actions-cell">Rating</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background:var(--accent-soft);">
+                    <td><input type="radio" name="sup" checked style="accent-color:var(--accent);"></td>
+                    <td><strong>Acme Industrial</strong></td>
+                    <td class="mono">SUP-IN-00123</td>
+                    <td>Raw materials</td>
+                    <td>IN</td>
+                    <td><span class="pill success">Active</span></td>
+                    <td class="mono actions-cell">4.7</td>
+                  </tr>
+                  <tr>
+                    <td><input type="radio" name="sup" style="accent-color:var(--accent);"></td>
+                    <td><strong>Acme Components Ltd</strong></td>
+                    <td class="mono">SUP-IN-00185</td>
+                    <td>Raw materials</td>
+                    <td>IN</td>
+                    <td><span class="pill success">Active</span></td>
+                    <td class="mono actions-cell">4.2</td>
+                  </tr>
+                  <tr style="opacity:0.5;">
+                    <td><input type="radio" name="sup" disabled></td>
+                    <td><strong>Acme Forging Co.</strong></td>
+                    <td class="mono">SUP-IN-00208</td>
+                    <td>Raw materials</td>
+                    <td>IN</td>
+                    <td><span class="pill warning">Pending</span></td>
+                    <td class="mono actions-cell">—</td>
+                  </tr>
+                  <tr style="opacity:0.5;">
+                    <td><input type="radio" name="sup" disabled></td>
+                    <td><strong>Acme Plastics Pvt Ltd</strong></td>
+                    <td class="mono">SUP-IN-00094</td>
+                    <td>Packaging</td>
+                    <td>IN</td>
+                    <td><span class="pill warning">Inactive</span></td>
+                    <td class="mono actions-cell">3.8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- state: empty result variant
+            <div class="empty">
+              <div class="glyph">∅</div>
+              <h3>No suppliers match "blueocean"</h3>
+              <p>Try a broader query, or create a new supplier from the directory.</p>
+            </div>
+            -->
+          </section>
+        </div>
+
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header">
+              <h3>Selected supplier</h3>
+              <span class="pill success">Eligible</span>
+            </div>
+            <div class="dl">
+              <dt>Name</dt><dd>Acme Industrial</dd>
+              <dt>Code</dt><dd class="mono">SUP-IN-00123</dd>
+              <dt>Category</dt><dd>Raw materials</dd>
+              <dt>Country</dt><dd>India</dd>
+              <dt>Rating</dt><dd class="mono">4.7 / 5.0</dd>
+              <dt>OTD</dt><dd class="mono">94.1%</dd>
+              <dt>Orders</dt><dd class="mono">187</dd>
+              <dt>Spend (lifetime)</dt><dd class="mono">INR 14.8M</dd>
+            </div>
+            <a class="btn btn-ghost btn-sm" href="s11-supplier-detail.html" style="padding-left:0;margin-top:8px;">Open supplier detail →</a>
+          </section>
+
+          <section class="card">
+            <div class="alert info">
+              <div>
+                <div class="alert-title">Why supplier matters</div>
+                <div class="alert-body">Currency, payment terms, and tax behaviour are pre-filled from this supplier's record. You can still override them on step 3.</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- state: supplier became inactive between selection and Next (commented)
+          <section class="card">
+            <div class="alert error">
+              <div>
+                <div class="alert-title">Supplier is no longer active</div>
+                <div class="alert-body">Acme Industrial was deactivated 4 minutes ago. Pick another supplier to continue.</div>
+              </div>
+            </div>
+          </section>
+          -->
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <a class="btn btn-secondary" href="s20-po-list.html">← Back to list</a>
+        <span class="t-muted t-body-sm">Acme Industrial selected · ready to continue</span>
+        <a class="btn btn-primary" href="s22-create-po-step-2.html">Next: Line items →</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S22 step 1</div>
+</body>
+</html>

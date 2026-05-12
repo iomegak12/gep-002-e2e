@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S30 — Approval Queue — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  .bulk-bar {
+    position: sticky;
+    bottom: 16px;
+    margin: 0 -24px -24px;
+    padding: 12px 24px;
+    background: var(--surface-card-elevated);
+    border-top: 1px solid var(--border-card-strong);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 -8px 20px rgba(0,0,0,0.4);
+  }
+</style>
+</head>
+<body>
+<!--
+  Screen: S30 Approval Queue (Approver).
+  Endpoint: GET /purchase-orders?status=SUBMITTED&max_amount=<approver_limit>&sort=-submitted_at
+  Bulk approve: parallel POSTs (cap concurrency 5).
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item active" href="#">◴ Approvals <span class="badge">12</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><span class="crumb active">Approvals</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search by PO or supplier…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">SK</span><span><span class="name">Suresh K.</span><br><span class="role">Approver</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Approval queue</h1>
+          <div class="lede">POs within your approval limit of <span class="t-mono">INR 2,500,000</span>, awaiting your decision.</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary">Sort: oldest first</button>
+          <button class="btn btn-secondary">Refresh</button>
+        </div>
+      </div>
+
+      <!-- KPI strip -->
+      <div class="grid col-4">
+        <div class="metric">
+          <span class="label">Pending</span>
+          <div class="value-row"><span class="value">12</span><span class="pill warning no-dot">Within your limit</span></div>
+          <span class="note">3 over your limit (hidden)</span>
+        </div>
+        <div class="metric">
+          <span class="label">Total value</span>
+          <div class="value-row"><span class="value">8.4M</span><span class="pill accent no-dot">INR</span></div>
+          <span class="note">Across 12 POs</span>
+        </div>
+        <div class="metric">
+          <span class="label">Oldest pending</span>
+          <div class="value-row"><span class="value">2.4d</span><span class="pill error no-dot">Over target</span></div>
+          <span class="note">Target: under 2 business days</span>
+        </div>
+        <div class="metric">
+          <span class="label">Approved by you</span>
+          <div class="value-row"><span class="value">147</span><span class="pill success no-dot">YTD</span></div>
+          <span class="note">Avg time-to-approve 4.2h</span>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <span class="filter-chip">Status: Submitted <span class="x">×</span></span>
+        <span class="filter-chip">Within your limit <span class="x">×</span></span>
+        <button class="btn btn-ghost btn-sm">+ Add filter</button>
+        <span class="grow"></span>
+        <span class="t-muted t-body-sm">12 POs · 2 selected</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:36px;"><input type="checkbox" style="accent-color:var(--accent);"></th>
+              <th>PO</th>
+              <th>Supplier</th>
+              <th>Total</th>
+              <th>Submitted by</th>
+              <th>Age</th>
+              <th>Expected</th>
+              <th class="actions-cell">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--accent-softer);">
+              <td><input type="checkbox" checked style="accent-color:var(--accent);"></td>
+              <td class="mono"><strong>PO-2026-00042</strong></td>
+              <td>Acme Industrial</td>
+              <td class="mono">INR 1,026,895</td>
+              <td>Priya R.</td>
+              <td><span class="pill error no-dot">2.4d</span></td>
+              <td class="mono">2026-06-15</td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Reject</button>
+              </td>
+            </tr>
+            <tr style="background:var(--accent-softer);">
+              <td><input type="checkbox" checked style="accent-color:var(--accent);"></td>
+              <td class="mono"><strong>PO-2026-00045</strong></td>
+              <td>Sundaram Logistics</td>
+              <td class="mono">INR 412,300</td>
+              <td>Aarav M.</td>
+              <td><span class="pill warning no-dot">1.1d</span></td>
+              <td class="mono">2026-05-25</td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+              <td class="mono"><strong>PO-2026-00047</strong></td>
+              <td>NorthCloud Systems</td>
+              <td class="mono">USD 12,000</td>
+              <td>Meera I.</td>
+              <td><span class="pill warning no-dot">22h</span></td>
+              <td class="mono">2026-06-01</td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+              <td class="mono"><strong>PO-2026-00048</strong></td>
+              <td>Velocity Freight</td>
+              <td class="mono">INR 84,600</td>
+              <td>Priya R.</td>
+              <td><span class="pill neutral no-dot">9h</span></td>
+              <td class="mono">2026-05-19</td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Reject</button>
+              </td>
+            </tr>
+            <tr style="opacity:0.55;">
+              <td><input type="checkbox" disabled></td>
+              <td class="mono"><strong>PO-2026-00050</strong></td>
+              <td>Acme Industrial</td>
+              <td class="mono">INR 3,200,000</td>
+              <td>Aarav M.</td>
+              <td><span class="pill neutral no-dot">3h</span></td>
+              <td class="mono">2026-06-20</td>
+              <td class="actions-cell">
+                <span class="pill error no-dot">Exceeds your limit</span>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+              <td class="mono"><strong>PO-2026-00051</strong></td>
+              <td>BluePack Co.</td>
+              <td class="mono">INR 215,000</td>
+              <td>Lakshmi N.</td>
+              <td><span class="pill neutral no-dot">2h</span></td>
+              <td class="mono">2026-05-28</td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+              <td class="mono"><strong>PO-2026-00052</strong></td>
+              <td>Karthik Consulting</td>
+              <td class="mono">INR 145,000</td>
+              <td>Meera I.</td>
+              <td><span class="pill neutral no-dot">1h</span></td>
+              <td class="mono">2026-05-30</td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Reject</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- empty state (commented variant)
+      <div class="card empty" style="margin-top:16px;">
+        <div class="glyph">✓</div>
+        <h3>You're all caught up</h3>
+        <p>No POs are awaiting your decision right now.</p>
+      </div>
+      -->
+
+      <!-- Sticky bulk action bar (visible because rows are selected) -->
+      <div class="bulk-bar">
+        <span class="t-body" style="font-weight:600;">2 POs selected</span>
+        <span class="t-muted t-body-sm">Total: <span class="t-mono">INR 1,439,195.00</span></span>
+        <span class="spacer" style="flex:1;"></span>
+        <button class="btn btn-ghost">Clear selection</button>
+        <button class="btn btn-primary">Approve all selected</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S30</div>
+</body>
+</html>

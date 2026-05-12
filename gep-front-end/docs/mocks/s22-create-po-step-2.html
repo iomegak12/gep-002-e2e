@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S22 — Create PO · Step 2 Line items — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S22 Create PO Wizard — Step 2 of 4 (Line items).
+  Persona: BUYER.
+  Server contract: POST /purchase-orders sends full body (supplier + line_items + delivery + terms).
+  Totals: client-side estimate; server recomputes and returns canonical totals on save.
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">O</div>
+      <div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item active" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs">
+        <a class="crumb" href="#">Purchase orders</a>
+        <span class="sep">›</span>
+        <span class="crumb active">New PO</span>
+      </span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search across the workspace…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip">
+        <span class="avatar">PR</span>
+        <span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Create purchase order</h1>
+          <div class="lede">Step 2 of 4 — add the line items you want to procure. Totals are computed live.</div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-ghost" href="s22-create-po-step-2.html">Cancel</a>
+          <button class="btn btn-secondary">Save draft &amp; exit</button>
+        </div>
+      </div>
+
+      <!-- Stepper -->
+      <div class="card" style="padding:16px 20px;">
+        <div class="stepper">
+          <div class="step done"><div class="dot">✓</div> Supplier</div>
+          <div class="bar done"></div>
+          <div class="step active"><div class="dot">2</div> Line items</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">3</div> Delivery &amp; terms</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">4</div> Review &amp; submit</div>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header">
+              <h3>Line items</h3>
+              <button class="btn btn-secondary btn-sm">+ Add line</button>
+            </div>
+            <div class="table-wrap" style="margin:-4px -4px 0;border:0;box-shadow:none;background:transparent;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width:32px;">#</th>
+                    <th>Item description</th>
+                    <th style="width:120px;">SKU</th>
+                    <th style="width:90px;">Qty</th>
+                    <th style="width:80px;">UoM</th>
+                    <th style="width:120px;">Unit price</th>
+                    <th style="width:80px;">Tax %</th>
+                    <th style="width:120px;">Line total</th>
+                    <th style="width:32px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono t-muted">01</td>
+                    <td><input class="input" value="MS Steel Rod, 12mm dia, 6m length"></td>
+                    <td><input class="input mono" value="STL-12-6M"></td>
+                    <td><input class="input mono" value="500"></td>
+                    <td>
+                      <select class="select"><option>EA</option><option>KG</option><option>L</option><option>M</option><option>HR</option></select>
+                    </td>
+                    <td><input class="input mono" value="850.00"></td>
+                    <td><input class="input mono" value="18.00"></td>
+                    <td class="mono">INR 501,500.00</td>
+                    <td class="actions-cell"><button class="btn btn-ghost btn-sm">✕</button></td>
+                  </tr>
+                  <tr>
+                    <td class="mono t-muted">02</td>
+                    <td><input class="input" value="MS Steel Rod, 16mm dia, 6m length"></td>
+                    <td><input class="input mono" value="STL-16-6M"></td>
+                    <td><input class="input mono" value="250"></td>
+                    <td><select class="select"><option>EA</option></select></td>
+                    <td><input class="input mono" value="1,250.00"></td>
+                    <td><input class="input mono" value="18.00"></td>
+                    <td class="mono">INR 368,750.00</td>
+                    <td class="actions-cell"><button class="btn btn-ghost btn-sm">✕</button></td>
+                  </tr>
+                  <tr>
+                    <td class="mono t-muted">03</td>
+                    <td><input class="input" placeholder="Item description…"></td>
+                    <td><input class="input mono" placeholder="SKU"></td>
+                    <td><input class="input mono" placeholder="0"></td>
+                    <td><select class="select"><option>EA</option></select></td>
+                    <td><input class="input mono" placeholder="0.00"></td>
+                    <td><input class="input mono" placeholder="0.00"></td>
+                    <td class="mono t-subtle">INR 0.00</td>
+                    <td class="actions-cell"><button class="btn btn-ghost btn-sm">✕</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- state: validation error variant
+          <div class="alert error">
+            <div>
+              <div class="alert-title">Line 02 is invalid</div>
+              <div class="alert-body">Quantity must be greater than zero. Tax rate must be between 0 and 100.</div>
+            </div>
+          </div>
+          -->
+        </div>
+
+        <!-- Side rail: totals + supplier recap -->
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>Estimated totals</h3></div>
+            <div class="dl">
+              <dt>Subtotal</dt><dd class="mono">INR 870,250.00</dd>
+              <dt>Tax (18%)</dt><dd class="mono">INR 156,645.00</dd>
+              <dt style="color:var(--on-surface);font-weight:600;">Total</dt>
+              <dd class="mono" style="font-size:18px;font-weight:700;color:var(--accent);">INR 1,026,895.00</dd>
+            </div>
+            <div class="divider"></div>
+            <div class="alert warning">
+              <div>
+                <div class="alert-title">Will require approval</div>
+                <div class="alert-body">Total exceeds the auto-approval threshold of <span class="t-mono">INR 100,000</span>. The PO will route to an approver after submission.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Supplier (step 1)</h3></div>
+            <div class="dl">
+              <dt>Supplier</dt><dd>Acme Industrial</dd>
+              <dt>Code</dt><dd class="mono">SUP-IN-00123</dd>
+              <dt>Category</dt><dd>Raw materials</dd>
+              <dt>Status</dt><dd><span class="pill success">Active</span></dd>
+            </div>
+            <a class="btn btn-ghost btn-sm" href="#" style="margin-top:8px;padding-left:0;">← Change supplier</a>
+          </section>
+        </div>
+      </div>
+
+      <!-- Step navigation -->
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <button class="btn btn-secondary">← Back: Supplier</button>
+        <span class="t-muted t-body-sm">All required fields complete on this step</span>
+        <button class="btn btn-primary">Next: Delivery &amp; terms →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mock-banner">Mock · S22 step 2</div>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management - Order Oasis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-container": "#b05e3d",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#001d32",
+                        "on-background": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#00201d",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "primary-container": "#008378",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-container": "#004f7b",
+                        "on-secondary-fixed-variant": "#004b74",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#89f5e7",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#924628",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-container": "#7bc2ff",
+                        "surface-tint": "#006a61",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbce",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-fixed-dim": "#94ccff",
+                        "secondary-fixed": "#cde5ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#006399",
+                        "surface-dim": "#cbdbf5",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "primary": "#00685f",
+                        "inverse-primary": "#6bd8cb",
+                        "on-surface-variant": "#3d4947"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-collapsed": "64px",
+                        "container-padding": "24px",
+                        "sidebar-width": "240px",
+                        "base": "4px",
+                        "widget-gap": "16px",
+                        "table-cell-padding": "8px 12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Roboto"],
+                        "label-caps": ["Roboto"],
+                        "title-sm": ["Roboto"],
+                        "data-mono": ["Roboto Mono"],
+                        "headline-md": ["Roboto"],
+                        "body-sm": ["Roboto"],
+                        "body-base": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "title-sm": ["15px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-base": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-base h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface docked full-height left-0 w-sidebar-collapsed border-r border-outline-variant dark:border-outline flat no shadows transition-all duration-200 ease-in-out fixed top-0 h-full flex flex-col py-base z-20 md:flex hidden">
+<div class="flex flex-col items-center gap-4 pt-4 pb-8">
+<span class="material-symbols-outlined text-[32px] text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">widgets</span>
+</div>
+<div class="flex flex-col flex-grow gap-2 w-full">
+<a class="flex flex-col items-center justify-center py-3 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform">inventory_2</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Suppliers</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform">shopping_cart</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center py-3 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform">rule</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Approvals</span>
+</a>
+<!-- Active Tab: Users -->
+<a class="flex flex-col items-center justify-center py-3 w-full text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-surface-container-highest transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-caps text-label-caps">Users</span>
+</a>
+</div>
+<div class="flex flex-col mt-auto pb-4 w-full">
+<a class="flex flex-col items-center justify-center py-3 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform">settings</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-sidebar-collapsed w-full md:w-[calc(100%-spacing.sidebar-collapsed)] h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary-fixed-dim font-headline-md text-headline-md docked full-width top-0 h-16 flat no shadows flex items-center justify-between px-container-padding z-10 sticky top-0 shrink-0">
+<div class="flex items-center gap-4">
+<h1 class="font-bold tracking-tight">User Management</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim scale-95 transition-transform duration-150 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim scale-95 transition-transform duration-150 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">description</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim scale-95 transition-transform duration-150 rounded-full hover:bg-surface-container-low relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full border border-background"></span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="bg-primary hover:bg-surface-tint text-on-primary px-4 py-2 rounded font-title-sm text-title-sm flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Add New User
+                </button>
+<img alt="User profile photo" class="w-8 h-8 rounded-full ml-4 border border-outline-variant cursor-pointer" data-alt="A professional headshot of a mature businessman with short hair and a neat beard, wearing a light blue dress shirt. The background is a blurred, bright office environment reflecting a modern corporate aesthetic. Lighting is soft and even, highlighting a calm, trustworthy demeanor suited for an enterprise supply chain management platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyIBzHgo4xUP8NtaUUtkR077OJmMugYOr4EFCe9SW7T-kOz2XWu9tKIsAnsKAG6zpnS70wNwBPr1MjfXk17NJ5k8m5EmBuPAlTU10SsRfl8xrckmoiux0cAY4EV_nhybu6OzEdahPagRvdseLbXF-rKitvJ5cnAb6kvTySbWJ_Ka79DCvwYMMDFg5ie05f6D_dAMW4S33NhoM9eYst3RbZVVXeF_6xPrw38HCj0KwQEzrtOYULkBO7EvhW_KaM4qC-sTBuSlztx8_e"/>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-container-padding bg-surface-container-lowest flex flex-col gap-widget-gap">
+<!-- Toolbar & Filters -->
+<div class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between shadow-[0px_4px_12px_rgba(0,0,0,0.05)]">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-background border border-outline-variant rounded-lg font-body-base text-body-base text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search users by name or email..." type="text"/>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative">
+<select class="appearance-none bg-background border border-outline-variant rounded-lg pl-4 pr-10 py-2 font-body-base text-body-base text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer w-full md:w-auto">
+<option value="">All Roles</option>
+<option value="admin">Administrator</option>
+<option value="manager">Procurement Manager</option>
+<option value="analyst">Data Analyst</option>
+<option value="buyer">Buyer</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">arrow_drop_down</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-background border border-outline-variant rounded-lg pl-4 pr-10 py-2 font-body-base text-body-base text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer w-full md:w-auto">
+<option value="">All Statuses</option>
+<option value="active">Active</option>
+<option value="pending">Pending</option>
+<option value="suspended">Suspended</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">arrow_drop_down</span>
+</div>
+<button class="p-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface border border-outline-variant rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] overflow-hidden flex-1 flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider w-12 text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">User Details</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Role &amp; Department</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Approval Limit</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right w-24">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant bg-background">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title-sm text-title-sm">
+                                            SAR
+                                        </div>
+<div>
+<div class="font-title-sm text-title-sm text-on-surface">Sarah Jenkins</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">s.jenkins@orderoasis.com</div>
+</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="font-body-base text-body-base text-on-surface">Procurement Manager</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Global Sourcing</div>
+</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-data-mono text-[11px] font-bold tracking-wider uppercase">
+                                        Active
+                                    </span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono text-on-surface">
+                                    $500,000
+                                </td>
+<td class="p-table-cell-padding text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-3">
+<img alt="User profile" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="A portrait of a young professional man with short dark hair and a light beard, smiling gently. He is wearing a grey t-shirt against a blurred outdoor background. The image has a clean, bright, modern SaaS aesthetic suitable for a user management dashboard avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi2GPvkUiXpIvSN8heLPslE1rautdUSSaTAf4dkTAuXLaENhj7Ysdkzdi4rW0jGWkirjOXJL_CpoLLpkxlZdvaJFtHXn9FOvFGKJ9PtHLOFiG8Ax6oOZ4V5Xdt6YntCKoJFedb1x2-yxxkCDKMeisIAYh8iQ7g53u6GwKF8nC_KmEw3_-RCzdUkK48XJoLL2ZtCpsZA4U9YiMTevpQhtkJduy5GIA7KfHptmtV9Bis8d_Q2K0tKiBfiQpW5mGm7rRHVqxltdCBJuoz"/>
+<div>
+<div class="font-title-sm text-title-sm text-on-surface">David Chen</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">d.chen@orderoasis.com</div>
+</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="font-body-base text-body-base text-on-surface">Senior Buyer</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Electronics Div</div>
+</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-data-mono text-[11px] font-bold tracking-wider uppercase">
+                                        Active
+                                    </span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono text-on-surface">
+                                    $150,000
+                                </td>
+<td class="p-table-cell-padding text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-table-cell-padding text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-title-sm text-title-sm">
+                                            MR
+                                        </div>
+<div>
+<div class="font-title-sm text-title-sm text-on-surface">Maria Rodriguez</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">m.rodriguez@orderoasis.com</div>
+</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="font-body-base text-body-base text-on-surface">Administrator</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">IT Operations</div>
+</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-data-mono text-[11px] font-bold tracking-wider uppercase border border-outline-variant">
+                                        Pending
+                                    </span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono text-on-surface-variant">
+                                    Unlimited
+                                </td>
+<td class="p-table-cell-padding text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group opacity-75">
+<td class="p-table-cell-padding text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" disabled="" type="checkbox"/>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-dim text-on-surface-variant flex items-center justify-center font-title-sm text-title-sm">
+                                            JL
+                                        </div>
+<div>
+<div class="font-title-sm text-title-sm text-on-surface">James Lawson</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">j.lawson@orderoasis.com</div>
+</div>
+</div>
+</td>
+<td class="p-table-cell-padding">
+<div class="font-body-base text-body-base text-on-surface">Data Analyst</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Logistics</div>
+</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-error-container text-on-error-container font-data-mono text-[11px] font-bold tracking-wider uppercase">
+                                        Suspended
+                                    </span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono text-on-surface">
+                                    $0
+                                </td>
+<td class="p-table-cell-padding text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="bg-surface border-t border-outline-variant p-4 flex items-center justify-between mt-auto">
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+                        Showing <span class="font-data-mono text-on-surface">1</span> to <span class="font-data-mono text-on-surface">10</span> of <span class="font-data-mono text-on-surface">42</span> users
+                    </div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 border border-outline-variant rounded text-on-surface-variant hover:bg-surface-container-low disabled:opacity-50 disabled:cursor-not-allowed font-body-sm text-body-sm transition-colors" disabled="">
+                            Previous
+                        </button>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-data-mono text-data-mono">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-low font-data-mono text-data-mono transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-low font-data-mono text-data-mono transition-colors">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-low font-data-mono text-data-mono transition-colors">5</button>
+</div>
+<button class="px-3 py-1.5 border border-outline-variant rounded text-on-surface-variant hover:bg-surface-container-low font-body-sm text-body-sm transition-colors">
+                            Next
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

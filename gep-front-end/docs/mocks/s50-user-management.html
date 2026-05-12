@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S50 — User Management — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S50 User Management List (admin).
+  Endpoint: GET /auth/users?page=&page_size=&q=&role=&is_active=
+  Row click → S52 Edit User.
+-->
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item active" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><a class="crumb" href="#">Admin</a><span class="sep">›</span><span class="crumb active">Users</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search users by name or email…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">AM</span><span><span class="name">Anil M.</span><br><span class="role">Admin</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Users</h1>
+          <div class="lede">Manage who has access to Order Oasis. Roles control which screens and actions they can use.</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary">Export CSV</button>
+          <a class="btn btn-primary" href="#">+ New user</a>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <span class="filter-chip">Role: Buyer <span class="x">×</span></span>
+        <span class="filter-chip">Active: Yes <span class="x">×</span></span>
+        <button class="btn btn-ghost btn-sm">+ Add filter</button>
+        <span class="grow"></span>
+        <span class="t-muted t-body-sm">28 of 47 users</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Roles</th>
+              <th>Approval limit</th>
+              <th>Active</th>
+              <th>Last seen</th>
+              <th class="actions-cell"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Priya R.</strong><div class="t-body-sm t-muted">Priya Ramesh</div></td>
+              <td class="mono">priya.r@order-oasis.example</td>
+              <td>
+                <span class="pill info no-dot">Buyer</span>
+                <span class="pill accent no-dot">Approver</span>
+              </td>
+              <td class="mono">INR 500,000.00</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">2m ago</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Suresh K.</strong><div class="t-body-sm t-muted">Suresh Kumar</div></td>
+              <td class="mono">suresh.k@order-oasis.example</td>
+              <td><span class="pill accent no-dot">Approver</span></td>
+              <td class="mono">INR 2,500,000.00</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">14m ago</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Aarav M.</strong><div class="t-body-sm t-muted">Aarav Mehta</div></td>
+              <td class="mono">aarav.m@order-oasis.example</td>
+              <td><span class="pill info no-dot">Buyer</span></td>
+              <td class="mono t-muted">—</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">1h ago</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Anil M.</strong><div class="t-body-sm t-muted">Anil Madhavan</div></td>
+              <td class="mono">anil.m@order-oasis.example</td>
+              <td><span class="pill warning no-dot">Admin</span></td>
+              <td class="mono t-muted">—</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">Online</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Meera I.</strong><div class="t-body-sm t-muted">Meera Iyer</div></td>
+              <td class="mono">meera.i@order-oasis.example</td>
+              <td>
+                <span class="pill info no-dot">Buyer</span>
+                <span class="pill accent no-dot">Approver</span>
+              </td>
+              <td class="mono">INR 1,000,000.00</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">3h ago</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Karthik V.</strong><div class="t-body-sm t-muted">Karthik Venkat</div></td>
+              <td class="mono">karthik.v@order-oasis.example</td>
+              <td><span class="pill accent no-dot">Approver</span></td>
+              <td class="mono">INR 750,000.00</td>
+              <td><span class="pill neutral no-dot">No</span></td>
+              <td class="t-body-sm t-muted">12d ago</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Lakshmi N.</strong><div class="t-body-sm t-muted">Lakshmi Nair</div></td>
+              <td class="mono">lakshmi.n@order-oasis.example</td>
+              <td><span class="pill info no-dot">Buyer</span></td>
+              <td class="mono t-muted">—</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">Yesterday</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ravi K.</strong><div class="t-body-sm t-muted">Ravi Krishnan</div></td>
+              <td class="mono">ravi.k@order-oasis.example</td>
+              <td><span class="pill info no-dot">Buyer</span></td>
+              <td class="mono t-muted">—</td>
+              <td><span class="pill success no-dot">Yes</span></td>
+              <td class="t-body-sm t-muted">28m ago</td>
+              <td class="actions-cell"><a class="btn btn-ghost btn-sm" href="#">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span>Showing 1–8 of 28</span>
+          <div class="pages">
+            <button class="page active">1</button>
+            <button class="page">2</button>
+            <button class="page">3</button>
+            <button class="page">4</button>
+          </div>
+          <span>20 per page</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S50</div>
+</body>
+</html>

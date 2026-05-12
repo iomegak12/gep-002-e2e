@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S40 — Spend Analytics Dashboard — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S40 Spend Analytics Dashboard. Default landing.
+  Endpoints (parallel):
+    GET /purchase-orders/aggregations/monthly-spend?year=2026
+    GET /purchase-orders/aggregations/spend-by-supplier?period=last_90_days&limit=10
+    GET /purchase-orders/aggregations/spend-by-category?period=ytd
+-->
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item active" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><span class="crumb active">Dashboard</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">PR</span><span><span class="name">Priya R.</span><br><span class="role">Buyer · Approver</span></span></div>
+    </header>
+
+    <div class="content">
+
+      <!-- Hero -->
+      <div class="hero-card">
+        <div class="hero-banner"></div>
+        <div class="hero-text">
+          <div class="hero-title">Spend, suppliers, and approvals — at a glance.</div>
+          <a class="hero-cta" href="#">Open analytics →</a>
+        </div>
+        <div class="hero-art">
+          <div class="shard s1"></div><div class="shard s2"></div><div class="shard s3"></div>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="grid col-4">
+        <div class="metric">
+          <span class="label">Total spend (YTD)</span>
+          <div class="value-row"><span class="value">66.2M</span><span class="pill accent no-dot">INR</span></div>
+          <span class="note">+8.4% vs same period last year</span>
+        </div>
+        <div class="metric">
+          <span class="label">Active POs</span>
+          <div class="value-row"><span class="value">147</span><span class="pill success no-dot">Open</span></div>
+          <span class="note">23 awaiting fulfilment</span>
+        </div>
+        <div class="metric">
+          <span class="label">Top supplier</span>
+          <div class="value-row"><span class="value" style="font-size:24px;">Acme Industrial</span></div>
+          <span class="note"><span class="t-mono">INR 14.8M</span> · 22.4% of spend</span>
+        </div>
+        <div class="metric">
+          <span class="label">Auto-approval rate</span>
+          <div class="value-row"><span class="value">38%</span><span class="pill info no-dot">Of POs</span></div>
+          <span class="note">Under INR 100,000 threshold</span>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <!-- Monthly trend -->
+        <section class="card span-12">
+          <div class="card-header">
+            <h3>Monthly spend · 2026</h3>
+            <span class="t-label">INR (millions)</span>
+          </div>
+          <div class="chart bar" style="height:220px;">
+            <div class="bar-col" style="height:45%;" data-label="Jan"></div>
+            <div class="bar-col" style="height:58%;" data-label="Feb"></div>
+            <div class="bar-col" style="height:62%;" data-label="Mar"></div>
+            <div class="bar-col" style="height:78%;" data-label="Apr"></div>
+            <div class="bar-col" style="height:82%;" data-label="May"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Jun"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Jul"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Aug"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Sep"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Oct"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Nov"></div>
+            <div class="bar-col" style="height:0%;opacity:0.3;" data-label="Dec"></div>
+          </div>
+        </section>
+
+        <!-- Top suppliers (donut + list) -->
+        <section class="card span-6">
+          <div class="card-header">
+            <h3>Top suppliers · last 90 days</h3>
+            <span class="t-label">Spend</span>
+          </div>
+          <div style="display:flex;gap:20px;align-items:center;">
+            <div class="donut">
+              <div class="donut-center">
+                <div class="t-mono" style="font-size:24px;font-weight:700;">19.6M</div>
+                <div class="t-body-sm t-muted">INR · top 10</div>
+              </div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:2px;margin-right:6px;"></span>Acme Industrial</span><span class="mono">6.8M</span></div>
+              <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#C18338;border-radius:2px;margin-right:6px;"></span>Sundaram Logistics</span><span class="mono">4.2M</span></div>
+              <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#6E5025;border-radius:2px;margin-right:6px;"></span>NorthCloud Systems</span><span class="mono">2.9M</span></div>
+              <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#3B2C18;border-radius:2px;margin-right:6px;"></span>BluePack Co.</span><span class="mono">1.6M</span></div>
+              <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#8E94A0;border-radius:2px;margin-right:6px;"></span>+ 6 others</span><span class="mono">4.1M</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Spend by category -->
+        <section class="card span-6">
+          <div class="card-header"><h3>Spend by category · YTD</h3><span class="t-label">INR (M)</span></div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding:4px 0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:140px;color:var(--on-surface);font-size:var(--fs-body-sm);">Raw materials</span>
+              <div style="flex:1;height:10px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:78%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:64px;text-align:right;">45.2M</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:140px;color:var(--on-surface);font-size:var(--fs-body-sm);">Logistics</span>
+              <div style="flex:1;height:10px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:21%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:64px;text-align:right;">12.3M</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:140px;color:var(--on-surface);font-size:var(--fs-body-sm);">IT services</span>
+              <div style="flex:1;height:10px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:15%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:64px;text-align:right;">8.7M</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:140px;color:var(--on-surface);font-size:var(--fs-body-sm);">Professional svc.</span>
+              <div style="flex:1;height:10px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:9%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:64px;text-align:right;">5.1M</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:140px;color:var(--on-surface);font-size:var(--fs-body-sm);">Packaging</span>
+              <div style="flex:1;height:10px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:6%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:64px;text-align:right;">3.4M</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:140px;color:var(--on-surface);font-size:var(--fs-body-sm);">MRO</span>
+              <div style="flex:1;height:10px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:2%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:64px;text-align:right;">1.1M</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent activity -->
+        <section class="card span-6">
+          <div class="card-header"><h3>Recent activity</h3></div>
+          <div class="timeline">
+            <div class="tl-item done">
+              <div class="tl-when">2h ago</div>
+              <div class="tl-what">PO-2026-00042 submitted</div>
+              <div class="tl-by">Priya R. · Acme Industrial · INR 1,026,895</div>
+            </div>
+            <div class="tl-item done">
+              <div class="tl-when">5h ago</div>
+              <div class="tl-what">PO-2026-00041 approved</div>
+              <div class="tl-by">Suresh K. · auto-approved</div>
+            </div>
+            <div class="tl-item done">
+              <div class="tl-when">Yesterday</div>
+              <div class="tl-what">Supplier "EcoPack" submitted for approval</div>
+              <div class="tl-by">by Meera I.</div>
+            </div>
+            <div class="tl-item done">
+              <div class="tl-when">2 days ago</div>
+              <div class="tl-what">PO-2026-00038 rejected</div>
+              <div class="tl-by">Suresh K. · reason: pricing variance</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Upcoming deliveries -->
+        <section class="card span-6">
+          <div class="card-header"><h3>Upcoming deliveries</h3></div>
+          <table class="table" style="margin:-4px;">
+            <thead><tr><th>PO</th><th>Supplier</th><th>Expected</th><th class="actions-cell">Days</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">PO-2026-00041</td><td>Sundaram Logistics</td><td class="mono">2026-05-20</td><td class="mono actions-cell"><span class="pill warning no-dot">8d</span></td></tr>
+              <tr><td class="mono">PO-2026-00039</td><td>Acme Industrial</td><td class="mono">2026-05-22</td><td class="mono actions-cell"><span class="pill warning no-dot">10d</span></td></tr>
+              <tr><td class="mono">PO-2026-00033</td><td>Velocity Freight</td><td class="mono">2026-05-26</td><td class="mono actions-cell"><span class="pill neutral no-dot">14d</span></td></tr>
+              <tr><td class="mono">PO-2026-00027</td><td>BluePack Co.</td><td class="mono">2026-06-01</td><td class="mono actions-cell"><span class="pill neutral no-dot">20d</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S40</div>
+</body>
+</html>

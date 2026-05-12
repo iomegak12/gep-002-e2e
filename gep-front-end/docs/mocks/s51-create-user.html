@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S51 — Create User — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  .role-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .role-card.selected {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .role-card .role-title { font-weight: 600; color: var(--on-surface); display:flex;align-items:center;justify-content:space-between; }
+  .role-card .role-desc { color: var(--on-surface-muted); font-size: var(--fs-body-sm); }
+  .role-card .role-check {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    border: 1px solid var(--border-card-strong);
+    background: var(--surface-input);
+    display: grid; place-items: center;
+    color: var(--accent);
+    font-size: 12px;
+  }
+  .role-card.selected .role-check {
+    background: var(--accent); color: var(--on-accent); border-color: transparent;
+  }
+</style>
+</head>
+<body>
+<!--
+  Screen: S51 Create User. Also shared with S52 Edit User (same form).
+  Endpoint: POST /auth/users  body { full_name, email, password, roles[], is_active, approval_limit? }
+  approval_limit becomes required when roles includes APPROVER.
+-->
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item active" href="s50-user-management.html">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs">
+        <a class="crumb" href="#">Admin</a>
+        <span class="sep">›</span>
+        <a class="crumb" href="s50-user-management.html">Users</a>
+        <span class="sep">›</span>
+        <span class="crumb active">New user</span>
+      </span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">AM</span><span><span class="name">Anil M.</span><br><span class="role">Admin</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>New user</h1>
+          <div class="lede">Create a new login. The user must change the initial password the first time they sign in.</div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-ghost" href="s50-user-management.html">Cancel</a>
+          <button class="btn btn-primary">Create user</button>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+
+          <section class="card">
+            <div class="card-header"><h3>Profile</h3></div>
+            <div class="field-row">
+              <div class="field"><label>Full name <span class="req">*</span></label><input class="input" placeholder="Lakshmi Nair"></div>
+              <div class="field">
+                <label>Email <span class="req">*</span></label>
+                <input class="input" placeholder="lakshmi.n@order-oasis.example">
+                <span class="help">Must be unique. Cannot be changed after creation.</span>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Initial password <span class="req">*</span></label>
+                <div style="position:relative;">
+                  <input class="input" type="password" placeholder="Min 8 characters" value="••••••••••••" style="padding-right:60px;">
+                  <button class="btn btn-ghost btn-sm" style="position:absolute;right:4px;top:4px;">Show</button>
+                </div>
+                <span class="help">User will be prompted to change this on first sign-in.</span>
+              </div>
+              <div class="field">
+                <label>Account active</label>
+                <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
+                  <input type="checkbox" id="active" checked style="accent-color:var(--accent);">
+                  <label for="active" style="margin:0;cursor:pointer;color:var(--on-surface);">Yes — user can sign in immediately</label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <h3>Roles <span class="t-muted t-body-sm" style="font-weight:400;">— at least one required</span></h3>
+            </div>
+            <div class="grid col-3" style="gap:12px;">
+              <div class="role-card selected">
+                <div class="role-title">Buyer <div class="role-check">✓</div></div>
+                <div class="role-desc">Create suppliers, raise POs, track delivery.</div>
+              </div>
+              <div class="role-card selected">
+                <div class="role-title">Approver <div class="role-check">✓</div></div>
+                <div class="role-desc">Approve or reject POs within an approval limit.</div>
+              </div>
+              <div class="role-card">
+                <div class="role-title">Admin <div class="role-check"></div></div>
+                <div class="role-desc">Manage users, approve suppliers, configure platform.</div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="field-row">
+              <div class="field">
+                <label>Approval limit <span class="req">*</span></label>
+                <div style="display:flex;gap:8px;">
+                  <select class="select" style="max-width:140px;"><option>INR</option><option>USD</option><option>EUR</option></select>
+                  <input class="input mono" placeholder="0.00" value="1,000,000.00">
+                </div>
+                <span class="help">Required because the user has the Approver role. The user can approve POs whose total is ≤ this amount.</span>
+              </div>
+              <div class="field">
+                <label>Default currency</label>
+                <select class="select"><option>INR — Indian Rupee</option><option>USD — US Dollar</option><option>EUR — Euro</option></select>
+                <span class="help">Display preference. Doesn't restrict the user's actions.</span>
+              </div>
+            </div>
+
+            <!-- state: validation error (commented)
+            <div class="alert error" style="margin-top:8px;">
+              <div>
+                <div class="alert-title">Approval limit is required</div>
+                <div class="alert-body">Because this user has the Approver role, you must specify the maximum PO amount they can approve.</div>
+              </div>
+            </div>
+            -->
+          </section>
+
+          <!-- state: duplicate email error (commented)
+          <div class="alert error">
+            <div>
+              <div class="alert-title">Email already in use</div>
+              <div class="alert-body">A user with the email <span class="t-mono">lakshmi.n@order-oasis.example</span> already exists. Open their record or pick a different email.</div>
+            </div>
+          </div>
+          -->
+        </div>
+
+        <!-- Side rail -->
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>What each role can do</h3></div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;"><span class="pill info no-dot">Buyer</span></div>
+                <p class="t-muted t-body-sm" style="margin:6px 0 0;">Sees Dashboard, Suppliers, Purchase orders. Creates and manages POs they own.</p>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;"><span class="pill accent no-dot">Approver</span></div>
+                <p class="t-muted t-body-sm" style="margin:6px 0 0;">Adds an Approvals queue with POs in their authority range. Reject requires a reason.</p>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;"><span class="pill warning no-dot">Admin</span></div>
+                <p class="t-muted t-body-sm" style="margin:6px 0 0;">Adds User management and Pending supplier approvals. Can configure thresholds.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="alert info">
+              <div>
+                <div class="alert-title">No email is sent</div>
+                <div class="alert-body">Share the initial password with the user through a secure channel. The user changes it from "My profile" on first sign-in.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S51</div>
+</body>
+</html>

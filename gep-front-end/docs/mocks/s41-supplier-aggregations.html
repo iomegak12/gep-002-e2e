@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S41 — Supplier Aggregations — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S41 Supplier Aggregations Dashboard. Four widgets, fetched in parallel.
+  Endpoints:
+    GET /suppliers/aggregations/by-category
+    GET /suppliers/aggregations/by-country
+    GET /suppliers/aggregations/by-status
+    GET /suppliers/aggregations/top-rated?limit=10&min_orders=20
+-->
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item active" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><a class="crumb" href="#">Suppliers</a><span class="sep">›</span><span class="crumb active">Aggregations</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">AM</span><span><span class="name">Anil M.</span><br><span class="role">Admin</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Supplier aggregations</h1>
+          <div class="lede">A roll-up of the supplier master across category, country, status, and rating. Click any segment to drill into the directory.</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary">Export CSV</button>
+          <button class="btn btn-secondary">Refresh</button>
+        </div>
+      </div>
+
+      <!-- Hero recap -->
+      <div class="hero-card">
+        <div class="hero-banner"></div>
+        <div class="hero-text">
+          <div class="hero-title">Your supplier base, at a glance.</div>
+          <a class="hero-cta" href="#">Open directory <span>→</span></a>
+        </div>
+        <div class="hero-art">
+          <div class="shard s1"></div><div class="shard s2"></div><div class="shard s3"></div>
+        </div>
+      </div>
+
+      <!-- Top-level KPIs -->
+      <div class="grid col-4">
+        <div class="metric">
+          <span class="label">Total suppliers</span>
+          <div class="value-row"><span class="value">324</span><span class="pill accent no-dot">+12 this quarter</span></div>
+          <span class="note">Across 8 categories &amp; 14 countries</span>
+        </div>
+        <div class="metric">
+          <span class="label">Active</span>
+          <div class="value-row"><span class="value">263</span><span class="pill success no-dot">81.2%</span></div>
+          <span class="note">Eligible for new POs</span>
+        </div>
+        <div class="metric">
+          <span class="label">Pending approval</span>
+          <div class="value-row"><span class="value">7</span><span class="pill warning no-dot">Action needed</span></div>
+          <span class="note">Awaiting admin review</span>
+        </div>
+        <div class="metric">
+          <span class="label">Blacklisted</span>
+          <div class="value-row"><span class="value">11</span><span class="pill error no-dot">Locked</span></div>
+          <span class="note">Permanently blocked</span>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <!-- By category -->
+        <section class="card span-6">
+          <div class="card-header">
+            <h3>By category</h3>
+            <span class="t-label">Count · Active</span>
+          </div>
+          <table class="table" style="margin:-4px;">
+            <tbody>
+              <tr><td>Raw materials</td><td class="mono">145</td><td><span class="pill success no-dot">132 active</span></td></tr>
+              <tr><td>Logistics</td><td class="mono">87</td><td><span class="pill success no-dot">80 active</span></td></tr>
+              <tr><td>IT services</td><td class="mono">42</td><td><span class="pill success no-dot">38 active</span></td></tr>
+              <tr><td>Professional services</td><td class="mono">28</td><td><span class="pill success no-dot">25 active</span></td></tr>
+              <tr><td>Packaging</td><td class="mono">14</td><td><span class="pill success no-dot">12 active</span></td></tr>
+              <tr><td>MRO</td><td class="mono">5</td><td><span class="pill neutral no-dot">3 active</span></td></tr>
+              <tr><td>Capex</td><td class="mono">3</td><td><span class="pill neutral no-dot">2 active</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- By country -->
+        <section class="card span-6">
+          <div class="card-header"><h3>By country</h3><span class="t-label">Top 7</span></div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding:4px 0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">IN</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:60%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">193</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">US</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:22%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">71</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">DE</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:9%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">28</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">SG</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:6%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">19</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">GB</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:3%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">8</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">FR</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:2%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">3</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:60px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">JP</span>
+              <div style="flex:1;height:8px;background:var(--surface-input);border-radius:var(--radius-pill);overflow:hidden;"><div style="height:100%;width:1%;background:var(--accent);"></div></div>
+              <span class="t-mono" style="width:48px;text-align:right;">2</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- By status (donut) -->
+        <section class="card span-4">
+          <div class="card-header"><h3>By status</h3></div>
+          <div style="display:flex;align-items:center;justify-content:center;padding:8px 0;">
+            <div class="donut">
+              <div class="donut-center">
+                <div class="t-mono" style="font-size:24px;font-weight:700;">324</div>
+                <div class="t-body-sm t-muted">total</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+            <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:2px;margin-right:6px;"></span>Active</span><span class="mono">263</span></div>
+            <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#C18338;border-radius:2px;margin-right:6px;"></span>Inactive</span><span class="mono">43</span></div>
+            <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#6E5025;border-radius:2px;margin-right:6px;"></span>Pending</span><span class="mono">7</span></div>
+            <div style="display:flex;justify-content:space-between;"><span><span style="display:inline-block;width:10px;height:10px;background:#3B2C18;border-radius:2px;margin-right:6px;"></span>Blacklisted</span><span class="mono">11</span></div>
+          </div>
+        </section>
+
+        <!-- Top rated -->
+        <section class="card span-8">
+          <div class="card-header">
+            <h3>Top rated</h3>
+            <span class="t-label">Min 20 orders · Top 10</span>
+          </div>
+          <table class="table" style="margin:-4px;">
+            <thead>
+              <tr><th>Supplier</th><th>Category</th><th>Rating</th><th>OTD %</th><th>Orders</th><th class="actions-cell">Spend</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Sundaram Logistics</td><td>Logistics</td><td><span class="pill accent no-dot">4.9</span></td><td class="mono">97.3</td><td class="mono">128</td><td class="mono actions-cell">INR 12.4M</td></tr>
+              <tr><td>Acme Industrial</td><td>Raw materials</td><td><span class="pill accent no-dot">4.7</span></td><td class="mono">94.1</td><td class="mono">187</td><td class="mono actions-cell">INR 14.8M</td></tr>
+              <tr><td>BluePack Co.</td><td>Packaging</td><td><span class="pill accent no-dot">4.6</span></td><td class="mono">92.0</td><td class="mono">64</td><td class="mono actions-cell">INR 3.1M</td></tr>
+              <tr><td>NorthCloud Systems</td><td>IT services</td><td><span class="pill accent no-dot">4.5</span></td><td class="mono">90.8</td><td class="mono">41</td><td class="mono actions-cell">INR 8.9M</td></tr>
+              <tr><td>Velocity Freight</td><td>Logistics</td><td><span class="pill accent no-dot">4.4</span></td><td class="mono">89.6</td><td class="mono">52</td><td class="mono actions-cell">INR 4.2M</td></tr>
+              <tr><td>PrecisionTools Ltd</td><td>MRO</td><td><span class="pill accent no-dot">4.4</span></td><td class="mono">88.0</td><td class="mono">27</td><td class="mono actions-cell">INR 1.1M</td></tr>
+              <tr><td>Karthik Consulting</td><td>Professional services</td><td><span class="pill accent no-dot">4.3</span></td><td class="mono">—</td><td class="mono">38</td><td class="mono actions-cell">INR 2.6M</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mock-banner">Mock · S41</div>
+</body>
+</html>

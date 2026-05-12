@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S54 — Pending Supplier Approvals — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S54 Pending Supplier Approvals (admin worklist).
+  Endpoint: GET /suppliers?status=PENDING_APPROVAL&sort=-created_at
+  Inline actions: Approve / Blacklist (open S14 modals).
+-->
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item active" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><a class="crumb" href="#">Admin</a><span class="sep">›</span><span class="crumb active">Pending suppliers</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">AM</span><span><span class="name">Anil M.</span><br><span class="role">Admin</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Pending supplier approvals</h1>
+          <div class="lede">Review newly onboarded suppliers and decide whether they should become <strong>Active</strong> or be <strong>Blacklisted</strong>. Records sit here until you act.</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary">Export CSV</button>
+          <button class="btn btn-secondary">Refresh</button>
+        </div>
+      </div>
+
+      <!-- KPI strip -->
+      <div class="grid col-4">
+        <div class="metric">
+          <span class="label">Awaiting review</span>
+          <div class="value-row"><span class="value">7</span><span class="pill warning no-dot">Action needed</span></div>
+          <span class="note">Oldest: 5 days ago</span>
+        </div>
+        <div class="metric">
+          <span class="label">Approved this month</span>
+          <div class="value-row"><span class="value">14</span><span class="pill success no-dot">+3 last week</span></div>
+          <span class="note">Average review time 1.4 days</span>
+        </div>
+        <div class="metric">
+          <span class="label">Blacklisted this month</span>
+          <div class="value-row"><span class="value">2</span><span class="pill error no-dot">Locked</span></div>
+          <span class="note">Last: BluePack Co. (5d ago)</span>
+        </div>
+        <div class="metric">
+          <span class="label">Avg. SLA</span>
+          <div class="value-row"><span class="value">1.4d</span><span class="pill accent no-dot">Below 2d target</span></div>
+          <span class="note">Target: under 2 business days</span>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <span class="filter-chip">Status: Pending <span class="x">×</span></span>
+        <button class="btn btn-ghost btn-sm">+ Add filter</button>
+        <span class="grow"></span>
+        <span class="t-muted t-body-sm">7 suppliers · sorted by oldest first</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Code</th>
+              <th>Category</th>
+              <th>Country</th>
+              <th>Submitted by</th>
+              <th>Age</th>
+              <th class="actions-cell">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Sundaram Logistics Pvt Ltd</strong>
+                <div class="t-body-sm t-muted">Sundaram Logistics</div>
+              </td>
+              <td class="mono">SUP-IN-00456</td>
+              <td>Logistics</td>
+              <td>IN</td>
+              <td>Priya R.</td>
+              <td><span class="pill error no-dot">5d</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>BlueOcean IT Services LLP</strong>
+                <div class="t-body-sm t-muted">BlueOcean IT</div>
+              </td>
+              <td class="mono">SUP-IN-00457</td>
+              <td>IT services</td>
+              <td>IN</td>
+              <td>Aarav M.</td>
+              <td><span class="pill warning no-dot">3d</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>NorthBridge Consulting GmbH</strong>
+                <div class="t-body-sm t-muted">NorthBridge</div>
+              </td>
+              <td class="mono">SUP-DE-00012</td>
+              <td>Professional services</td>
+              <td>DE</td>
+              <td>Lakshmi N.</td>
+              <td><span class="pill warning no-dot">2d</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>EcoPack Industries</strong>
+                <div class="t-body-sm t-muted">EcoPack</div>
+              </td>
+              <td class="mono">SUP-IN-00458</td>
+              <td>Packaging</td>
+              <td>IN</td>
+              <td>Meera I.</td>
+              <td><span class="pill neutral no-dot">1d</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Falcon Couriers Inc.</strong>
+                <div class="t-body-sm t-muted">Falcon Couriers</div>
+              </td>
+              <td class="mono">SUP-US-00019</td>
+              <td>Logistics</td>
+              <td>US</td>
+              <td>Karthik V.</td>
+              <td><span class="pill neutral no-dot">22h</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Vertex Steelworks Ltd</strong>
+                <div class="t-body-sm t-muted">Vertex Steel</div>
+              </td>
+              <td class="mono">SUP-IN-00459</td>
+              <td>Raw materials</td>
+              <td>IN</td>
+              <td>Priya R.</td>
+              <td><span class="pill neutral no-dot">9h</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Lumen Logistics Sdn Bhd</strong>
+                <div class="t-body-sm t-muted">Lumen Logistics</div>
+              </td>
+              <td class="mono">SUP-MY-00004</td>
+              <td>Logistics</td>
+              <td>MY</td>
+              <td>Aarav M.</td>
+              <td><span class="pill neutral no-dot">2h</span></td>
+              <td class="actions-cell">
+                <button class="btn btn-secondary btn-sm">Review</button>
+                <button class="btn btn-primary btn-sm">Approve</button>
+                <button class="btn btn-danger btn-sm">Blacklist</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span>Showing 1–7 of 7</span>
+          <div class="pages"><button class="page active">1</button></div>
+          <span>20 per page</span>
+        </div>
+      </div>
+
+      <!-- Empty state variant (commented)
+      <div class="card empty">
+        <div class="glyph">✓</div>
+        <h3>You're all caught up</h3>
+        <p>No suppliers are awaiting review right now.</p>
+      </div>
+      -->
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S54</div>
+</body>
+</html>

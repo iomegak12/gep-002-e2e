@@ -1,0 +1,114 @@
+site_name: GEP-SCM Platform — Backend
+site_description: Procurement (SCM) platform with three microservices — iam, supplier-service, po-service.
+site_url: http://localhost:8000/
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+strict: false
+
+validation:
+  links:
+    not_found: info
+    absolute_links: info
+    unrecognized_links: info
+  nav:
+    omitted_files: info
+    not_found: info
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/git-alt
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+
+plugins:
+  - search
+  - render_swagger:
+      allow_arbitrary_locations: true
+
+nav:
+  - Home: index.md
+  - Overview:
+      - Business Context & Personas: overview/business-context.md
+      - User Journeys: overview/user-journeys.md
+      - System Architecture: overview/architecture.md
+  - Getting Started:
+      - Local Setup: getting-started/setup.md
+      - Environment Variables: getting-started/env.md
+      - Seed Data & Demo Users: getting-started/seed-data.md
+      - Running Tests: getting-started/testing.md
+  - Services:
+      - IAM (Auth):
+          - Overview: services/iam/index.md
+          - Data Model: services/iam/data-model.md
+          - Auth Flow: services/iam/auth-flow.md
+          - API Reference: services/iam/api.md
+      - Supplier Service:
+          - Overview: services/supplier/index.md
+          - State Machine: services/supplier/state-machine.md
+          - Data Model: services/supplier/data-model.md
+          - API Reference: services/supplier/api.md
+      - PO Service:
+          - Overview: services/po/index.md
+          - PO Lifecycle: services/po/lifecycle.md
+          - Data Model: services/po/data-model.md
+          - Aggregations & Search: services/po/aggregations.md
+          - API Reference: services/po/api.md
+  - Cross-Cutting:
+      - Authentication & JWT: cross-cutting/auth.md
+      - Error Model: cross-cutting/errors.md
+      - Conventions: cross-cutting/conventions.md
+  - Reference:
+      - Docker Compose Topology: reference/docker-compose.md
+      - Glossary: reference/glossary.md
+  - Specifications (full):
+      - Technical Specification: GEP_SCM_Platform_Technical_Specification.md
+      - Implementation Plan: GEP_SCM_Platform_Technical_Specification_Impl_Plan.md
+      - Test Implementation Plan: GEP_SCM_Platform_Technical_Specification_Test_Impl_Plan.md
+      - Doc-Gen Plan: doc_gen_impl_plan.md

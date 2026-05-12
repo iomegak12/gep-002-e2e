@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PO Detail View - Order Oasis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#dce9ff",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#00201d",
+                      "tertiary-fixed-dim": "#ffb59a",
+                      "on-error-container": "#93000a",
+                      "outline-variant": "#bcc9c6",
+                      "secondary-container": "#7bc2ff",
+                      "tertiary-fixed": "#ffdbce",
+                      "primary-container": "#008378",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed-variant": "#004b74",
+                      "secondary": "#006399",
+                      "surface-variant": "#d3e4fe",
+                      "on-tertiary-container": "#fffbff",
+                      "on-primary-container": "#f4fffc",
+                      "on-surface": "#0b1c30",
+                      "primary": "#00685f",
+                      "on-surface-variant": "#3d4947",
+                      "secondary-fixed-dim": "#94ccff",
+                      "on-tertiary-fixed-variant": "#773215",
+                      "inverse-surface": "#213145",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#006a61",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "surface-bright": "#f8f9ff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-fixed": "#cde5ff",
+                      "background": "#f8f9ff",
+                      "on-tertiary-fixed": "#370e00",
+                      "outline": "#6d7a77",
+                      "tertiary": "#924628",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#b05e3d",
+                      "on-background": "#0b1c30",
+                      "on-secondary-container": "#004f7b",
+                      "on-secondary-fixed": "#001d32",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#89f5e7",
+                      "surface-dim": "#cbdbf5",
+                      "on-error": "#ffffff",
+                      "surface-container": "#e5eeff",
+                      "surface-container-low": "#eff4ff",
+                      "surface": "#f8f9ff",
+                      "inverse-primary": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#005049"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "base": "4px",
+                      "sidebar-width": "240px",
+                      "table-cell-padding": "8px 12px",
+                      "widget-gap": "16px",
+                      "sidebar-collapsed": "64px"
+              },
+              "fontFamily": {
+                      "data-mono": [
+                              "Roboto Mono"
+                      ],
+                      "headline-md": [
+                              "Roboto"
+                      ],
+                      "body-sm": [
+                              "Roboto"
+                      ],
+                      "body-base": [
+                              "Roboto"
+                      ],
+                      "label-caps": [
+                              "Roboto"
+                      ],
+                      "display-lg": [
+                              "Roboto"
+                      ],
+                      "title-sm": [
+                              "Roboto"
+                      ]
+              },
+              "fontSize": {
+                      "data-mono": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-base": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-sm": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-base bg-surface border-r border-outline-variant transition-all duration-200 ease-in-out w-sidebar-collapsed z-50">
+<div class="flex flex-col items-center justify-center py-4 mb-4">
+<span class="material-symbols-outlined text-primary text-[32px] font-bold" data-weight="fill">hexagon</span>
+</div>
+<div class="flex-1 flex flex-col gap-2 w-full px-2">
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out" href="#" title="Dashboard">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out" href="#" title="Suppliers">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-primary border-l-4 border-primary bg-surface-container-high transition-all duration-200 ease-in-out" href="#" title="Orders">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out" href="#" title="Approvals">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out" href="#" title="Users">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</a>
+</div>
+<div class="mt-auto px-2 pb-4">
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 ease-in-out" href="#" title="Settings">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-sidebar-collapsed flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-container-padding h-16 bg-background sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-headline-md text-headline-md text-on-surface flex items-center gap-3">
+                        PO-2023-0891
+                        <span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps">APPROVED</span>
+</h1>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 text-primary font-title-sm text-title-sm hover:bg-surface-container-low rounded-lg transition-colors flex items-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                    Download PDF
+                </button>
+<button class="px-4 py-2 text-primary font-title-sm text-title-sm hover:bg-surface-container-low rounded-lg transition-colors flex items-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                    Email Supplier
+                </button>
+<button class="px-4 py-2 bg-primary text-on-primary font-title-sm text-title-sm hover:bg-primary/90 rounded-lg transition-colors shadow-sm">
+                    Close PO
+                </button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined" data-icon="help">help</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<img alt="User profile photo" class="w-8 h-8 rounded-full border border-outline-variant ml-2 object-cover" data-alt="A small circular profile picture of a professional user. High quality headshot on a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9IXLVrxpflGYRU3vydpn-OHPUKdU8-9ZmhVyMeBQwlz39tENs4-Tpq-YCJo6h791WaD8X080wS3RluGz-eeIownNV8wVXR0JP0jkX-OFZkNy2xMBydnjGcHyvjkRRFOOl5mbs65D2HtoioWUj1TYSyi9EhaRid1zOgo4O0sOfGntVsmm2Z9NBnjAPBcQiF4lxdX7g4zhHG-FWQ37tPtG-r6KOs-wri6kK6l6GtD8myND2aqVfby3se89zmGl_wtxSqT2WCqIj0ijn"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-container-padding overflow-y-auto flex flex-col gap-widget-gap max-w-[1400px] mx-auto w-full">
+<!-- Metadata Bento Grid -->
+<div class="grid grid-cols-12 gap-widget-gap">
+<!-- Supplier Info -->
+<div class="col-span-12 md:col-span-4 bg-surface rounded-xl border border-outline-variant p-6 shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 tracking-wider">Supplier Information</h2>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-title-sm text-title-sm shrink-0">
+                            AC
+                        </div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface mb-1">Acme Corp Logistics</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mb-2">SUP-8821 • Logistics &amp; Transport</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span class="font-body-sm text-body-sm">Frankfurt, Germany</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Key Dates & Buyer -->
+<div class="col-span-12 md:col-span-4 bg-surface rounded-xl border border-outline-variant p-6 shadow-[0px_4px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<span class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Created Date</span>
+<span class="font-body-base text-body-base text-on-surface">Oct 24, 2023</span>
+</div>
+<div>
+<span class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Target Delivery</span>
+<span class="font-body-base text-body-base text-on-surface">Nov 15, 2023</span>
+</div>
+<div class="col-span-2 pt-2 border-t border-outline-variant/30">
+<span class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Buyer</span>
+<div class="flex items-center gap-2">
+<img alt="Buyer avatar" class="w-6 h-6 rounded-full" data-alt="Small circular avatar of the buyer, professional headshot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkCQY6IR2yVUnc4RJDebrqh7DN8lDltUuLY1FqbGx7jjg1yft-b1Q25w8UOVvJgNxlt3ttT6wKs36RN3GwplYJcHXTh0_QKh3AoKM_VH5a90Kb_afXIHey-6DSR0Qph9XHtuOUujaFCPuGS0TDbXN_-zrkF_sz-Br645Hn5WvS-W2mlqzgRR2U7kx-bmNuO4VTKpMHzFYXGMNLphs8EJPrQla9gPlXBSyKME-YMRTXtFkqZAHeUXfZH5rZGQngbIiQdCDrLb4q5E2K"/>
+<span class="font-body-base text-body-base text-on-surface">Sarah Jenkins</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Terms & Value -->
+<div class="col-span-12 md:col-span-4 bg-surface rounded-xl border border-outline-variant p-6 shadow-[0px_4px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between bg-gradient-to-br from-surface to-surface-container-low">
+<div>
+<span class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Payment Terms</span>
+<span class="font-body-base text-body-base text-on-surface">Net 30</span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30 flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Amount</span>
+<span class="font-display-lg text-display-lg text-primary tracking-tight">€42,500.00</span>
+</div>
+</div>
+</div>
+<!-- Line Items Table Card -->
+<div class="bg-surface rounded-xl border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col mt-4">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h3 class="font-title-sm text-title-sm text-on-surface">Line Items</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">4 items total</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest border-b border-outline-variant">
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase font-medium">Item #</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase font-medium">Description</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase font-medium text-right">Qty</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase font-medium text-right">Unit Price</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant uppercase font-medium text-right">Total</th>
+</tr>
+</thead>
+<tbody class="font-body-base text-body-base text-on-surface divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant">L-001</td>
+<td class="p-table-cell-padding">
+<span class="block">Heavy Duty Racking System - Type A</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SKU: HD-RA-099</span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">12</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">€1,200.00</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono font-medium">€14,400.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant">L-002</td>
+<td class="p-table-cell-padding">
+<span class="block">Heavy Duty Racking System - Type B</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SKU: HD-RB-102</span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">8</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">€1,500.00</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono font-medium">€12,000.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant">L-003</td>
+<td class="p-table-cell-padding">
+<span class="block">Forklift Safety Barriers (10m sections)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SKU: SB-FL-010</span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">5</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">€850.00</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono font-medium">€4,250.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant">L-004</td>
+<td class="p-table-cell-padding">
+<span class="block">Installation Services (Flat Rate)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SKU: SRV-INST-01</span>
+</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">1</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono">€11,850.00</td>
+<td class="p-table-cell-padding text-right font-data-mono text-data-mono font-medium">€11,850.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Totals Footer -->
+<div class="bg-surface-bright p-6 border-t border-outline-variant flex justify-end">
+<div class="w-64 space-y-2">
+<div class="flex justify-between font-body-base text-body-base text-on-surface-variant">
+<span>Subtotal</span>
+<span class="font-data-mono text-data-mono">€42,500.00</span>
+</div>
+<div class="flex justify-between font-body-base text-body-base text-on-surface-variant">
+<span>Tax (0%)</span>
+<span class="font-data-mono text-data-mono">€0.00</span>
+</div>
+<div class="flex justify-between font-title-sm text-title-sm text-on-surface pt-2 border-t border-outline-variant">
+<span>Total</span>
+<span class="font-data-mono text-data-mono font-bold">€42,500.00</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

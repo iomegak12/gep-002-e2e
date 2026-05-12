@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S12 — Create Supplier — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S12 Create Supplier. Doubles as S13 Edit Supplier (in edit mode, supplier_code is read-only).
+  Persona: BUYER or ADMIN.
+  Submit: POST /suppliers (creates in PENDING_APPROVAL).
+  Validation: client-side per field; server may return DUPLICATE_RESOURCE for supplier_code.
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">O</div>
+      <div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item active" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs">
+        <a class="crumb" href="#">Suppliers</a>
+        <span class="sep">›</span>
+        <span class="crumb active">New supplier</span>
+      </span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search across the workspace…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip">
+        <span class="avatar">PR</span>
+        <span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>New supplier</h1>
+          <div class="lede">Onboard a new supplier. The record will be created in <strong>Pending approval</strong> until an administrator reviews it.</div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-ghost" href="#">Cancel</a>
+          <button class="btn btn-secondary">Save draft</button>
+          <button class="btn btn-primary">Submit for approval</button>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+
+          <!-- Section: Identity -->
+          <section class="card">
+            <div class="card-header">
+              <h3>Identity</h3>
+              <span class="t-label">Required fields are marked *</span>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Supplier code <span class="req">*</span></label>
+                <input class="input" placeholder="SUP-IN-00456">
+                <span class="help">Unique. Cannot be changed after creation.</span>
+              </div>
+              <div class="field">
+                <label>Tax ID</label>
+                <input class="input" placeholder="33ABCDE5678G1Z3">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Legal name <span class="req">*</span></label>
+                <input class="input" placeholder="Sundaram Logistics Pvt Ltd">
+              </div>
+              <div class="field">
+                <label>Display name <span class="req">*</span></label>
+                <input class="input" placeholder="Sundaram Logistics">
+              </div>
+            </div>
+            <div class="field-row cols-3">
+              <div class="field">
+                <label>Category <span class="req">*</span></label>
+                <select class="select">
+                  <option>Logistics</option>
+                  <option>Raw materials</option>
+                  <option>Packaging</option>
+                  <option>IT services</option>
+                  <option>Professional services</option>
+                  <option>MRO</option>
+                  <option>Capex</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Sub-category</label>
+                <input class="input" placeholder="Road freight">
+              </div>
+              <div class="field">
+                <label>Region</label>
+                <select class="select"><option>APAC</option><option>EMEA</option><option>Americas</option></select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section: Contact -->
+          <section class="card">
+            <div class="card-header"><h3>Primary contact</h3></div>
+            <div class="field-row cols-3">
+              <div class="field"><label>Name <span class="req">*</span></label><input class="input" placeholder="Meera Iyer"></div>
+              <div class="field"><label>Email <span class="req">*</span></label><input class="input" placeholder="meera@sundaramlogistics.com"></div>
+              <div class="field"><label>Phone <span class="req">*</span></label><input class="input" placeholder="+91-9123456789"></div>
+            </div>
+          </section>
+
+          <!-- Section: Address -->
+          <section class="card">
+            <div class="card-header"><h3>Registered address</h3></div>
+            <div class="field">
+              <label>Street <span class="req">*</span></label>
+              <input class="input" placeholder="12 Anna Salai">
+            </div>
+            <div class="field-row cols-4">
+              <div class="field"><label>City <span class="req">*</span></label><input class="input" placeholder="Madurai"></div>
+              <div class="field"><label>State <span class="req">*</span></label><input class="input" placeholder="Tamil Nadu"></div>
+              <div class="field">
+                <label>Country <span class="req">*</span></label>
+                <select class="select"><option>IN — India</option><option>US — United States</option><option>DE — Germany</option></select>
+              </div>
+              <div class="field"><label>Postal code <span class="req">*</span></label><input class="input" placeholder="625001"></div>
+            </div>
+          </section>
+
+          <!-- Section: Commercial terms -->
+          <section class="card">
+            <div class="card-header"><h3>Commercial terms</h3></div>
+            <div class="field-row">
+              <div class="field">
+                <label>Payment terms <span class="req">*</span></label>
+                <select class="select">
+                  <option>NET 30</option><option>NET 45</option><option>NET 60</option>
+                  <option>NET 15</option><option>NET 90</option>
+                  <option>Immediate</option><option>Advance 50/50</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Currency <span class="req">*</span></label>
+                <select class="select"><option>INR — Indian Rupee</option><option>USD — US Dollar</option><option>EUR — Euro</option></select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Tags</label>
+              <input class="input" placeholder="preferred, msme, certified">
+              <span class="help">Comma-separated. Used for filtering in the supplier directory.</span>
+            </div>
+          </section>
+
+          <!-- Section: Certifications (repeatable) -->
+          <section class="card">
+            <div class="card-header">
+              <h3>Certifications</h3>
+              <button class="btn btn-secondary btn-sm">+ Add certification</button>
+            </div>
+            <table class="table" style="margin:-8px -8px 0;">
+              <thead>
+                <tr><th>Name</th><th>Issued by</th><th>Valid until</th><th></th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input class="input" value="ISO 9001"></td>
+                  <td><input class="input" value="BSI"></td>
+                  <td><input class="input" value="2027-03-31"></td>
+                  <td class="actions-cell"><button class="btn btn-ghost btn-sm">Remove</button></td>
+                </tr>
+                <tr>
+                  <td><input class="input" placeholder="ISO 14001"></td>
+                  <td><input class="input" placeholder="TÜV SÜD"></td>
+                  <td><input class="input" placeholder="YYYY-MM-DD"></td>
+                  <td class="actions-cell"><button class="btn btn-ghost btn-sm">Remove</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- Side rail -->
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>Lifecycle</h3></div>
+            <div class="dl">
+              <dt>Status</dt><dd><span class="pill warning">Will be created as Pending</span></dd>
+              <dt>Created by</dt><dd>You — Priya R.</dd>
+              <dt>Effective</dt><dd>On submission</dd>
+            </div>
+            <div class="divider"></div>
+            <div class="alert info">
+              <div>
+                <div class="alert-title">Pending approval is the only entry point</div>
+                <div class="alert-body">An administrator must approve this record before it becomes <strong>Active</strong> and eligible to receive purchase orders.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Validation</h3></div>
+            <ul style="margin:0;padding-left:18px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);line-height:20px;">
+              <li>Supplier code must be unique platform-wide.</li>
+              <li>Tax ID format depends on country.</li>
+              <li>Email and phone validated for format only.</li>
+              <li>Certifications are optional.</li>
+            </ul>
+          </section>
+
+          <!-- state: error variant (commented)
+          <section class="card" style="border-color:rgba(234,91,91,0.4);">
+            <div class="alert error">
+              <div>
+                <div class="alert-title">SUP-IN-00456 is already in use</div>
+                <div class="alert-body">Pick another supplier code or open the existing record.</div>
+              </div>
+            </div>
+          </section>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mock-banner">Mock · S12 / S13</div>
+</body>
+</html>

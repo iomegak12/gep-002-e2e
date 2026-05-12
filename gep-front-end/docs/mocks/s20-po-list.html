@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S20 — Purchase Orders — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S20 PO List.
+  Endpoint: GET /purchase-orders?status=&supplier_id=&buyer_id=&created_after=&created_before=&min_amount=&max_amount=&currency=&q=&sort=&page=&page_size=
+  Default scope for Buyer: "My POs". Approver/Admin can broaden.
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item active" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><span class="crumb active">Purchase orders</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search POs by number, notes, item…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">PR</span><span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Purchase orders</h1>
+          <div class="lede">Track POs you've raised, their status, and what's coming up for delivery.</div>
+        </div>
+        <div class="actions">
+          <div style="display:flex;gap:0;border:1px solid var(--border-card);border-radius:var(--radius-pill);overflow:hidden;">
+            <button class="btn btn-ghost btn-sm" style="border-radius:0;background:var(--accent-soft);color:var(--accent);">My POs</button>
+            <button class="btn btn-ghost btn-sm" style="border-radius:0;">All POs</button>
+          </div>
+          <a class="btn btn-primary" href="s22-create-po-step-1.html">+ New PO</a>
+        </div>
+      </div>
+
+      <!-- KPI strip -->
+      <div class="grid col-4">
+        <div class="metric">
+          <span class="label">Open POs</span>
+          <div class="value-row"><span class="value">23</span><span class="pill warning no-dot">4 need action</span></div>
+          <span class="note">Draft, Submitted, Approved, Fulfilled</span>
+        </div>
+        <div class="metric">
+          <span class="label">Drafts</span>
+          <div class="value-row"><span class="value">5</span><span class="pill neutral no-dot">Editable</span></div>
+          <span class="note">Not yet submitted</span>
+        </div>
+        <div class="metric">
+          <span class="label">Awaiting approval</span>
+          <div class="value-row"><span class="value">4</span><span class="pill warning no-dot">Submitted</span></div>
+          <span class="note">Oldest: 1 day ago</span>
+        </div>
+        <div class="metric">
+          <span class="label">YTD spend (yours)</span>
+          <div class="value-row"><span class="value">12.4M</span><span class="pill accent no-dot">INR</span></div>
+          <span class="note">Across 187 POs</span>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <span class="filter-chip">Status: Submitted, Approved <span class="x">×</span></span>
+        <span class="filter-chip">Created after: 2026-01-01 <span class="x">×</span></span>
+        <span class="filter-chip">Currency: INR <span class="x">×</span></span>
+        <button class="btn btn-ghost btn-sm">+ Add filter</button>
+        <span class="grow"></span>
+        <span class="t-muted t-body-sm">147 POs · sorted by created ↓</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>PO</th>
+              <th>Supplier</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Expected delivery</th>
+              <th>Buyer</th>
+              <th class="actions-cell">Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono"><strong>PO-2026-00042</strong><div class="t-body-sm t-muted">2 line items</div></td>
+              <td>Acme Industrial<div class="t-body-sm t-muted">Raw materials</div></td>
+              <td><span class="pill warning">Submitted</span></td>
+              <td class="mono">INR 1,026,895.00</td>
+              <td class="mono">2026-06-15</td>
+              <td>Priya R.</td>
+              <td class="t-body-sm t-muted actions-cell">2h ago</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00041</strong><div class="t-body-sm t-muted">5 line items</div></td>
+              <td>Sundaram Logistics<div class="t-body-sm t-muted">Logistics</div></td>
+              <td><span class="pill success">Approved</span></td>
+              <td class="mono">INR 84,600.00</td>
+              <td class="mono">2026-05-20</td>
+              <td>Priya R.</td>
+              <td class="t-body-sm t-muted actions-cell">5h ago</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00040</strong><div class="t-body-sm t-muted">1 line item</div></td>
+              <td>NorthCloud Systems<div class="t-body-sm t-muted">IT services</div></td>
+              <td><span class="pill neutral">Draft</span></td>
+              <td class="mono">USD 12,000.00</td>
+              <td class="mono">—</td>
+              <td>Priya R.</td>
+              <td class="t-body-sm t-muted actions-cell">Yesterday</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00039</strong><div class="t-body-sm t-muted">3 line items</div></td>
+              <td>Acme Industrial<div class="t-body-sm t-muted">Raw materials</div></td>
+              <td><span class="pill success">Approved</span></td>
+              <td class="mono">INR 487,200.00</td>
+              <td class="mono">2026-05-22</td>
+              <td>Priya R.</td>
+              <td class="t-body-sm t-muted actions-cell">Yesterday</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00038</strong><div class="t-body-sm t-muted">4 line items</div></td>
+              <td>BluePack Co.<div class="t-body-sm t-muted">Packaging</div></td>
+              <td><span class="pill error">Rejected</span></td>
+              <td class="mono">INR 215,000.00</td>
+              <td class="mono">—</td>
+              <td>Priya R.</td>
+              <td class="t-body-sm t-muted actions-cell">2d ago</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00037</strong><div class="t-body-sm t-muted">2 line items</div></td>
+              <td>Velocity Freight<div class="t-body-sm t-muted">Logistics</div></td>
+              <td><span class="pill info">Fulfilled</span></td>
+              <td class="mono">INR 64,800.00</td>
+              <td class="mono">2026-05-09</td>
+              <td>Aarav M.</td>
+              <td class="t-body-sm t-muted actions-cell">3d ago</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00031</strong><div class="t-body-sm t-muted">1 line item</div></td>
+              <td>Acme Industrial<div class="t-body-sm t-muted">Raw materials</div></td>
+              <td><span class="pill info">Fulfilled</span></td>
+              <td class="mono">INR 91,500.00</td>
+              <td class="mono">2026-05-04</td>
+              <td>Aarav M.</td>
+              <td class="t-body-sm t-muted actions-cell">5d ago</td>
+            </tr>
+            <tr>
+              <td class="mono"><strong>PO-2026-00021</strong><div class="t-body-sm t-muted">6 line items</div></td>
+              <td>Acme Industrial<div class="t-body-sm t-muted">Raw materials</div></td>
+              <td><span class="pill neutral">Closed</span></td>
+              <td class="mono">INR 612,000.00</td>
+              <td class="mono">2026-04-28</td>
+              <td>Priya R.</td>
+              <td class="t-body-sm t-muted actions-cell">12d ago</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span>Showing 1–8 of 147</span>
+          <div class="pages">
+            <button class="page active">1</button>
+            <button class="page">2</button>
+            <button class="page">3</button>
+            <button class="page">4</button>
+            <button class="page">19</button>
+          </div>
+          <span>20 per page</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S20</div>
+</body>
+</html>

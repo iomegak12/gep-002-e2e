@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S11 — Supplier Detail — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S11 Supplier Detail + Scorecard.
+  Endpoints: GET /suppliers/{id} + GET /suppliers/{id}/scorecard (parallel).
+  Action visibility depends on status and persona.
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item active" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs">
+        <a class="crumb" href="s10-supplier-directory.html">Suppliers</a>
+        <span class="sep">›</span>
+        <span class="crumb active">Acme Industrial</span>
+      </span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">AM</span><span><span class="name">Anil M.</span><br><span class="role">Admin</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Acme Industrial</h1>
+          <div class="lede">
+            <span class="t-mono">SUP-IN-00123</span> · Raw materials · India · <span class="pill success">Active</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary">Edit</button>
+          <button class="btn btn-secondary">Deactivate</button>
+          <button class="btn btn-danger">Blacklist</button>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+
+          <section class="card">
+            <div class="card-header"><h3>Identity</h3></div>
+            <div class="dl">
+              <dt>Legal name</dt><dd>Acme Industrial Supplies Pvt Ltd</dd>
+              <dt>Supplier code</dt><dd class="mono">SUP-IN-00123</dd>
+              <dt>Tax ID</dt><dd class="mono">29ABCDE1234F1Z5</dd>
+              <dt>Category</dt><dd>Raw materials</dd>
+              <dt>Sub-category</dt><dd>Steel</dd>
+              <dt>Region</dt><dd>APAC</dd>
+              <dt>Created</dt><dd>2025-08-12 · by Priya R.</dd>
+              <dt>Last updated</dt><dd>2 days ago</dd>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Contact &amp; address</h3></div>
+            <div class="grid col-2">
+              <div class="dl">
+                <dt>Primary contact</dt><dd>Ravi Kumar</dd>
+                <dt>Email</dt><dd>ravi@acme-industrial.com</dd>
+                <dt>Phone</dt><dd class="mono">+91-9876543210</dd>
+              </div>
+              <div class="dl">
+                <dt>Street</dt><dd>Plot 42, Industrial Estate Phase II</dd>
+                <dt>City</dt><dd>Coimbatore</dd>
+                <dt>State</dt><dd>Tamil Nadu</dd>
+                <dt>Postal code</dt><dd class="mono">641014</dd>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Commercial terms</h3></div>
+            <div class="grid col-2">
+              <div class="dl">
+                <dt>Payment terms</dt><dd>NET 45</dd>
+                <dt>Currency</dt><dd>INR</dd>
+              </div>
+              <div class="dl">
+                <dt>Tags</dt>
+                <dd><span class="pill accent no-dot">preferred</span> <span class="pill neutral no-dot">msme</span></dd>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Certifications</h3></div>
+            <table class="table" style="margin:-4px;">
+              <thead><tr><th>Name</th><th>Issued by</th><th>Valid until</th></tr></thead>
+              <tbody>
+                <tr><td>ISO 9001</td><td>BSI</td><td class="mono">2027-03-31</td></tr>
+                <tr><td>ISO 14001</td><td>TÜV SÜD</td><td class="mono">2026-09-15</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <h3>Recent POs</h3>
+              <a class="btn btn-ghost btn-sm" href="s20-po-list.html">See all 187 →</a>
+            </div>
+            <table class="table" style="margin:-4px;">
+              <thead><tr><th>PO</th><th>Buyer</th><th>Total</th><th>Status</th><th class="actions-cell">Date</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">PO-2026-00042</td><td>Priya R.</td><td class="mono">INR 1,026,895</td><td><span class="pill warning">Submitted</span></td><td class="t-body-sm t-muted actions-cell">2h ago</td></tr>
+                <tr><td class="mono">PO-2026-00039</td><td>Priya R.</td><td class="mono">INR 487,200</td><td><span class="pill success">Approved</span></td><td class="t-body-sm t-muted actions-cell">Yesterday</td></tr>
+                <tr><td class="mono">PO-2026-00031</td><td>Aarav M.</td><td class="mono">INR 91,500</td><td><span class="pill info">Fulfilled</span></td><td class="t-body-sm t-muted actions-cell">5d ago</td></tr>
+                <tr><td class="mono">PO-2026-00021</td><td>Priya R.</td><td class="mono">INR 612,000</td><td><span class="pill neutral">Closed</span></td><td class="t-body-sm t-muted actions-cell">12d ago</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- Scorecard rail -->
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>Scorecard</h3></div>
+            <div style="display:flex;align-items:baseline;gap:8px;">
+              <span class="value" style="font-family:var(--font-mono);font-size:48px;line-height:1;font-weight:700;color:var(--accent);">4.7</span>
+              <span class="t-muted t-body-sm">of 5.0</span>
+            </div>
+            <div class="t-label" style="margin-top:6px;">Composite rating</div>
+            <div class="divider"></div>
+            <div class="dl">
+              <dt>On-time delivery</dt><dd class="mono">94.1%</dd>
+              <dt>Total orders</dt><dd class="mono">187</dd>
+              <dt>Total spend</dt><dd class="mono">INR 14.8M</dd>
+              <dt>Avg cycle time</dt><dd class="mono">8.2 days</dd>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <h3>6-month trend</h3>
+              <span class="t-label">Spend (M INR)</span>
+            </div>
+            <div class="chart bar" style="height:160px;">
+              <div class="bar-col" style="height:55%;" data-label="Dec"></div>
+              <div class="bar-col" style="height:62%;" data-label="Jan"></div>
+              <div class="bar-col" style="height:48%;" data-label="Feb"></div>
+              <div class="bar-col" style="height:78%;" data-label="Mar"></div>
+              <div class="bar-col" style="height:72%;" data-label="Apr"></div>
+              <div class="bar-col" style="height:88%;" data-label="May"></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="alert info">
+              <div>
+                <div class="alert-title">Why this matters</div>
+                <div class="alert-body">The scorecard updates every time a PO is fulfilled. Use it to prioritise category buyers and to flag suppliers for requalification.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S11</div>
+</body>
+</html>

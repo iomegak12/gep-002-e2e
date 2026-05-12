@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S05 — Forbidden — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S05 Forbidden.
+  Triggered by 403 INSUFFICIENT_ROLE or APPROVAL_LIMIT_EXCEEDED routed to a full page (rarely; usually inline).
+-->
+<div class="centered-screen">
+  <div style="text-align:center; max-width:520px;">
+    <div style="width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:var(--status-error-soft);color:var(--status-error);display:grid;place-items:center;font-size:28px;">⛔</div>
+    <h1 class="t-headline" style="margin:0 0 8px;">You don't have access</h1>
+    <p class="t-muted t-body" style="margin:0 0 24px;">Your current role doesn't permit this action. If you believe this is a mistake, ask an administrator to update your role or approval limit.</p>
+    <div style="display:flex; gap:8px; justify-content:center;">
+      <a class="btn btn-secondary" href="#">Back to safe page</a>
+      <a class="btn btn-primary" href="#">Contact administrator</a>
+    </div>
+    <div class="t-body-sm t-subtle" style="margin-top:32px;">Reference ID <span class="t-mono">req_8e2c14b9-aa11</span></div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S05 / 403</div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Purchase Order Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-container": "#b05e3d",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#001d32",
+                        "on-background": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#00201d",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "primary-container": "#008378",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-container": "#004f7b",
+                        "on-secondary-fixed-variant": "#004b74",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#89f5e7",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#924628",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-container": "#7bc2ff",
+                        "surface-tint": "#006a61",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbce",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-fixed-dim": "#94ccff",
+                        "secondary-fixed": "#cde5ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#006399",
+                        "surface-dim": "#cbdbf5",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "primary": "#00685f",
+                        "inverse-primary": "#6bd8cb",
+                        "on-surface-variant": "#3d4947"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-collapsed": "64px",
+                        "container-padding": "24px",
+                        "sidebar-width": "240px",
+                        "base": "4px",
+                        "widget-gap": "16px",
+                        "table-cell-padding": "8px 12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Roboto"],
+                        "label-caps": ["Roboto"],
+                        "title-sm": ["Roboto"],
+                        "data-mono": ["Roboto Mono"],
+                        "headline-md": ["Roboto"],
+                        "body-sm": ["Roboto"],
+                        "body-base": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "title-sm": ["15px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-base": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background dark:bg-on-background text-on-background dark:text-inverse-on-surface font-body-base text-body-base min-h-screen">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline docked full-height left-0 w-sidebar-collapsed fixed left-0 top-0 h-full flex flex-col py-base z-50">
+<div class="flex flex-col items-center flex-grow pt-4 space-y-4">
+<!-- Brand Logo (Hidden in rail view typically, but keeping space if needed) -->
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center mb-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">O</span>
+</div>
+<!-- Nav Items -->
+<a class="w-full flex flex-col items-center py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed-dim">dashboard</span>
+<span class="font-label-caps text-label-caps mt-1 hidden">Dashboard</span>
+</a>
+<a class="w-full flex flex-col items-center py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed-dim">inventory_2</span>
+<span class="font-label-caps text-label-caps mt-1 hidden">Suppliers</span>
+</a>
+<a class="w-full flex flex-col items-center py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed-dim">shopping_cart</span>
+<span class="font-label-caps text-label-caps mt-1 hidden">Orders</span>
+</a>
+<!-- Active Tab: Approvals -->
+<a class="w-full flex flex-col items-center py-3 text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-on-surface transition-all duration-200 ease-in-out relative left-[-2px]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rule</span>
+<span class="font-label-caps text-label-caps mt-1 hidden">Approvals</span>
+</a>
+<a class="w-full flex flex-col items-center py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed-dim">group</span>
+<span class="font-label-caps text-label-caps mt-1 hidden">Users</span>
+</a>
+</div>
+<!-- Footer Nav -->
+<div class="flex flex-col items-center pb-4">
+<a class="w-full flex flex-col items-center py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed-dim">settings</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-on-background docked full-width top-0 h-16 flex items-center justify-between px-container-padding ml-sidebar-collapsed w-[calc(100%-spacing.sidebar-collapsed)] fixed z-40">
+<div class="flex items-center">
+<!-- Search placeholder if on_left -->
+<div class="relative flex items-center bg-surface-container-low dark:bg-inverse-surface rounded-full px-4 py-2 w-64 border border-outline-variant dark:border-outline">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant mr-2 text-sm">search</span>
+<input class="bg-transparent border-none outline-none font-body-sm text-body-sm w-full text-on-surface dark:text-inverse-on-surface placeholder-on-surface-variant dark:placeholder-outline-variant" placeholder="Search orders..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-transform duration-150 hover:scale-105">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-transform duration-150 hover:scale-105">
+<span class="material-symbols-outlined">description</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-transform duration-150 hover:scale-105 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="bg-primary dark:bg-primary-fixed-dim text-on-primary dark:text-on-primary-fixed px-4 py-2 rounded font-title-sm text-title-sm hover:opacity-90 ml-4 transition-all">
+                Create PO
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high dark:bg-outline border border-outline-variant dark:border-outline overflow-hidden ml-2 cursor-pointer">
+<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1QNmUAjsGer3Yrx0dLJcYRrodVxko9zNgaSu27MPEAnrwbqpGCJ4pwPc6q5PkwDEK-2X17WMjvH-GOCeIwgs3FjhFR58RL2NQS3HR-0-e2DlprRX-SssEVxXIP0Po9lt60CrrFUSasoL8sK-LoiwvF4WWTKbunJAem6W7u-z-fmSWOhPaft69M9pQ161MjbST45srHQhGUOUI2O-5SYpMsrMHD2jnCX8kZysI-lq_UfP0TYSVhGUQK2iF8daTzhytWGL_YNPNDqPN"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-collapsed pt-24 px-container-padding pb-12 w-[calc(100%-spacing.sidebar-collapsed)]">
+<!-- Header Actions & Meta -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+<div>
+<div class="flex items-center space-x-3 mb-1">
+<h1 class="font-display-lg text-display-lg text-on-background dark:text-inverse-on-surface">PO-2023-8942</h1>
+<span class="bg-surface-container-low dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim px-2 py-1 rounded font-label-caps text-label-caps border border-outline-variant dark:border-outline">PENDING APPROVAL</span>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant dark:text-outline-variant">Submitted on Oct 24, 2023 by J. Doe (Procurement)</p>
+</div>
+<div class="flex space-x-3 mt-4 md:mt-0">
+<button class="border border-outline text-on-surface dark:text-inverse-on-surface px-6 py-2 rounded font-title-sm text-title-sm hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors">
+                    Reject
+                </button>
+<button class="bg-primary dark:bg-primary-fixed-dim text-on-primary dark:text-on-primary-fixed px-6 py-2 rounded font-title-sm text-title-sm hover:opacity-90 transition-colors shadow-sm">
+                    Approve
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-widget-gap">
+<!-- Supplier Details (4 cols) -->
+<div class="col-span-12 md:col-span-4 bg-surface dark:bg-inverse-surface border border-outline-variant dark:border-outline rounded-xl p-5 shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div class="flex items-center space-x-2 mb-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">domain</span>
+<h2 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Supplier Information</h2>
+</div>
+<div class="space-y-4">
+<div>
+<p class="font-headline-md text-headline-md text-on-background dark:text-inverse-on-surface">Global Tech Supplies Inc.</p>
+<p class="font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant mt-1">Vendor ID: V-99302</p>
+</div>
+<div class="h-px bg-outline-variant dark:bg-outline w-full"></div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant uppercase tracking-wider mb-1">Contact</p>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface">Sarah Jenkins</p>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface">s.jenkins@globaltech.com</p>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface">+1 (555) 019-8372</p>
+</div>
+</div>
+</div>
+<!-- Order Details (8 cols) -->
+<div class="col-span-12 md:col-span-8 bg-surface dark:bg-inverse-surface border border-outline-variant dark:border-outline rounded-xl p-5 shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div class="flex items-center space-x-2 mb-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">info</span>
+<h2 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Order Terms &amp; Shipping</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant uppercase tracking-wider mb-1">Requested Delivery</p>
+<p class="font-data-mono text-data-mono text-on-surface dark:text-inverse-on-surface">Nov 15, 2023</p>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant uppercase tracking-wider mb-1">Payment Terms</p>
+<p class="font-data-mono text-data-mono text-on-surface dark:text-inverse-on-surface">Net 30</p>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant uppercase tracking-wider mb-1">Shipping Method</p>
+<p class="font-data-mono text-data-mono text-on-surface dark:text-inverse-on-surface">Air Freight</p>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant uppercase tracking-wider mb-1">Incoterms</p>
+<p class="font-data-mono text-data-mono text-on-surface dark:text-inverse-on-surface">DDP (New York)</p>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant dark:border-outline">
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant uppercase tracking-wider mb-1">Ship To</p>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface">Order Oasis Northeast Hub<br/>1400 Logistics Way, Dock 4<br/>Newark, NJ 07114</p>
+</div>
+</div>
+<!-- Line Items Table (12 cols) -->
+<div class="col-span-12 bg-surface dark:bg-inverse-surface border border-outline-variant dark:border-outline rounded-xl overflow-hidden shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div class="p-5 border-b border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-on-surface flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">list_alt</span>
+<h2 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Line Items</h2>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant">3 Items</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low dark:bg-on-background border-b border-outline-variant dark:border-outline">
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase tracking-wider w-16">Line</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase tracking-wider">Item / Description</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase tracking-wider text-right">Qty</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase tracking-wider text-right">Unit Price</th>
+<th class="p-table-cell-padding font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase tracking-wider text-right">Total</th>
+</tr>
+</thead>
+<tbody class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface">
+<tr class="border-b border-outline-variant dark:border-outline hover:bg-surface-container-low dark:hover:bg-on-surface transition-colors">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant">10</td>
+<td class="p-table-cell-padding">
+<div class="font-title-sm text-title-sm">Industrial Router TX-500</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">SKU: NET-RTR-500</div>
+</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right">50</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right">$450.00</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right font-medium">$22,500.00</td>
+</tr>
+<tr class="border-b border-outline-variant dark:border-outline hover:bg-surface-container-low dark:hover:bg-on-surface transition-colors">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant">20</td>
+<td class="p-table-cell-padding">
+<div class="font-title-sm text-title-sm">Server Rack Enclosure 42U</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">SKU: HW-RCK-42</div>
+</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right">10</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right">$1,200.00</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right font-medium">$12,000.00</td>
+</tr>
+<tr class="border-b border-outline-variant dark:border-outline hover:bg-surface-container-low dark:hover:bg-on-surface transition-colors">
+<td class="p-table-cell-padding font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant">30</td>
+<td class="p-table-cell-padding">
+<div class="font-title-sm text-title-sm">Cat6a Shielded Cable Spool (1000ft)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">SKU: CBL-C6A-1K</div>
+</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right">25</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right">$180.00</td>
+<td class="p-table-cell-padding font-data-mono text-data-mono text-right font-medium">$4,500.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Totals Section -->
+<div class="bg-surface-container-lowest dark:bg-on-surface p-5 flex justify-end rounded-b-xl">
+<div class="w-64 space-y-2">
+<div class="flex justify-between font-body-base text-body-base text-on-surface-variant dark:text-outline-variant">
+<span>Subtotal</span>
+<span class="font-data-mono text-data-mono">$39,000.00</span>
+</div>
+<div class="flex justify-between font-body-base text-body-base text-on-surface-variant dark:text-outline-variant">
+<span>Tax (8%)</span>
+<span class="font-data-mono text-data-mono">$3,120.00</span>
+</div>
+<div class="flex justify-between font-body-base text-body-base text-on-surface-variant dark:text-outline-variant">
+<span>Freight</span>
+<span class="font-data-mono text-data-mono">$450.00</span>
+</div>
+<div class="h-px bg-outline-variant dark:bg-outline w-full my-2"></div>
+<div class="flex justify-between font-headline-md text-headline-md text-on-background dark:text-inverse-on-surface">
+<span>Total</span>
+<span class="font-data-mono text-data-mono">$42,570.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Approval Timeline (12 cols) -->
+<div class="col-span-12 bg-surface dark:bg-inverse-surface border border-outline-variant dark:border-outline rounded-xl p-5 shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div class="flex items-center space-x-2 mb-6">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">history</span>
+<h2 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Approval Timeline</h2>
+</div>
+<div class="relative pl-4 space-y-6">
+<!-- Vertical Line -->
+<div class="absolute left-[23px] top-2 bottom-2 w-px bg-outline-variant dark:bg-outline"></div>
+<!-- Step 1 -->
+<div class="relative flex items-start group">
+<div class="w-10 h-10 rounded-full bg-primary-container dark:bg-primary flex items-center justify-center z-10 border-4 border-surface dark:border-inverse-surface shadow-sm">
+<span class="material-symbols-outlined text-on-primary-container dark:text-on-primary text-sm">check</span>
+</div>
+<div class="ml-4 pt-2">
+<p class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">PO Created</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">Oct 24, 2023 - 09:15 AM by J. Doe</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-start group">
+<div class="w-10 h-10 rounded-full bg-primary-container dark:bg-primary flex items-center justify-center z-10 border-4 border-surface dark:border-inverse-surface shadow-sm">
+<span class="material-symbols-outlined text-on-primary-container dark:text-on-primary text-sm">check</span>
+</div>
+<div class="ml-4 pt-2">
+<p class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Department Manager Approval</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">Oct 24, 2023 - 14:30 PM by M. Smith</p>
+<div class="mt-2 p-3 bg-surface-container-low dark:bg-on-surface rounded border border-outline-variant dark:border-outline text-body-sm font-body-sm text-on-surface dark:text-inverse-on-surface">
+                                "Approved. Budget aligns with Q4 infrastructure upgrades."
+                            </div>
+</div>
+</div>
+<!-- Step 3 (Current) -->
+<div class="relative flex items-start group">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest dark:bg-on-surface border-2 border-primary dark:border-primary-fixed-dim flex items-center justify-center z-10 shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-sm">more_horiz</span>
+</div>
+<div class="ml-4 pt-2">
+<p class="font-title-sm text-title-sm text-primary dark:text-primary-fixed-dim">Finance Review</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">Pending your approval</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

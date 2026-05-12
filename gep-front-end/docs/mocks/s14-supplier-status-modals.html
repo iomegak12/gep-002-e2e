@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S14 — Supplier Status Modals — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  /* This mock shows all four supplier status modals laid out side-by-side
+     so reviewers can compare them. In the live app only one is open at a time. */
+  .modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--widget-gap);
+    padding: var(--container-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .modal-gallery .modal { position: static; max-width: none; }
+  .modal-gallery .label { color: var(--on-surface-muted); font-size: var(--fs-body-sm); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<!--
+  Screen: S14 Supplier Status Action Modals (admin-only).
+  Persona: ADMIN.
+  Endpoints:
+    POST /suppliers/{id}/approve       (no body)
+    POST /suppliers/{id}/deactivate    ({reason})
+    POST /suppliers/{id}/reactivate    (no body)
+    POST /suppliers/{id}/blacklist     ({reason}, terminal)
+-->
+
+<div class="content" style="padding-top:var(--space-6);">
+  <div class="page-header">
+    <div>
+      <h1 style="font-size:24px;line-height:28px;">Supplier status — confirmation modals</h1>
+      <div class="lede">Triggered from the supplier detail page (S11). Only legal transitions for the supplier's current status are shown to the admin.</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-gallery">
+
+  <!-- 1. Approve (no reason) -->
+  <div>
+    <div class="label">From <strong>Pending approval</strong> → <strong>Active</strong></div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Approve supplier</h2>
+        <p>Make <strong>Sundaram Logistics Pvt Ltd</strong> active. The supplier becomes eligible to receive purchase orders immediately.</p>
+      </div>
+      <div class="dl">
+        <dt>Supplier code</dt><dd class="t-mono">SUP-IN-00456</dd>
+        <dt>Category</dt><dd>Logistics</dd>
+        <dt>Country</dt><dd>India</dd>
+        <dt>Created by</dt><dd>Priya R. — 2 days ago</dd>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Approve supplier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Deactivate (reason required) -->
+  <div>
+    <div class="label">From <strong>Active</strong> → <strong>Inactive</strong></div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Deactivate supplier</h2>
+        <p>Stop new purchase orders from being raised against this supplier. Existing POs remain unaffected. You can reactivate later.</p>
+      </div>
+      <div class="field">
+        <label>Reason <span class="req">*</span></label>
+        <textarea class="textarea" placeholder="e.g. Quality issues flagged in Q1 review">Pending requalification audit Q2 2026.</textarea>
+        <span class="help">Reason is required and will be visible on the supplier record.</span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-danger">Deactivate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Reactivate (no reason) -->
+  <div>
+    <div class="label">From <strong>Inactive</strong> → <strong>Active</strong></div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Reactivate supplier</h2>
+        <p>Restore this supplier to active status. New purchase orders can be raised against them again.</p>
+      </div>
+      <div class="alert info">
+        <div>
+          <div class="alert-title">Last deactivated 14 days ago</div>
+          <div class="alert-body">Reason on record: <em>"Pending requalification audit Q2 2026."</em> Confirm the underlying issue is resolved before reactivating.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Reactivate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Blacklist (reason required, terminal) -->
+  <div>
+    <div class="label">From <strong>Active/Inactive</strong> → <strong>Blacklisted</strong> (terminal)</div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Blacklist supplier</h2>
+        <p>This action is <strong>terminal</strong>. The supplier cannot be reactivated. New purchase orders will be permanently blocked.</p>
+      </div>
+      <div class="alert error">
+        <div>
+          <div class="alert-title">This action is irreversible</div>
+          <div class="alert-body">All existing buyers will see a banner when this supplier appears on screens. Open POs are not cancelled — coordinate manually with the buyer team.</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:12px;">
+        <label>Reason <span class="req">*</span></label>
+        <textarea class="textarea" placeholder="e.g. Failed integrity review; legal hold"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-danger">Blacklist permanently</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mock-banner">Mock · S14</div>
+</body>
+</html>

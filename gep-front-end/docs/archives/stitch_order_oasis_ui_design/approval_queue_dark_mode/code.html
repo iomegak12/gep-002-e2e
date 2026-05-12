@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Approval Queue - Order Oasis</title>
+<!-- Google Fonts: Roboto & Roboto Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&amp;family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Dark Mode Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#09111a",
+              "on-background": "#e2e8f0",
+              "surface": "#121b26",
+              "surface-dim": "#0d151e",
+              "surface-bright": "#1a2533",
+              "surface-container-lowest": "#060b11",
+              "surface-container-low": "#0c131d",
+              "surface-container": "#16202d",
+              "surface-container-high": "#1f2d3d",
+              "surface-container-highest": "#283a4e",
+              "on-surface": "#cbd5e1",
+              "on-surface-variant": "#94a3b8",
+              "outline": "#334155",
+              "outline-variant": "#1e293b",
+              "primary": "#2dd4bf", // Neon Teal
+              "on-primary": "#042f2e",
+              "primary-container": "#0f766e",
+              "on-primary-container": "#ccfbf1",
+              "secondary": "#38bdf8",
+              "on-secondary": "#0c4a6e",
+              "secondary-container": "#0369a1",
+              "on-secondary-container": "#e0f2fe",
+              "error": "#f87171",
+              "on-error": "#450a0a",
+              "error-container": "#991b1b",
+              "on-error-container": "#fecaca",
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "sm": "0.125rem",
+              "md": "0.375rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            spacing: {
+              "base": "4px",
+              "container-padding": "24px",
+              "widget-gap": "16px",
+              "sidebar-width": "240px",
+              "sidebar-collapsed": "64px"
+            },
+            fontFamily: {
+              "headline-md": ["Roboto", "sans-serif"],
+              "title-sm": ["Roboto", "sans-serif"],
+              "body-sm": ["Roboto", "sans-serif"],
+              "label-caps": ["Roboto", "sans-serif"],
+              "body-base": ["Roboto", "sans-serif"],
+              "display-lg": ["Roboto", "sans-serif"],
+              "data-mono": ["Roboto Mono", "monospace"]
+            },
+            fontSize: {
+              "display-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+              "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+              "title-sm": ["15px", { lineHeight: "20px", fontWeight: "600" }],
+              "body-base": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+              "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+              "label-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
+              "data-mono": ["13px", { lineHeight: "18px", fontWeight: "500" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[style*="FILL' 1"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased min-h-screen flex flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between px-container-padding py-4 border-b border-outline bg-surface-dim">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">fact_check</span>
+<h1 class="font-headline-md text-on-surface">Approval Queue</h1>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full bg-surface-container border border-outline rounded text-on-surface pl-10 pr-3 py-1.5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-base placeholder:text-on-surface-variant" placeholder="Search POs..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary-container text-on-primary-container font-title-sm uppercase">
+                    JD
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 p-container-padding flex flex-col gap-widget-gap overflow-hidden">
+<!-- Filters -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container border border-outline rounded hover:bg-surface-container-high text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg text-on-surface-variant">payments</span>
+<span class="font-body-base">Amount Range</span>
+<span class="material-symbols-outlined text-lg">arrow_drop_down</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container border border-outline rounded hover:bg-surface-container-high text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg text-on-surface-variant">calendar_today</span>
+<span class="font-body-base">Date</span>
+<span class="material-symbols-outlined text-lg">arrow_drop_down</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container border border-outline rounded hover:bg-surface-container-high text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg text-on-surface-variant">person</span>
+<span class="font-body-base">Buyer</span>
+<span class="material-symbols-outlined text-lg">arrow_drop_down</span>
+</button>
+</div>
+<div class="text-on-surface-variant font-body-sm">
+                Showing 1-12 of 45 pending approvals
+            </div>
+</div>
+<!-- High Density Table Container -->
+<div class="flex-1 bg-surface border border-outline rounded-lg flex flex-col overflow-hidden shadow-lg">
+<div class="overflow-auto flex-1">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead class="bg-surface-container sticky top-0 z-10">
+<tr>
+<th class="py-2 px-3 border-b border-outline w-10 text-center">
+<input class="rounded-sm border-outline bg-surface text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-surface w-4 h-4 cursor-pointer" type="checkbox"/>
+</th>
+<th class="py-2 px-3 border-b border-outline font-title-sm text-on-surface-variant">PO Number</th>
+<th class="py-2 px-3 border-b border-outline font-title-sm text-on-surface-variant">Supplier</th>
+<th class="py-2 px-3 border-b border-outline font-title-sm text-on-surface-variant">Buyer</th>
+<th class="py-2 px-3 border-b border-outline font-title-sm text-on-surface-variant">Submitted Date</th>
+<th class="py-2 px-3 border-b border-outline font-title-sm text-on-surface-variant text-right">Amount</th>
+<th class="py-2 px-3 border-b border-outline font-title-sm text-on-surface-variant text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-2 px-3 text-center">
+<input class="rounded-sm border-outline bg-surface text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-surface w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-2 px-3 font-data-mono text-primary group-hover:underline cursor-pointer">PO-2023-8891</td>
+<td class="py-2 px-3 text-on-surface">Global Tech Industries</td>
+<td class="py-2 px-3 text-on-surface">Sarah Connor</td>
+<td class="py-2 px-3 text-on-surface-variant">Oct 24, 2023</td>
+<td class="py-2 px-3 font-data-mono text-on-surface text-right">$12,450.00</td>
+<td class="py-2 px-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="w-7 h-7 flex items-center justify-center rounded bg-primary/10 text-primary hover:bg-primary hover:text-on-primary transition-colors" title="Approve">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded bg-error/10 text-error hover:bg-error hover:text-on-error transition-colors" title="Reject">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-2 px-3 text-center">
+<input class="rounded-sm border-outline bg-surface text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-surface w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-2 px-3 font-data-mono text-primary group-hover:underline cursor-pointer">PO-2023-8892</td>
+<td class="py-2 px-3 text-on-surface">Apex Logistics Solutions</td>
+<td class="py-2 px-3 text-on-surface">Marcus Wright</td>
+<td class="py-2 px-3 text-on-surface-variant">Oct 24, 2023</td>
+<td class="py-2 px-3 font-data-mono text-on-surface text-right">$3,200.50</td>
+<td class="py-2 px-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="w-7 h-7 flex items-center justify-center rounded bg-primary/10 text-primary hover:bg-primary hover:text-on-primary transition-colors" title="Approve">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded bg-error/10 text-error hover:bg-error hover:text-on-error transition-colors" title="Reject">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (High Value) -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-surface-container-low/50">
+<td class="py-2 px-3 text-center">
+<input class="rounded-sm border-outline bg-surface text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-surface w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-2 px-3 font-data-mono text-primary group-hover:underline cursor-pointer flex items-center gap-1">
+                                PO-2023-8895
+                                <span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;" title="High Value Order">stars</span>
+</td>
+<td class="py-2 px-3 text-on-surface">Quantum Manufacturing</td>
+<td class="py-2 px-3 text-on-surface">John Reese</td>
+<td class="py-2 px-3 text-on-surface-variant">Oct 23, 2023</td>
+<td class="py-2 px-3 font-data-mono text-on-surface text-right font-bold">$85,000.00</td>
+<td class="py-2 px-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="w-7 h-7 flex items-center justify-center rounded bg-primary/10 text-primary hover:bg-primary hover:text-on-primary transition-colors" title="Approve">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded bg-error/10 text-error hover:bg-error hover:text-on-error transition-colors" title="Reject">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-2 px-3 text-center">
+<input class="rounded-sm border-outline bg-surface text-primary focus:ring-primary focus:ring-offset-0 focus:ring-offset-surface w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-2 px-3 font-data-mono text-primary group-hover:underline cursor-pointer">PO-2023-8898</td>
+<td class="py-2 px-3 text-on-surface">Nexus Components Ltd.</td>
+<td class="py-2 px-3 text-on-surface">Sarah Connor</td>
+<td class="py-2 px-3 text-on-surface-variant">Oct 23, 2023</td>
+<td class="py-2 px-3 font-data-mono text-on-surface text-right">$1,150.00</td>
+<td class="py-2 px-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="w-7 h-7 flex items-center justify-center rounded bg-primary/10 text-primary hover:bg-primary hover:text-on-primary transition-colors" title="Approve">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded bg-error/10 text-error hover:bg-error hover:text-on-error transition-colors" title="Reject">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Bulk Actions Footer -->
+<div class="p-3 border-t border-outline bg-surface-container flex items-center justify-between">
+<span class="text-on-surface-variant font-body-sm">0 items selected</span>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded bg-surface border border-outline text-error hover:bg-error/10 font-title-sm transition-colors opacity-50 cursor-not-allowed">
+                        Reject Selected
+                    </button>
+<button class="px-4 py-2 rounded bg-primary text-on-primary font-title-sm hover:bg-primary-container transition-colors shadow-sm opacity-50 cursor-not-allowed">
+                        Approve Selected
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

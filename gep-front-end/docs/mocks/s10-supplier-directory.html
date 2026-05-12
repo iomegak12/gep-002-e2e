@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S10 — Supplier Directory — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S10 Supplier Directory.
+  Endpoint: GET /suppliers?status=&category=&country=&min_rating=&tag=&q=&sort=&page=&page_size=
+  Typeahead: GET /suppliers/search?q=
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item active" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><span class="crumb active">Suppliers</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search by name, code, or category…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">PR</span><span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Suppliers</h1>
+          <div class="lede">Browse the supplier master. Filter to find who you can raise POs against today.</div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-secondary" href="s41-supplier-aggregations.html">Aggregations</a>
+          <a class="btn btn-primary" href="s12-create-supplier.html">+ New supplier</a>
+        </div>
+      </div>
+
+      <!-- KPI strip -->
+      <div class="grid col-4">
+        <div class="metric">
+          <span class="label">Total suppliers</span>
+          <div class="value-row"><span class="value">324</span><span class="pill accent no-dot">+12 this quarter</span></div>
+          <span class="note">Across 8 categories &amp; 14 countries</span>
+        </div>
+        <div class="metric">
+          <span class="label">Active</span>
+          <div class="value-row"><span class="value">263</span><span class="pill success no-dot">81.2%</span></div>
+          <span class="note">Eligible for new POs</span>
+        </div>
+        <div class="metric">
+          <span class="label">Avg rating</span>
+          <div class="value-row"><span class="value">4.3</span><span class="pill accent no-dot">Of 5.0</span></div>
+          <span class="note">Across rated suppliers</span>
+        </div>
+        <div class="metric">
+          <span class="label">On-time delivery</span>
+          <div class="value-row"><span class="value">92.5%</span><span class="pill success no-dot">+1.4pp QoQ</span></div>
+          <span class="note">Active suppliers only</span>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <span class="filter-chip">Status: Active <span class="x">×</span></span>
+        <span class="filter-chip">Category: Logistics <span class="x">×</span></span>
+        <span class="filter-chip">Country: IN <span class="x">×</span></span>
+        <span class="filter-chip">Min rating: 4.0 <span class="x">×</span></span>
+        <button class="btn btn-ghost btn-sm">+ Add filter</button>
+        <span class="grow"></span>
+        <span class="t-muted t-body-sm">87 suppliers · sorted by rating ↓</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Code</th>
+              <th>Category</th>
+              <th>Country</th>
+              <th>Status</th>
+              <th>Rating</th>
+              <th>OTD %</th>
+              <th>Orders</th>
+              <th class="actions-cell">Total spend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sundaram Logistics</strong><div class="t-body-sm t-muted">Sundaram Logistics Pvt Ltd</div></td>
+              <td class="mono">SUP-IN-00128</td>
+              <td>Logistics</td>
+              <td>IN</td>
+              <td><span class="pill success">Active</span></td>
+              <td class="mono">4.9</td>
+              <td class="mono">97.3</td>
+              <td class="mono">128</td>
+              <td class="mono actions-cell">INR 12.4M</td>
+            </tr>
+            <tr>
+              <td><strong>Velocity Freight</strong><div class="t-body-sm t-muted">Velocity Freight Solutions</div></td>
+              <td class="mono">SUP-IN-00141</td>
+              <td>Logistics</td>
+              <td>IN</td>
+              <td><span class="pill success">Active</span></td>
+              <td class="mono">4.4</td>
+              <td class="mono">89.6</td>
+              <td class="mono">52</td>
+              <td class="mono actions-cell">INR 4.2M</td>
+            </tr>
+            <tr>
+              <td><strong>Acme Industrial</strong><div class="t-body-sm t-muted">Acme Industrial Supplies Pvt Ltd</div></td>
+              <td class="mono">SUP-IN-00123</td>
+              <td>Raw materials</td>
+              <td>IN</td>
+              <td><span class="pill success">Active</span></td>
+              <td class="mono">4.7</td>
+              <td class="mono">94.1</td>
+              <td class="mono">187</td>
+              <td class="mono actions-cell">INR 14.8M</td>
+            </tr>
+            <tr>
+              <td><strong>BluePack Co.</strong><div class="t-body-sm t-muted">BluePack Industries Pvt Ltd</div></td>
+              <td class="mono">SUP-IN-00153</td>
+              <td>Packaging</td>
+              <td>IN</td>
+              <td><span class="pill success">Active</span></td>
+              <td class="mono">4.6</td>
+              <td class="mono">92.0</td>
+              <td class="mono">64</td>
+              <td class="mono actions-cell">INR 3.1M</td>
+            </tr>
+            <tr>
+              <td><strong>NorthCloud Systems</strong><div class="t-body-sm t-muted">NorthCloud Systems Inc.</div></td>
+              <td class="mono">SUP-US-00009</td>
+              <td>IT services</td>
+              <td>US</td>
+              <td><span class="pill success">Active</span></td>
+              <td class="mono">4.5</td>
+              <td class="mono">90.8</td>
+              <td class="mono">41</td>
+              <td class="mono actions-cell">USD 108K</td>
+            </tr>
+            <tr>
+              <td><strong>Karthik Consulting</strong><div class="t-body-sm t-muted">Karthik Consulting LLP</div></td>
+              <td class="mono">SUP-IN-00164</td>
+              <td>Professional services</td>
+              <td>IN</td>
+              <td><span class="pill success">Active</span></td>
+              <td class="mono">4.3</td>
+              <td class="mono">—</td>
+              <td class="mono">38</td>
+              <td class="mono actions-cell">INR 2.6M</td>
+            </tr>
+            <tr>
+              <td><strong>PrecisionTools Ltd</strong><div class="t-body-sm t-muted">PrecisionTools Ltd</div></td>
+              <td class="mono">SUP-IN-00171</td>
+              <td>MRO</td>
+              <td>IN</td>
+              <td><span class="pill warning">Inactive</span></td>
+              <td class="mono">4.4</td>
+              <td class="mono">88.0</td>
+              <td class="mono">27</td>
+              <td class="mono actions-cell">INR 1.1M</td>
+            </tr>
+            <tr>
+              <td><strong>Falcon Couriers</strong><div class="t-body-sm t-muted">Falcon Couriers Inc.</div></td>
+              <td class="mono">SUP-US-00019</td>
+              <td>Logistics</td>
+              <td>US</td>
+              <td><span class="pill warning">Pending</span></td>
+              <td class="mono">—</td>
+              <td class="mono">—</td>
+              <td class="mono">0</td>
+              <td class="mono actions-cell">—</td>
+            </tr>
+            <tr>
+              <td><strong>EcoPack Industries</strong><div class="t-body-sm t-muted">EcoPack Industries Pvt Ltd</div></td>
+              <td class="mono">SUP-IN-00458</td>
+              <td>Packaging</td>
+              <td>IN</td>
+              <td><span class="pill warning">Pending</span></td>
+              <td class="mono">—</td>
+              <td class="mono">—</td>
+              <td class="mono">0</td>
+              <td class="mono actions-cell">—</td>
+            </tr>
+            <tr>
+              <td><strong>OldDeal Trading</strong><div class="t-body-sm t-muted">OldDeal Trading Co.</div></td>
+              <td class="mono">SUP-IN-00088</td>
+              <td>Raw materials</td>
+              <td>IN</td>
+              <td><span class="pill error">Blacklisted</span></td>
+              <td class="mono">2.1</td>
+              <td class="mono">61.0</td>
+              <td class="mono">12</td>
+              <td class="mono actions-cell">INR 0.3M</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span>Showing 1–10 of 87</span>
+          <div class="pages">
+            <button class="page active">1</button>
+            <button class="page">2</button>
+            <button class="page">3</button>
+            <button class="page">4</button>
+            <button class="page">5</button>
+            <button class="page">9</button>
+          </div>
+          <span>10 per page</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S10</div>
+</body>
+</html>

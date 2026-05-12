@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S31 — PO Detail (Approver) — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S31 PO Detail (Approver view).
+  Same content as S21; primary actions for SUBMITTED state are Approve / Reject.
+  Server gates approval by approval_limit; client previews "within limit" / "exceeds limit".
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item active" href="#">◴ Approvals <span class="badge">12</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs">
+        <a class="crumb" href="s30-approval-queue.html">Approvals</a>
+        <span class="sep">›</span>
+        <span class="crumb active">PO-2026-00042</span>
+      </span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">SK</span><span><span class="name">Suresh K.</span><br><span class="role">Approver</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1 style="font-family:var(--font-mono);">PO-2026-00042</h1>
+          <div class="lede">
+            Acme Industrial · submitted 2h ago by <strong>Priya R.</strong> · <span class="pill success no-dot">Within your limit</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary">Open buyer's view</button>
+          <a class="btn btn-danger" href="s32-reject-po-modal.html">Reject</a>
+          <button class="btn btn-primary btn-lg">Approve</button>
+        </div>
+      </div>
+
+      <!-- Status timeline -->
+      <div class="card" style="padding:16px 20px;">
+        <div class="stepper">
+          <div class="step done"><div class="dot">✓</div> Draft</div>
+          <div class="bar done"></div>
+          <div class="step active"><div class="dot">2</div> Submitted</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">3</div> Approved</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">4</div> Fulfilled</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">5</div> Closed</div>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+
+          <section class="card">
+            <div class="card-header"><h3>Header</h3></div>
+            <div class="grid col-2">
+              <div class="dl">
+                <dt>Supplier</dt><dd>Acme Industrial <span class="t-mono t-muted">· SUP-IN-00123</span></dd>
+                <dt>Category</dt><dd>Raw materials · preferred</dd>
+                <dt>Buyer</dt><dd>Priya R.</dd>
+                <dt>Currency</dt><dd>INR</dd>
+              </div>
+              <div class="dl">
+                <dt>Payment terms</dt><dd>NET 30</dd>
+                <dt>Expected delivery</dt><dd class="mono">2026-06-15</dd>
+                <dt>Deliver to</dt><dd>Pune (Warehouse 3)</dd>
+                <dt>Notes</dt><dd>Urgent — Q2 production run.</dd>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Line items <span class="t-muted t-body-sm" style="font-weight:400;">(2)</span></h3></div>
+            <table class="table" style="margin:-4px;">
+              <thead><tr><th style="width:32px;">#</th><th>Description</th><th>SKU</th><th>Qty × Unit</th><th>Tax</th><th class="actions-cell">Line total</th></tr></thead>
+              <tbody>
+                <tr><td class="mono t-muted">01</td><td>MS Steel Rod, 12mm dia, 6m length</td><td class="mono">STL-12-6M</td><td class="mono">500 EA × 850.00</td><td class="mono">18.00%</td><td class="mono actions-cell">INR 501,500.00</td></tr>
+                <tr><td class="mono t-muted">02</td><td>MS Steel Rod, 16mm dia, 6m length</td><td class="mono">STL-16-6M</td><td class="mono">250 EA × 1,250.00</td><td class="mono">18.00%</td><td class="mono actions-cell">INR 368,750.00</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Supplier health</h3></div>
+            <div class="grid col-4">
+              <div class="metric" style="padding:12px 16px;">
+                <span class="label">Rating</span>
+                <div class="value" style="font-size:24px;line-height:1;">4.7</div>
+                <span class="note">of 5.0</span>
+              </div>
+              <div class="metric" style="padding:12px 16px;">
+                <span class="label">OTD</span>
+                <div class="value" style="font-size:24px;line-height:1;">94.1%</div>
+                <span class="note">last 12 mo</span>
+              </div>
+              <div class="metric" style="padding:12px 16px;">
+                <span class="label">Orders</span>
+                <div class="value" style="font-size:24px;line-height:1;">187</div>
+                <span class="note">lifetime</span>
+              </div>
+              <div class="metric" style="padding:12px 16px;">
+                <span class="label">Spend</span>
+                <div class="value" style="font-size:24px;line-height:1;">14.8M</div>
+                <span class="note">INR lifetime</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>Totals</h3></div>
+            <div class="dl">
+              <dt>Subtotal</dt><dd class="mono">INR 870,250.00</dd>
+              <dt>Tax</dt><dd class="mono">INR 156,645.00</dd>
+              <dt style="color:var(--on-surface);font-weight:600;">Total</dt>
+              <dd class="mono" style="font-size:20px;font-weight:700;color:var(--accent);">INR 1,026,895.00</dd>
+            </div>
+            <div class="divider"></div>
+            <div class="alert success">
+              <div>
+                <div class="alert-title">Within your authority</div>
+                <div class="alert-body">PO total is below your approval limit of <span class="t-mono">INR 2,500,000.00</span>. Approving is final and immediate.</div>
+              </div>
+            </div>
+            <!-- variant: exceeds your limit (commented)
+            <div class="alert error">
+              <div>
+                <div class="alert-title">Exceeds your limit</div>
+                <div class="alert-body">PO total exceeds your authority of INR 500,000.00. Forward to a senior approver — you cannot approve this PO.</div>
+              </div>
+            </div>
+            -->
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Decision actions</h3></div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <button class="btn btn-primary btn-block btn-lg">Approve PO</button>
+              <a class="btn btn-danger btn-block" href="s32-reject-po-modal.html">Reject with reason…</a>
+              <a class="btn btn-ghost btn-block" href="s30-approval-queue.html">Back to queue</a>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Recent activity</h3></div>
+            <div class="timeline">
+              <div class="tl-item done">
+                <div class="tl-when">2026-05-12 · 11:08</div>
+                <div class="tl-what">Submitted</div>
+                <div class="tl-by">by Priya R.</div>
+              </div>
+              <div class="tl-item done">
+                <div class="tl-when">2026-05-12 · 10:42</div>
+                <div class="tl-what">Lines added (2)</div>
+              </div>
+              <div class="tl-item done">
+                <div class="tl-when">2026-05-12 · 10:30</div>
+                <div class="tl-what">Created</div>
+                <div class="tl-by">by Priya R.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S31</div>
+</body>
+</html>

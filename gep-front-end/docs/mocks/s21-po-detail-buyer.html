@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S21 — PO Detail (Buyer) — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S21 PO Detail (Buyer view).
+  Endpoint: GET /purchase-orders/{id} (+ /line-items if not embedded).
+  Demo PO state: SUBMITTED (buyer can Cancel; awaiting approver).
+  Other action variants commented below.
+-->
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item active" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs">
+        <a class="crumb" href="s20-po-list.html">Purchase orders</a>
+        <span class="sep">›</span>
+        <span class="crumb active">PO-2026-00042</span>
+      </span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">PR</span><span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1 style="font-family:var(--font-mono);">PO-2026-00042</h1>
+          <div class="lede">
+            Acme Industrial · <span class="t-mono">INR 1,026,895.00</span> · <span class="pill warning">Submitted</span> · waiting for approver
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-ghost">Print</button>
+          <button class="btn btn-danger">Cancel PO</button>
+        </div>
+      </div>
+
+      <!-- Status timeline (horizontal stepper using stepper component, with branch chips) -->
+      <div class="card" style="padding:16px 20px;">
+        <div class="stepper">
+          <div class="step done"><div class="dot">✓</div> Draft</div>
+          <div class="bar done"></div>
+          <div class="step active"><div class="dot">2</div> Submitted</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">3</div> Approved</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">4</div> Fulfilled</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">5</div> Closed</div>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+
+          <!-- Header -->
+          <section class="card">
+            <div class="card-header"><h3>Header</h3></div>
+            <div class="grid col-2">
+              <div class="dl">
+                <dt>Supplier</dt><dd>Acme Industrial <span class="t-mono t-muted">· SUP-IN-00123</span></dd>
+                <dt>Category</dt><dd>Raw materials</dd>
+                <dt>Buyer</dt><dd>Priya R.</dd>
+                <dt>Approver</dt><dd class="t-muted">— pending —</dd>
+              </div>
+              <div class="dl">
+                <dt>Currency</dt><dd>INR</dd>
+                <dt>Payment terms</dt><dd>NET 30</dd>
+                <dt>Expected delivery</dt><dd class="mono">2026-06-15</dd>
+                <dt>Notes</dt><dd>Urgent — Q2 production run.</dd>
+              </div>
+            </div>
+          </section>
+
+          <!-- Line items -->
+          <section class="card">
+            <div class="card-header"><h3>Line items <span class="t-muted t-body-sm" style="font-weight:400;">(2)</span></h3></div>
+            <table class="table" style="margin:-4px;">
+              <thead>
+                <tr><th style="width:32px;">#</th><th>Description</th><th>SKU</th><th>Qty × Unit</th><th>Tax</th><th class="actions-cell">Line total</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono t-muted">01</td>
+                  <td>MS Steel Rod, 12mm dia, 6m length</td>
+                  <td class="mono">STL-12-6M</td>
+                  <td class="mono">500 EA × 850.00</td>
+                  <td class="mono">18.00%</td>
+                  <td class="mono actions-cell">INR 501,500.00</td>
+                </tr>
+                <tr>
+                  <td class="mono t-muted">02</td>
+                  <td>MS Steel Rod, 16mm dia, 6m length</td>
+                  <td class="mono">STL-16-6M</td>
+                  <td class="mono">250 EA × 1,250.00</td>
+                  <td class="mono">18.00%</td>
+                  <td class="mono actions-cell">INR 368,750.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Delivery -->
+          <section class="card">
+            <div class="card-header"><h3>Delivery</h3></div>
+            <div class="dl">
+              <dt>Deliver to</dt><dd>Warehouse 3, MIDC Industrial Area, Pune, Maharashtra 411019, IN</dd>
+              <dt>Expected</dt><dd class="mono">2026-06-15</dd>
+              <dt>Actual</dt><dd class="t-muted">— pending fulfilment —</dd>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right rail: totals + timeline -->
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>Totals</h3></div>
+            <div class="dl">
+              <dt>Subtotal</dt><dd class="mono">INR 870,250.00</dd>
+              <dt>Tax</dt><dd class="mono">INR 156,645.00</dd>
+              <dt style="color:var(--on-surface);font-weight:600;">Total</dt>
+              <dd class="mono" style="font-size:20px;font-weight:700;color:var(--accent);">INR 1,026,895.00</dd>
+            </div>
+            <div class="divider"></div>
+            <div class="alert info">
+              <div>
+                <div class="alert-title">Awaiting approver</div>
+                <div class="alert-body">Exceeds the auto-approval threshold of <span class="t-mono">INR 100,000</span>. An approver with limit ≥ total must act.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Audit timeline</h3></div>
+            <div class="timeline">
+              <div class="tl-item done">
+                <div class="tl-when">2026-05-12 · 10:30</div>
+                <div class="tl-what">Created</div>
+                <div class="tl-by">by Priya R.</div>
+              </div>
+              <div class="tl-item done">
+                <div class="tl-when">2026-05-12 · 10:42</div>
+                <div class="tl-what">Lines added (2)</div>
+                <div class="tl-by">by Priya R.</div>
+              </div>
+              <div class="tl-item active">
+                <div class="tl-when">2026-05-12 · 11:08</div>
+                <div class="tl-what">Submitted for approval</div>
+                <div class="tl-by">by Priya R.</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-when">—</div>
+                <div class="tl-what t-muted">Approved</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-when">—</div>
+                <div class="tl-what t-muted">Fulfilled</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-when">—</div>
+                <div class="tl-what t-muted">Closed</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- state: REJECTED variant (commented)
+          <section class="card">
+            <div class="alert error">
+              <div>
+                <div class="alert-title">Rejected by Suresh K.</div>
+                <div class="alert-body">"Line 2 unit price appears 30% higher than market. Please confirm with supplier and resubmit with updated pricing or attach a quote justifying the rate."</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px;">
+              <button class="btn btn-secondary btn-block">Revise (→ Draft)</button>
+            </div>
+          </section>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S21</div>
+</body>
+</html>

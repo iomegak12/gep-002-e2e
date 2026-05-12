@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S24 — PO Action Modals — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  .modal-gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:var(--widget-gap); padding:var(--container-padding); max-width:1200px; margin:0 auto; }
+  .modal-gallery .modal { position:static; max-width:none; }
+  .modal-gallery .label { color:var(--on-surface-muted); font-size:var(--fs-body-sm); margin-bottom:8px; }
+</style>
+</head>
+<body>
+<!--
+  Screen: S24 PO Action Modals. One mock page shows all four confirmation modals side by side.
+  Endpoints:
+    POST /purchase-orders/{id}/submit    (no body) — Buyer
+    POST /purchase-orders/{id}/cancel    ({reason?}) — Buyer
+    POST /purchase-orders/{id}/fulfill   ({actual_delivery_date}) — Buyer
+    POST /purchase-orders/{id}/close     (no body) — Buyer or Approver
+-->
+
+<div class="content" style="padding-top:var(--space-6);">
+  <div class="page-header">
+    <div>
+      <h1 style="font-size:24px;line-height:28px;">PO action — confirmation modals</h1>
+      <div class="lede">Triggered from S21 PO Detail. Only legal transitions for the current PO status and the user's role are shown.</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-gallery">
+
+  <!-- Submit -->
+  <div>
+    <div class="label">From <strong>Draft</strong> → <strong>Submitted</strong> (or Approved if auto-approval)</div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Submit for approval</h2>
+        <p>You're submitting <span class="t-mono">PO-2026-00042</span> to Acme Industrial. Once submitted you can't edit line items unless it's rejected.</p>
+      </div>
+      <div class="dl">
+        <dt>Total</dt><dd class="mono" style="color:var(--accent);font-weight:700;">INR 1,026,895.00</dd>
+        <dt>Routing</dt><dd>Approver — total exceeds threshold</dd>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel -->
+  <div>
+    <div class="label">From <strong>Draft / Approved</strong> → <strong>Cancelled</strong> (terminal)</div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Cancel purchase order</h2>
+        <p>Mark <span class="t-mono">PO-2026-00042</span> as cancelled. The supplier and your finance team should be informed out-of-band.</p>
+      </div>
+      <div class="field">
+        <label>Reason (optional)</label>
+        <textarea class="textarea" placeholder="e.g. Buyer error; duplicate of PO-2026-00031"></textarea>
+      </div>
+      <div class="alert warning">
+        <div>
+          <div class="alert-title">This action is terminal</div>
+          <div class="alert-body">A cancelled PO cannot be reopened. Create a new PO if needed.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Keep PO</button>
+        <button class="btn btn-danger">Cancel PO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fulfill -->
+  <div>
+    <div class="label">From <strong>Approved</strong> → <strong>Fulfilled</strong></div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Mark as fulfilled</h2>
+        <p>Confirm goods or services for <span class="t-mono">PO-2026-00042</span> were received. This stops the open-PO clock for delivery-time metrics.</p>
+      </div>
+      <div class="field">
+        <label>Actual delivery date <span class="req">*</span></label>
+        <input class="input" value="2026-06-12">
+        <span class="help">Must be on or before today. Used to compute on-time delivery rate on the supplier scorecard.</span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Mark fulfilled</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Close -->
+  <div>
+    <div class="label">From <strong>Fulfilled</strong> → <strong>Closed</strong> (terminal)</div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Close purchase order</h2>
+        <p>Confirm that the invoice has been matched and reconciled. The PO will move to <strong>Closed</strong> and drop off active lists.</p>
+      </div>
+      <div class="dl">
+        <dt>Fulfilled on</dt><dd class="mono">2026-06-12</dd>
+        <dt>Total</dt><dd class="mono">INR 1,026,895.00</dd>
+        <dt>Invoice matched</dt><dd><span class="pill success no-dot">Yes — confirmed by finance</span></dd>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Close PO</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mock-banner">Mock · S24</div>
+</body>
+</html>

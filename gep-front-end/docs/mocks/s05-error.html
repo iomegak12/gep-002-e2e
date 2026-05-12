@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S05 — Generic Error — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S05 Generic / 500 / Unhandled.
+  Triggered by 5xx that bubbles past page-level handlers.
+-->
+<div class="centered-screen">
+  <div style="text-align:center; max-width:520px;">
+    <div style="width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:28px;">!</div>
+    <h1 class="t-headline" style="margin:0 0 8px;">Something went wrong on our side</h1>
+    <p class="t-muted t-body" style="margin:0 0 24px;">We hit an unexpected error. Your work hasn't been lost — try again in a moment. If the issue persists, share the reference ID below with support.</p>
+    <div style="display:flex; gap:8px; justify-content:center;">
+      <a class="btn btn-secondary" href="#">Go back</a>
+      <a class="btn btn-primary" href="#">Try again</a>
+    </div>
+    <div class="t-body-sm t-subtle" style="margin-top:32px;">
+      Reference ID
+      <span class="t-mono" style="background:var(--surface-card);border:1px solid var(--border-card);padding:2px 8px;border-radius:var(--radius-pill);margin-left:6px;">req_1f9d4a07-3c52</span>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S05 / 500</div>
+</body>
+</html>

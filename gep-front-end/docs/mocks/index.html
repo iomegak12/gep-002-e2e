@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order Oasis — Dark-mode Mocks Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  .index-wrap { max-width: 1200px; margin: 0 auto; padding: var(--space-8) var(--container-padding); }
+  .index-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--widget-gap); margin-top: var(--space-4); }
+  .index-card { display:flex; flex-direction:column; gap:6px; }
+  .index-card .sid { font-family:var(--font-mono); font-size:11px; letter-spacing:0.05em; color:var(--accent); font-weight:700; text-transform:uppercase; }
+  .index-card .title { font-size:var(--fs-title-sm); font-weight:600; color:var(--on-surface); }
+  .index-card .desc { color:var(--on-surface-muted); font-size:var(--fs-body-sm); flex:1; }
+  .index-card a.open {
+    margin-top: 8px;
+    align-self: flex-start;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-body-sm);
+    font-weight: 600;
+  }
+  .index-section-title {
+    color: var(--on-surface-muted);
+    font-size: var(--fs-label-caps);
+    letter-spacing: var(--ls-label-caps);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .index-section-title .count {
+    color: var(--on-surface-subtle);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: var(--fs-body-sm);
+  }
+</style>
+</head>
+<body>
+
+<div class="index-wrap">
+  <div class="page-header">
+    <div>
+      <h1>Order Oasis — Dark-mode Mocks</h1>
+      <div class="lede">Complete set of dark-mode UI mocks for the 26 screens of the application. All share one visual language: warm-dark canvas + amber accent, Roboto typography, 4 px spacing rhythm — per the reference screenshot and <span class="t-mono">order_oasis/DESIGN.md</span>.</div>
+    </div>
+  </div>
+
+  <div class="alert info" style="margin-top:var(--space-6);">
+    <div>
+      <div class="alert-title">How to read these mocks</div>
+      <div class="alert-body">No JavaScript. State variants (loading, empty, error, success, role-gated) appear as HTML comments inline. Numbers, IDs and names are realistic-but-mock — they are not wired to any backend.</div>
+    </div>
+  </div>
+
+  <div class="index-section-title">
+    <span>Auth &amp; system</span>
+    <span class="count">5 mocks · S01–S05</span>
+  </div>
+  <div class="index-grid">
+    <div class="card index-card">
+      <span class="sid">S01</span>
+      <span class="title">Login</span>
+      <span class="desc">Two-column layout with brand stats on the left and sign-in form on the right.</span>
+      <a class="open" href="s01-login.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S02</span>
+      <span class="title">Admin reset password</span>
+      <span class="desc">Modal an admin uses to set a new password for another user.</span>
+      <a class="open" href="s02-reset-password.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S03</span>
+      <span class="title">My profile · Change password</span>
+      <span class="desc">Self-service profile and password change.</span>
+      <a class="open" href="s03-change-password.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S05 · 404</span>
+      <span class="title">Not Found</span>
+      <span class="desc">Fallback for invalid URLs or deleted records.</span>
+      <a class="open" href="s05-not-found.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S05 · 403</span>
+      <span class="title">Forbidden</span>
+      <span class="desc">Fallback for INSUFFICIENT_ROLE or full-page denial.</span>
+      <a class="open" href="s05-forbidden.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S05 · 500</span>
+      <span class="title">Generic error</span>
+      <span class="desc">Unhandled error with correlation-id chip for support.</span>
+      <a class="open" href="s05-error.html">Open mock →</a>
+    </div>
+  </div>
+
+  <div class="index-section-title">
+    <span>Suppliers</span>
+    <span class="count">6 mocks · S10–S14, S41, S54</span>
+  </div>
+  <div class="index-grid">
+    <div class="card index-card">
+      <span class="sid">S10</span>
+      <span class="title">Supplier directory</span>
+      <span class="desc">Paginated list with filters, KPIs, and row drill-through.</span>
+      <a class="open" href="s10-supplier-directory.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S11</span>
+      <span class="title">Supplier detail + scorecard</span>
+      <span class="desc">Full record, identity/contact/terms, scorecard rail with 6-month trend.</span>
+      <a class="open" href="s11-supplier-detail.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S12 / S13</span>
+      <span class="title">Create / Edit supplier</span>
+      <span class="desc">Full multi-section onboarding form. Lands in Pending approval.</span>
+      <a class="open" href="s12-create-supplier.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S14</span>
+      <span class="title">Supplier status modals</span>
+      <span class="desc">Approve · Deactivate · Reactivate · Blacklist (admin).</span>
+      <a class="open" href="s14-supplier-status-modals.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S41</span>
+      <span class="title">Supplier aggregations</span>
+      <span class="desc">By category, country, status, and top-rated dashboard.</span>
+      <a class="open" href="s41-supplier-aggregations.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S54</span>
+      <span class="title">Pending supplier approvals</span>
+      <span class="desc">Admin worklist with inline approve / blacklist.</span>
+      <a class="open" href="s54-pending-supplier-approvals.html">Open mock →</a>
+    </div>
+  </div>
+
+  <div class="index-section-title">
+    <span>Purchase orders</span>
+    <span class="count">8 mocks · S20–S24, S30–S32</span>
+  </div>
+  <div class="index-grid">
+    <div class="card index-card">
+      <span class="sid">S20</span>
+      <span class="title">PO list</span>
+      <span class="desc">My POs vs All POs scope toggle, dense table, KPI strip.</span>
+      <a class="open" href="s20-po-list.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S21</span>
+      <span class="title">PO detail (Buyer)</span>
+      <span class="desc">Header, line items, status timeline, audit history.</span>
+      <a class="open" href="s21-po-detail-buyer.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S22 · step 1</span>
+      <span class="title">Create PO — Supplier</span>
+      <span class="desc">Typeahead + preview rail; blocks inactive suppliers.</span>
+      <a class="open" href="s22-create-po-step-1.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S22 · step 2</span>
+      <span class="title">Create PO — Line items</span>
+      <span class="desc">Dense editable table with live totals.</span>
+      <a class="open" href="s22-create-po-step-2.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S22 · step 3</span>
+      <span class="title">Create PO — Delivery &amp; terms</span>
+      <span class="desc">Delivery address, expected date, payment terms.</span>
+      <a class="open" href="s22-create-po-step-3.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S22 · step 4</span>
+      <span class="title">Create PO — Review &amp; submit</span>
+      <span class="desc">Read-only summary; Save draft vs Submit choice.</span>
+      <a class="open" href="s22-create-po-step-4.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S24</span>
+      <span class="title">PO action modals</span>
+      <span class="desc">Submit · Cancel · Fulfill · Close confirmations.</span>
+      <a class="open" href="s24-po-action-modals.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S30</span>
+      <span class="title">Approval queue</span>
+      <span class="desc">Approver worklist with bulk select and sticky action bar.</span>
+      <a class="open" href="s30-approval-queue.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S31</span>
+      <span class="title">PO detail (Approver)</span>
+      <span class="desc">Decision view with Approve / Reject primary actions.</span>
+      <a class="open" href="s31-po-detail-approver.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S32</span>
+      <span class="title">Reject PO modal</span>
+      <span class="desc">Approver rejection with required reason.</span>
+      <a class="open" href="s32-reject-po-modal.html">Open mock →</a>
+    </div>
+  </div>
+
+  <div class="index-section-title">
+    <span>Analytics</span>
+    <span class="count">2 mocks · S40, S42</span>
+  </div>
+  <div class="index-grid">
+    <div class="card index-card">
+      <span class="sid">S40</span>
+      <span class="title">Spend analytics dashboard</span>
+      <span class="desc">Default landing. Monthly trend, top suppliers donut, spend by category.</span>
+      <a class="open" href="s40-spend-analytics.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S42</span>
+      <span class="title">Operations · cycle &amp; pending</span>
+      <span class="desc">Cycle time by category, pending POs, throughput trend.</span>
+      <a class="open" href="s42-operations.html">Open mock →</a>
+    </div>
+  </div>
+
+  <div class="index-section-title">
+    <span>Admin</span>
+    <span class="count">3 mocks · S50–S53</span>
+  </div>
+  <div class="index-grid">
+    <div class="card index-card">
+      <span class="sid">S50</span>
+      <span class="title">User management list</span>
+      <span class="desc">Searchable user directory with roles and approval limits.</span>
+      <a class="open" href="s50-user-management.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S51 / S52</span>
+      <span class="title">Create / Edit user</span>
+      <span class="desc">Profile + role selector + dynamic approval_limit field.</span>
+      <a class="open" href="s51-create-user.html">Open mock →</a>
+    </div>
+    <div class="card index-card">
+      <span class="sid">S52 + S53</span>
+      <span class="title">Edit user · Reset password modal</span>
+      <span class="desc">User profile form with the reset-password modal open on top.</span>
+      <a class="open" href="s52-edit-user-with-reset-password-modal.html">Open mock →</a>
+    </div>
+  </div>
+
+  <div class="index-section-title">
+    <span>For reviewers</span>
+    <span class="count"></span>
+  </div>
+  <p class="t-muted t-body" style="max-width:780px;">
+    The original design-team folder (12 inconsistent dark mocks + light-only screens) has been archived to <span class="t-mono">archives/stitch_order_oasis_ui_design/</span>. The optional regeneration-prompt pack — kept for reference in case the originals are revived — lives at <a class="t-accent" href="../UI_Regeneration_Prompts.md">../UI_Regeneration_Prompts.md</a>. This <span class="t-mono">mocks/</span> folder is the canonical visual reference going forward.
+  </p>
+</div>
+
+</body>
+</html>

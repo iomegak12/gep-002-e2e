@@ -1,0 +1,105 @@
+/* Order Oasis — design tokens (dark mode)
+   Palette: warm near-black + gold/amber accent (per reference screenshot).
+   Typography & spacing: per order_oasis/DESIGN.md.
+*/
+
+:root {
+  /* Canvas & surfaces */
+  --bg-canvas-1: #0F1115;
+  --bg-canvas-2: #14171C;
+  --bg-canvas-gradient: radial-gradient(120% 100% at 0% 0%, #14171C 0%, #0F1115 60%, #0B0D11 100%);
+
+  --surface-card: #1A1D23;
+  --surface-card-hover: #22262D;
+  --surface-card-elevated: #1F232A;
+  --surface-input: #14171C;
+  --surface-input-focus: #1A1D23;
+
+  --border-card: #262A30;
+  --border-card-strong: #3A3F47;
+  --border-input: #2E323A;
+  --border-input-focus: #E8B14C;
+
+  /* Accent (amber/gold) */
+  --accent: #E8B14C;
+  --accent-strong: #FFC36E;
+  --accent-soft: rgba(232, 177, 76, 0.18);
+  --accent-softer: rgba(232, 177, 76, 0.08);
+  --on-accent: #1A1308;
+
+  /* Typography colors */
+  --on-surface: #F4F0E8;
+  --on-surface-muted: #8E94A0;
+  --on-surface-subtle: #5C6068;
+
+  /* Status (semantic) */
+  --status-success: #5CC689;
+  --status-success-soft: rgba(92, 198, 137, 0.18);
+  --status-error: #EA5B5B;
+  --status-error-soft: rgba(234, 91, 91, 0.18);
+  --status-warning: #E8B14C;
+  --status-warning-soft: rgba(232, 177, 76, 0.18);
+  --status-info: #6FA9F6;
+  --status-info-soft: rgba(111, 169, 246, 0.18);
+  --status-neutral: #8E94A0;
+  --status-neutral-soft: rgba(142, 148, 160, 0.18);
+
+  /* Shadows (soft ambient — DESIGN.md elevation rules) */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-modal: 0 24px 48px rgba(0, 0, 0, 0.55);
+  --shadow-focus-ring: 0 0 0 2px rgba(232, 177, 76, 0.35);
+
+  /* Typography (DESIGN.md) */
+  --font-ui: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Roboto Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --fs-display-lg: 32px;
+  --lh-display-lg: 40px;
+  --ls-display-lg: -0.02em;
+
+  --fs-headline-md: 20px;
+  --lh-headline-md: 28px;
+
+  --fs-title-sm: 15px;
+  --lh-title-sm: 20px;
+
+  --fs-body-base: 13px;
+  --lh-body-base: 18px;
+
+  --fs-body-sm: 12px;
+  --lh-body-sm: 16px;
+
+  --fs-label-caps: 11px;
+  --lh-label-caps: 16px;
+  --ls-label-caps: 0.05em;
+
+  --fs-data-mono: 13px;
+  --lh-data-mono: 18px;
+
+  /* Spacing (4px baseline) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --container-padding: 24px;
+  --widget-gap: 16px;
+  --table-cell-padding: 8px 12px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 64px;
+  --topbar-height: 56px;
+}

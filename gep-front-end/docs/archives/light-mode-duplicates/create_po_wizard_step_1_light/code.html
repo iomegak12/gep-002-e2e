@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create PO - Order Oasis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#dce9ff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#bcc9c6",
+                        "secondary-container": "#7bc2ff",
+                        "tertiary-fixed": "#ffdbce",
+                        "primary-container": "#008378",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#004b74",
+                        "secondary": "#006399",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-container": "#f4fffc",
+                        "on-surface": "#0b1c30",
+                        "primary": "#00685f",
+                        "on-surface-variant": "#3d4947",
+                        "secondary-fixed-dim": "#94ccff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "inverse-surface": "#213145",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed": "#cde5ff",
+                        "background": "#f8f9ff",
+                        "on-tertiary-fixed": "#370e00",
+                        "outline": "#6d7a77",
+                        "tertiary": "#924628",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#b05e3d",
+                        "on-background": "#0b1c30",
+                        "on-secondary-container": "#004f7b",
+                        "on-secondary-fixed": "#001d32",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#89f5e7",
+                        "surface-dim": "#cbdbf5",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "inverse-primary": "#6bd8cb",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#005049"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "base": "4px",
+                        "sidebar-width": "240px",
+                        "table-cell-padding": "8px 12px",
+                        "widget-gap": "16px",
+                        "sidebar-collapsed": "64px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Roboto Mono"],
+                        "headline-md": ["Roboto"],
+                        "body-sm": ["Roboto"],
+                        "body-base": ["Roboto"],
+                        "label-caps": ["Roboto"],
+                        "display-lg": ["Roboto"],
+                        "title-sm": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-base": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-sm": ["15px", {"lineHeight": "20px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Roboto', sans-serif; background-color: #f8f9ff; color: #0b1c30; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Form inputs styling */
+        .form-input:focus { border-color: #00685f; box-shadow: 0 0 0 1px #00685f; }
+    </style>
+</head>
+<body class="bg-background dark:bg-background antialiased text-on-background font-body-base">
+<!-- App Shell Container -->
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-base bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline docked full-height left-0 w-sidebar-collapsed z-20">
+<!-- Brand -->
+<div class="flex items-center justify-center h-16 w-full mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold text-xl" data-alt="A minimalist logo for Order Oasis featuring an abstract geometric shape representing a box or package in stark white against a deep teal background, conveying a sense of organized supply chain management in a modern, clean design aesthetic.">O</div>
+</div>
+<!-- Tabs -->
+<div class="flex-1 flex flex-col items-center gap-y-2">
+<a class="w-12 h-12 flex items-center justify-center rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group relative" href="#" title="Dashboard">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group relative" href="#" title="Suppliers">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+</a>
+<!-- Active Tab: Orders -->
+<a class="w-12 h-12 flex items-center justify-center rounded-lg text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-surface-container-highest transition-all duration-200 ease-in-out group relative" href="#" title="Orders">
+<span class="material-symbols-outlined fill" data-icon="shopping_cart">shopping_cart</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group relative" href="#" title="Approvals">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out group relative" href="#" title="Users">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</a>
+</div>
+<!-- Footer -->
+<div class="mt-auto flex flex-col items-center pb-4">
+<a class="w-12 h-12 flex items-center justify-center rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out" href="#" title="Settings">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col ml-sidebar-collapsed w-[calc(100%-spacing.sidebar-collapsed)] relative">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-container-padding docked full-width top-0 h-16 bg-background dark:bg-background z-10 sticky">
+<!-- Breadcrumbs / Title -->
+<div class="flex items-center gap-2">
+<a class="text-on-surface-variant hover:text-primary font-body-base flex items-center" href="#">
+<span class="material-symbols-outlined text-[18px] mr-1">arrow_back</span>
+                        Back to Orders
+                    </a>
+<span class="text-outline-variant">/</span>
+<h1 class="text-on-surface font-headline-md text-headline-md font-semibold">Create Purchase Order</h1>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-body-base font-medium hover:bg-surface-tint transition-colors flex items-center gap-2">
+<span>Save Draft</span>
+</button>
+<div class="w-9 h-9 rounded-full bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer ml-2">
+<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDd58Qu-LTpbJTk_sSi8R1K9MFkkLo5uwgpYdhaBUKcDLNtaANErFJKQXPzQwJCk-hOf2BTBDPH0-4gttPNGcaTgbhljhzzpXdtaojOdwTZqA9ptEHFhzNlZAEVhFza2RPs4ZK0lAaLnejYqylzkzEGAd-j-gAqqeNukJ42Dvhjn2Pl_9g04_VSwQiJ2wT8xwMWzSsWLGBRPw-L9C6sZJNmoHfXIn0UaxKlSZBS7fSfaF_d8fo0BUTlzdkE_7IzjdHYmYEnwqbb3cx"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-container-padding bg-surface-bright pb-24">
+<div class="max-w-4xl mx-auto">
+<!-- Progress Stepper -->
+<div class="mb-8">
+<div class="flex items-center justify-between relative">
+<!-- Line connecting steps -->
+<div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-[2px] bg-outline-variant z-0"></div>
+<div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-[15%] h-[2px] bg-primary z-0"></div>
+<!-- Step 1: Active -->
+<div class="relative z-10 flex flex-col items-center bg-surface-bright px-2">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-title-sm mb-2 ring-4 ring-surface-bright">
+                                    1
+                                </div>
+<span class="font-title-sm text-primary">Supplier</span>
+</div>
+<!-- Step 2: Pending -->
+<div class="relative z-10 flex flex-col items-center bg-surface-bright px-2">
+<div class="w-8 h-8 rounded-full bg-surface text-outline border border-outline-variant flex items-center justify-center font-title-sm mb-2 ring-4 ring-surface-bright">
+                                    2
+                                </div>
+<span class="font-body-sm text-on-surface-variant">Details</span>
+</div>
+<!-- Step 3: Pending -->
+<div class="relative z-10 flex flex-col items-center bg-surface-bright px-2">
+<div class="w-8 h-8 rounded-full bg-surface text-outline border border-outline-variant flex items-center justify-center font-title-sm mb-2 ring-4 ring-surface-bright">
+                                    3
+                                </div>
+<span class="font-body-sm text-on-surface-variant">Line Items</span>
+</div>
+<!-- Step 4: Pending -->
+<div class="relative z-10 flex flex-col items-center bg-surface-bright px-2">
+<div class="w-8 h-8 rounded-full bg-surface text-outline border border-outline-variant flex items-center justify-center font-title-sm mb-2 ring-4 ring-surface-bright">
+                                    4
+                                </div>
+<span class="font-body-sm text-on-surface-variant">Review</span>
+</div>
+</div>
+</div>
+<!-- Step Content Container -->
+<div class="bg-surface rounded-xl border border-outline-variant shadow-sm p-8">
+<div class="mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Select a Supplier</h2>
+<p class="font-body-base text-on-surface-variant">Search and select the vendor for this purchase order. Only active suppliers can be selected.</p>
+</div>
+<!-- Type-ahead Search -->
+<div class="relative mb-8 max-w-2xl">
+<label class="sr-only" for="supplier-search">Search suppliers</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-outline">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="form-input block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg leading-5 bg-surface placeholder-outline-variant focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm font-body-base transition-colors" id="supplier-search" placeholder="Type supplier name, code, or category..." type="text" value="Acme Corp"/>
+<!-- Clear button (simulated) -->
+<button class="absolute inset-y-0 right-0 flex items-center pr-3 text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Search Dropdown (Hidden for this state, showing selected) -->
+<!--
+                            <div class="absolute z-10 w-full mt-1 bg-surface border border-outline-variant rounded-md shadow-lg">
+                                <ul class="max-h-60 rounded-md py-1 text-base leading-6 overflow-auto focus:outline-none sm:text-sm sm:leading-5">
+                                    <li class="text-on-surface cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-surface-container-low">
+                                        <div class="flex justify-between">
+                                            <span class="font-medium block truncate">Acme Corp</span>
+                                            <span class="text-outline-variant text-sm">SUP-0012</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            -->
+</div>
+<!-- Selected Supplier Preview Card -->
+<div class="max-w-2xl border border-outline-variant rounded-lg p-6 bg-surface-bright relative">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-title-sm text-title-sm text-on-surface">Acme Corporation</h3>
+<span class="bg-surface-container-high text-primary px-2 py-0.5 rounded text-[11px] font-medium uppercase tracking-wider">Active</span>
+</div>
+<p class="font-data-mono text-data-mono text-outline-variant">SUP-0012 • Industrial Supplies</p>
+</div>
+<button class="text-primary hover:text-surface-tint font-body-sm font-medium">Change</button>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant/50">
+<div>
+<p class="font-body-sm text-outline-variant mb-1">Primary Contact</p>
+<p class="font-body-base text-on-surface">Jane Doe<br/><a class="text-secondary hover:underline" href="mailto:jane@acmecorp.com">jane@acmecorp.com</a></p>
+</div>
+<div>
+<p class="font-body-sm text-outline-variant mb-1">Location</p>
+<p class="font-body-base text-on-surface">123 Industrial Pkwy<br/>Chicago, IL 60601, USA</p>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 text-on-surface-variant bg-surface-container-low p-3 rounded text-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">info</span>
+<span class="font-body-sm">Supplier performance score is 92/100. Standard payment terms: Net 30.</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-10 flex justify-end gap-4 border-t border-outline-variant pt-6">
+<button class="px-6 py-2 border border-outline-variant text-on-surface font-title-sm rounded hover:bg-surface-container-low transition-colors">
+                                Cancel
+                            </button>
+<button class="px-6 py-2 bg-primary text-on-primary font-title-sm rounded hover:bg-surface-tint transition-colors shadow-sm flex items-center gap-2">
+                                Next Step
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

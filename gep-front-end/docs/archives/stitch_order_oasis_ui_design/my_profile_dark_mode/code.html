@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Oasis - User Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#924628",
+                      "surface-dim": "#cbdbf5",
+                      "surface-variant": "#d3e4fe",
+                      "on-tertiary-fixed-variant": "#773215",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#89f5e7",
+                      "primary-container": "#008378",
+                      "inverse-surface": "#213145",
+                      "on-secondary-container": "#004f7b",
+                      "surface-container-highest": "#d3e4fe",
+                      "outline-variant": "#bcc9c6",
+                      "inverse-primary": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "surface-container-low": "#eff4ff",
+                      "on-error-container": "#93000a",
+                      "background": "#f8f9ff",
+                      "on-secondary-fixed-variant": "#004b74",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#94ccff",
+                      "tertiary-fixed-dim": "#ffb59a",
+                      "outline": "#6d7a77",
+                      "on-surface": "#0b1c30",
+                      "surface-container": "#e5eeff",
+                      "on-background": "#0b1c30",
+                      "surface": "#f8f9ff",
+                      "on-tertiary-container": "#fffbff",
+                      "tertiary-container": "#b05e3d",
+                      "surface-bright": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "secondary": "#006399",
+                      "on-primary-fixed-variant": "#005049",
+                      "on-tertiary-fixed": "#370e00",
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#006a61",
+                      "primary": "#00685f",
+                      "on-primary-fixed": "#00201d",
+                      "on-primary-container": "#f4fffc",
+                      "surface-container-high": "#dce9ff",
+                      "on-surface-variant": "#3d4947",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-container": "#7bc2ff",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#001d32",
+                      "secondary-fixed": "#cde5ff",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#ffdbce"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sidebar-collapsed": "64px",
+                      "table-cell-padding": "8px 12px",
+                      "sidebar-width": "240px",
+                      "container-padding": "24px",
+                      "widget-gap": "16px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "title-sm": [
+                              "Roboto"
+                      ],
+                      "data-mono": [
+                              "Roboto Mono"
+                      ],
+                      "label-caps": [
+                              "Roboto"
+                      ],
+                      "headline-md": [
+                              "Roboto"
+                      ],
+                      "display-lg": [
+                              "Roboto"
+                      ],
+                      "body-base": [
+                              "Roboto"
+                      ],
+                      "body-sm": [
+                              "Roboto"
+                      ]
+              },
+              "fontSize": {
+                      "title-sm": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "data-mono": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-base": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background dark:bg-inverse-surface text-on-background dark:text-inverse-on-surface font-body-base text-body-base min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-base bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline docked full-height left-0 w-sidebar-collapsed transition-all duration-200 ease-in-out z-20">
+<div class="flex flex-col items-center flex-grow">
+<!-- Brand Logo -->
+<div class="h-16 flex items-center justify-center w-full mb-8">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim" title="Order Oasis">O</span>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col w-full space-y-4">
+<a class="flex flex-col items-center justify-center py-2 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container group" href="#" title="Dashboard">
+<span class="material-symbols-outlined transition-all duration-200 ease-in-out">dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center py-2 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container group" href="#" title="Suppliers">
+<span class="material-symbols-outlined transition-all duration-200 ease-in-out">inventory_2</span>
+</a>
+<a class="flex flex-col items-center justify-center py-2 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container group" href="#" title="Orders">
+<span class="material-symbols-outlined transition-all duration-200 ease-in-out">shopping_cart</span>
+</a>
+<a class="flex flex-col items-center justify-center py-2 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container group" href="#" title="Approvals">
+<span class="material-symbols-outlined transition-all duration-200 ease-in-out">rule</span>
+</a>
+<a class="flex flex-col items-center justify-center py-2 w-full text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-surface-container-highest group" href="#" title="Users">
+<span class="material-symbols-outlined transition-all duration-200 ease-in-out" style="font-variation-settings: 'FILL' 1;">group</span>
+</a>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="flex flex-col items-center w-full pb-4">
+<a class="flex flex-col items-center justify-center py-2 w-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container group" href="#" title="Settings">
+<span class="material-symbols-outlined transition-all duration-200 ease-in-out">settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 ml-sidebar-collapsed">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-container-padding h-16 bg-background dark:bg-inverse-surface docked full-width top-0 sticky z-10 border-b border-transparent">
+<!-- Search Bar (Left) -->
+<div class="flex-1 flex items-center">
+<!-- Placeholder for exact alignment with JSON "search_bar": "on_left" if implemented as input -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant dark:text-outline-variant text-sm">search</span>
+<input class="w-full bg-surface-container-low dark:bg-surface-container border border-outline-variant dark:border-outline rounded pl-10 pr-4 py-1.5 text-body-sm font-body-sm focus:outline-none focus:border-primary dark:focus:border-primary-fixed-dim text-on-surface dark:text-inverse-on-surface" placeholder="Search..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center space-x-6">
+<!-- Trailing Icon Actions -->
+<div class="flex items-center space-x-4">
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-150">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-150">
+<span class="material-symbols-outlined">description</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-150 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<!-- Primary Action -->
+<button class="bg-primary dark:bg-primary-fixed text-on-primary dark:text-on-primary-fixed px-4 py-1.5 rounded font-title-sm text-title-sm hover:bg-surface-tint transition-colors duration-150">
+                    Create PO
+                </button>
+<!-- Profile Avatar -->
+<div class="h-8 w-8 rounded-full bg-surface-container-high dark:bg-surface-container border border-outline-variant dark:border-outline overflow-hidden flex-shrink-0 cursor-pointer">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate logistics manager. The individual has short dark hair and is wearing a dark blue suit jacket over a light blue collared shirt. The background is a clean, slightly out-of-focus modern office setting with cool, subtle lighting. The image embodies a corporate, professional aesthetic suitable for an enterprise software dashboard in dark mode, maintaining high contrast and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDxJvxcBuPoIEQxbE993JtOPX2dk0zP2bnOBAeTzdHqZDPDMgz4Mw6JG0b3ZzBhK8OkPfan2oIzVxSiELfbAOMuiJYBnFxtpNDM4QitiA56LrvHBXkRcZLZFctpqnGAu6kRclOlwjhJ6ypxSApHoIUvg1VgnVh5CxjX-SxbNAoJCvkP5OYIrobLArFG7cyiXBc3XBSe3yxRC4S0PehVnDMrW1hr3M-cshbBu81p1BoRkBGDat3ZaHibs7sLPt-tp_T5_wcO6JavoTA"/>
+</div>
+</div>
+</header>
+<!-- Page ContentCanvas -->
+<main class="flex-1 p-container-padding overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-6">
+<!-- Page Title -->
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface dark:text-inverse-on-surface">My Profile</h1>
+<p class="font-body-base text-body-base text-on-surface-variant dark:text-outline-variant mt-1">Manage your personal information and system preferences.</p>
+</div>
+<!-- Profile Header Card -->
+<div class="bg-surface dark:bg-[#1a2636] border border-outline-variant dark:border-[#334155] rounded-lg p-6 shadow-sm flex items-center space-x-6">
+<div class="h-24 w-24 rounded-full bg-surface-container dark:bg-surface-container-highest border-2 border-primary dark:border-primary-fixed-dim overflow-hidden flex-shrink-0">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate logistics manager. The individual has short dark hair and is wearing a dark blue suit jacket over a light blue collared shirt. The background is a clean, slightly out-of-focus modern office setting with cool, subtle lighting. The image embodies a corporate, professional aesthetic suitable for an enterprise software dashboard in dark mode, maintaining high contrast and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBIVuJ_3VrfPbC5sVvu60CsgtazdiuBDrBA2ClxGRLAl48Yw4Q-wP3YbYMaJP8f5qglaktiUuuGGuyBzn6Yw2Nwi5T27CrbJT12TgWD4U9C88W75UiNwbSNycsqvnzDX1HGlHq8N-Q88TpgVrzkVfBei4lNmZqDVIEEK-YHqsDt4d22j8suw0LWJ7W3T-ce2bEaYjQpZArmkc3EoHSh-nciwxtsRjQ5ozSxX5sXL9d5cCPs3lFqJVwnmw9_7Nowj1ahchivpUexMCp"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface dark:text-inverse-on-surface">Alex Mercer</h2>
+<p class="font-body-base text-body-base text-on-surface-variant dark:text-outline-variant flex items-center mt-1">
+<span class="material-symbols-outlined text-sm mr-1">business_center</span>
+                            Senior Procurement Officer
+                        </p>
+<div class="mt-3">
+<button class="bg-transparent border border-outline dark:border-outline-variant text-on-surface dark:text-inverse-on-surface px-3 py-1 rounded font-body-sm text-body-sm hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors">
+                                Update Photo
+                            </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Left Column: Personal Info & Role -->
+<div class="md:col-span-8 space-y-6">
+<!-- Personal Information -->
+<div class="bg-surface dark:bg-[#1a2636] border border-outline-variant dark:border-[#334155] rounded-lg shadow-sm">
+<div class="border-b border-outline-variant dark:border-[#334155] px-6 py-4 flex justify-between items-center">
+<h3 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface flex items-center">
+<span class="material-symbols-outlined mr-2 text-primary dark:text-primary-fixed-dim">person</span>
+                                    Personal Information
+                                </h3>
+<button class="text-secondary dark:text-secondary-fixed-dim font-body-sm text-body-sm hover:underline">Edit</button>
+</div>
+<div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant mb-1 uppercase">Full Name</label>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface bg-surface-container-low dark:bg-surface-container px-3 py-2 rounded border border-transparent">Alex Mercer</p>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant mb-1 uppercase">Email Address</label>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface bg-surface-container-low dark:bg-surface-container px-3 py-2 rounded border border-transparent">a.mercer@orderoasis.com</p>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant mb-1 uppercase">Phone Number</label>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface bg-surface-container-low dark:bg-surface-container px-3 py-2 rounded border border-transparent">+1 (555) 019-2834</p>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant mb-1 uppercase">Location / Site</label>
+<p class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface bg-surface-container-low dark:bg-surface-container px-3 py-2 rounded border border-transparent">Global HQ - Seattle</p>
+</div>
+</div>
+</div>
+<!-- System Role & Limits -->
+<div class="bg-surface dark:bg-[#1a2636] border border-outline-variant dark:border-[#334155] rounded-lg shadow-sm">
+<div class="border-b border-outline-variant dark:border-[#334155] px-6 py-4">
+<h3 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface flex items-center">
+<span class="material-symbols-outlined mr-2 text-primary dark:text-primary-fixed-dim">verified_user</span>
+                                    System Role &amp; Authorizations
+                                </h3>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container-low dark:bg-surface-container rounded border border-outline-variant dark:border-transparent">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase mb-0.5">Primary Role</p>
+<p class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Level 3 Procurement Admin</p>
+</div>
+<span class="px-2 py-1 bg-primary-container text-on-primary-container dark:bg-[#005049] dark:text-[#89f5e7] rounded text-xs font-data-mono">Active</span>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div class="p-3 border border-outline-variant dark:border-[#334155] rounded">
+<p class="font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase mb-1">PO Approval Limit</p>
+<p class="font-data-mono text-data-mono text-on-surface dark:text-inverse-on-surface text-lg">$250,000.00 <span class="text-body-sm text-outline dark:text-outline-variant">USD</span></p>
+</div>
+<div class="p-3 border border-outline-variant dark:border-[#334155] rounded">
+<p class="font-label-caps text-label-caps text-on-surface-variant dark:text-outline-variant uppercase mb-1">Data Access Level</p>
+<p class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Global Tier A</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Settings -->
+<div class="md:col-span-4 space-y-6">
+<!-- Account Settings -->
+<div class="bg-surface dark:bg-[#1a2636] border border-outline-variant dark:border-[#334155] rounded-lg shadow-sm">
+<div class="border-b border-outline-variant dark:border-[#334155] px-6 py-4">
+<h3 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface flex items-center">
+<span class="material-symbols-outlined mr-2 text-primary dark:text-primary-fixed-dim">manage_accounts</span>
+                                    Account Settings
+                                </h3>
+</div>
+<div class="p-6 space-y-6">
+<!-- Password -->
+<div>
+<p class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface mb-1">Security</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant mb-3">Last password change: 45 days ago</p>
+<button class="w-full text-center bg-transparent border border-secondary dark:border-secondary-fixed-dim text-secondary dark:text-secondary-fixed-dim px-4 py-2 rounded font-body-base text-body-base hover:bg-surface-container-low dark:hover:bg-[#003d63] transition-colors">
+                                        Change Password
+                                    </button>
+</div>
+<hr class="border-outline-variant dark:border-[#334155]"/>
+<!-- Notifications -->
+<div>
+<p class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface mb-3">Notification Preferences</p>
+<div class="space-y-3">
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors">Email Alerts for POs</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant dark:bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary dark:peer-checked:bg-primary-fixed-dim"></div>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors">Supplier Updates</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant dark:bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary dark:peer-checked:bg-primary-fixed-dim"></div>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="font-body-base text-body-base text-on-surface dark:text-inverse-on-surface group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors">System Maintenance</span>
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant dark:bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary dark:peer-checked:bg-primary-fixed-dim"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

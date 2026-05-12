@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S32 — Reject PO Modal — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S32 Reject PO modal.
+  Persona: APPROVER.
+  Endpoint: POST /purchase-orders/{id}/reject  body { reason } (required, 10-500 chars).
+  Behind the modal: a dimmed S31 PO Detail (Approver view).
+-->
+
+<div class="app-shell" style="filter: blur(2px) saturate(0.8); opacity:0.55; pointer-events:none;">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item" href="#">▦ Purchase orders</a>
+      <a class="nav-item active" href="#">◴ Approvals <span class="badge">12</span></a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><a class="crumb" href="#">Approvals</a><span class="sep">›</span><span class="crumb active">PO-2026-00042</span></span>
+      <span class="spacer"></span>
+      <div class="user-chip"><span class="avatar">SK</span><span><span class="name">Suresh K.</span><br><span class="role">Approver</span></span></div>
+    </header>
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>PO-2026-00042</h1>
+          <div class="lede">Acme Industrial · INR 1,026,895.00 · submitted 4h ago by Priya R.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal overlay -->
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Reject purchase order</h2>
+      <p>Tell the buyer why this PO is being rejected. The reason will be visible on the PO record and emailed to the buyer.</p>
+    </div>
+
+    <div class="field">
+      <label>Reason for rejection <span class="req">*</span></label>
+      <textarea class="textarea" placeholder="Be specific so the buyer can revise and resubmit.">Line 2 unit price appears 30% higher than market. Please confirm with supplier and resubmit with updated pricing or attach a quote justifying the rate.</textarea>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;">
+        <span class="help">Required. 10–500 characters.</span>
+        <span class="t-subtle t-body-sm">187 / 500</span>
+      </div>
+    </div>
+
+    <!-- state: validation error (commented)
+    <div class="field has-error">
+      <label>Reason for rejection <span class="req">*</span></label>
+      <textarea class="textarea">Too high</textarea>
+      <span class="error-text">Reason must be at least 10 characters.</span>
+    </div>
+    -->
+
+    <div class="alert info">
+      <div>
+        <div class="alert-title">What happens next</div>
+        <div class="alert-body">The PO moves to <strong>Rejected</strong>. The buyer can revise it back to <strong>Draft</strong> and resubmit — your reason will be visible to them.</div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary">Keep reviewing</button>
+      <button class="btn btn-danger">Reject PO</button>
+    </div>
+  </div>
+</div>
+
+<div class="mock-banner">Mock · S32</div>
+</body>
+</html>

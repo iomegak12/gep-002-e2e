@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S01 — Login — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!--
+  Screen: S01 Login.
+  Endpoint: POST /auth/login  body { email, password }.
+  On success: redirect to S40 (or saved destination).
+  Failure mapping: same generic "Email or password is incorrect" regardless of which is wrong.
+-->
+
+<div class="centered-screen">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:880px;width:100%;">
+
+    <!-- Left brand panel -->
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-strong));color:var(--on-accent);display:grid;place-items:center;font-weight:700;font-size:20px;">O</div>
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--on-surface);">Order Oasis</div>
+          <div class="t-label" style="font-size:10px;">SCM PLATFORM</div>
+        </div>
+      </div>
+      <h1 class="t-display" style="margin:0 0 12px;max-width:380px;">Procurement, with the chaos taken out.</h1>
+      <p class="t-muted t-body" style="margin:0;max-width:380px;">Sign in to manage suppliers, raise purchase orders, and track spend — all in one workspace.</p>
+
+      <div style="margin-top:32px;display:flex;gap:24px;">
+        <div>
+          <div class="t-mono" style="font-size:24px;color:var(--accent);font-weight:700;">324</div>
+          <div class="t-label">Suppliers</div>
+        </div>
+        <div>
+          <div class="t-mono" style="font-size:24px;color:var(--accent);font-weight:700;">1.2k</div>
+          <div class="t-label">POs this year</div>
+        </div>
+        <div>
+          <div class="t-mono" style="font-size:24px;color:var(--accent);font-weight:700;">96.4%</div>
+          <div class="t-label">On-time delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right login card -->
+    <div class="card" style="padding:32px;">
+      <div style="margin-bottom:20px;">
+        <h2 class="t-headline" style="margin:0 0 4px;">Sign in</h2>
+        <p class="t-muted t-body-sm" style="margin:0;">Use your work email and password.</p>
+      </div>
+
+      <!-- state: invalid credentials (uncomment to render)
+      <div class="alert error" style="margin-bottom:12px;">
+        <div>
+          <div class="alert-title">Sign-in failed</div>
+          <div class="alert-body">Email or password is incorrect. Try again or contact your administrator.</div>
+        </div>
+      </div>
+      -->
+
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input class="input" type="email" placeholder="you@order-oasis.example" value="priya.r@order-oasis.example">
+      </div>
+
+      <div class="field">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <label style="margin-bottom:0;">Password <span class="req">*</span></label>
+          <a class="t-body-sm t-muted" href="#" style="text-decoration:none;">Forgot password?</a>
+        </div>
+        <input class="input" type="password" placeholder="••••••••" value="••••••••••••">
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin:8px 0 20px;color:var(--on-surface-muted);font-size:var(--fs-body-sm);">
+        <input type="checkbox" id="rm" checked style="accent-color:var(--accent);">
+        <label for="rm" style="margin:0;cursor:pointer;">Keep me signed in on this device</label>
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg">Sign in</button>
+
+      <div class="divider"></div>
+
+      <div class="t-body-sm t-subtle" style="text-align:center;">
+        Trouble signing in? Contact <a href="#" class="t-accent">support@order-oasis.example</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mock-banner">Mock · S01</div>
+</body>
+</html>

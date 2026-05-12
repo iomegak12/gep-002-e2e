@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Oasis - User Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&amp;family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-container": "#b05e3d",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#001d32",
+                        "on-background": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#00201d",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "primary-container": "#008378",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-container": "#004f7b",
+                        "on-secondary-fixed-variant": "#004b74",
+                        "outline": "#6d7a77",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#89f5e7",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#924628",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-container": "#7bc2ff",
+                        "surface-tint": "#006a61",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbce",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-fixed-dim": "#94ccff",
+                        "secondary-fixed": "#cde5ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#006399",
+                        "surface-dim": "#cbdbf5",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "primary": "#00685f",
+                        "inverse-primary": "#6bd8cb",
+                        "on-surface-variant": "#3d4947"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-collapsed": "64px",
+                        "container-padding": "24px",
+                        "sidebar-width": "240px",
+                        "base": "4px",
+                        "widget-gap": "16px",
+                        "table-cell-padding": "8px 12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Roboto"],
+                        "label-caps": ["Roboto"],
+                        "title-sm": ["Roboto"],
+                        "data-mono": ["Roboto Mono"],
+                        "headline-md": ["Roboto"],
+                        "body-sm": ["Roboto"],
+                        "body-base": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "title-sm": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "data-mono": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-base": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background dark:bg-inverse-surface text-on-surface dark:text-inverse-on-surface font-body-base min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 h-16 bg-background dark:bg-background flat no shadows flex items-center justify-between px-container-padding ml-sidebar-collapsed w-[calc(100%-spacing.sidebar-collapsed)] border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<!-- Search placeholder for context, though logic says search_bar: on_left -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant dark:text-outline-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low dark:bg-surface-container border border-outline-variant dark:border-outline rounded focus:border-primary dark:focus:border-primary-fixed-dim focus:ring-1 focus:ring-primary dark:focus:ring-primary-fixed-dim text-body-base text-on-surface dark:text-inverse-on-surface w-64 transition-colors" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">description</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors scale-95 transition-transform duration-150 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<button class="bg-primary dark:bg-primary-fixed-dim text-on-primary dark:text-on-primary-fixed px-4 py-2 rounded font-title-sm text-title-sm hover:opacity-90 transition-opacity">Create PO</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high dark:bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant dark:border-outline">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A close up portrait of a professional individual in a corporate setting. The lighting is soft and flattering, highlighting their features. The background is slightly blurred to focus on the person. The overall tone is professional and approachable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6ul8WdCDqqbmMJgSSN8BWfSNDzZExyOvsxISyA4OlqM1RK5h7gWeWgUrD5vcKHnwnkWT7ZkVI5kW3EBeENuK08JHOXw-XgiD1nER7QoAMbd_9dbGFGgNyP0_5J1bY2iTM-JCy1rGQZyB5EAaR1hegl22QMcVdjyIycHNXp-e6YFb-MQsRaeH4f_Zd9aQU1k-6Qm0gaSB0Rq4B6SYbuqGJANTZgrGroOcTO1DS5HIPW3dfxYn9Kg37zJQ7Le1j6fvtEdlrRkv5Lkse"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-base bg-surface dark:bg-inverse-surface docked full-height left-0 w-sidebar-collapsed border-r border-outline-variant dark:border-outline flat no shadows z-10 transition-all duration-200 ease-in-out">
+<div class="flex flex-col items-center py-4 mb-6">
+<div class="w-8 h-8 bg-primary dark:bg-primary-fixed-dim rounded flex items-center justify-center text-on-primary dark:text-on-primary-fixed mb-2 font-bold">
+                OO
+            </div>
+</div>
+<div class="flex-1 flex flex-col gap-2 w-full px-2">
+<a class="w-full h-12 flex items-center justify-center rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out" href="#" title="Dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="w-full h-12 flex items-center justify-center rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out" href="#" title="Suppliers">
+<span class="material-symbols-outlined">inventory_2</span>
+</a>
+<a class="w-full h-12 flex items-center justify-center rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out" href="#" title="Orders">
+<span class="material-symbols-outlined">shopping_cart</span>
+</a>
+<a class="w-full h-12 flex items-center justify-center rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out" href="#" title="Approvals">
+<span class="material-symbols-outlined">rule</span>
+</a>
+<a class="w-full h-12 flex items-center justify-center rounded text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-surface-container-highest transition-all duration-200 ease-in-out" href="#" title="Users">
+<span class="material-symbols-outlined">group</span>
+</a>
+</div>
+<div class="mt-auto px-2 flex flex-col gap-2">
+<a class="w-full h-12 flex items-center justify-center rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-all duration-200 ease-in-out" href="#" title="Settings">
+<span class="material-symbols-outlined">settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-sidebar-collapsed p-container-padding">
+<div class="max-w-3xl mx-auto">
+<!-- Page Header -->
+<div class="mb-8 flex items-center justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant dark:text-outline-variant font-body-sm text-body-sm mb-1">
+<span class="material-symbols-outlined text-[16px]">group</span>
+<span>Users</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary dark:text-primary-fixed-dim font-medium">Create User</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface dark:text-inverse-on-surface">New User Profile</h1>
+</div>
+</div>
+<!-- Form Container -->
+<div class="bg-surface dark:bg-inverse-surface border border-outline-variant dark:border-outline rounded-lg p-6 shadow-sm relative overflow-hidden">
+<!-- Decorative top border -->
+<div class="absolute top-0 left-0 w-full h-1 bg-primary dark:bg-primary-fixed-dim"></div>
+<form class="space-y-8">
+<!-- Section: Personal Information -->
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface mb-4 pb-2 border-b border-outline-variant dark:border-outline flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-[18px]">person</span>
+                            Personal Information
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1">
+<label class="block font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant" for="fullName">Full Name *</label>
+<input class="w-full bg-surface-container-lowest dark:bg-surface-container border border-outline-variant dark:border-outline rounded px-3 py-2 text-body-base text-on-surface dark:text-inverse-on-surface focus:border-primary dark:focus:border-primary-fixed-dim focus:ring-1 focus:ring-primary dark:focus:ring-primary-fixed-dim transition-colors" id="fullName" placeholder="e.g. Jane Doe" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant" for="email">Email Address *</label>
+<input class="w-full bg-surface-container-lowest dark:bg-surface-container border border-outline-variant dark:border-outline rounded px-3 py-2 text-body-base text-on-surface dark:text-inverse-on-surface focus:border-primary dark:focus:border-primary-fixed-dim focus:ring-1 focus:ring-primary dark:focus:ring-primary-fixed-dim transition-colors" id="email" placeholder="jane.doe@company.com" type="email"/>
+</div>
+<div class="space-y-1">
+<label class="block font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant" for="password">Temporary Password *</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest dark:bg-surface-container border border-outline-variant dark:border-outline rounded px-3 py-2 text-body-base text-on-surface dark:text-inverse-on-surface focus:border-primary dark:focus:border-primary-fixed-dim focus:ring-1 focus:ring-primary dark:focus:ring-primary-fixed-dim transition-colors" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility_off</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant mt-1">User will be prompted to change on first login.</p>
+</div>
+<div class="space-y-1 flex flex-col justify-center">
+<label class="block font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant mb-2">Account Status</label>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-high dark:bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary dark:peer-checked:bg-primary-fixed-dim"></div>
+<span class="ml-3 font-body-base text-body-base text-on-surface dark:text-inverse-on-surface">Active</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Section: Role & Access -->
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface mb-4 pb-2 border-b border-outline-variant dark:border-outline flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-[18px]">shield_person</span>
+                            Role &amp; Permissions
+                        </h2>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="block font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">System Role *</label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Role Card 1 -->
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-surface-container p-4 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors focus-within:ring-2 focus-within:ring-primary dark:focus-within:ring-primary-fixed-dim">
+<input checked="" class="sr-only" name="role" type="radio" value="buyer"/>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Buyer</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-[20px]">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">Creates POs and manages supplier communication.</span>
+</div>
+<!-- Active State Indicator border (simulated via CSS for actual implementation, hardcoded for visual here) -->
+<div class="absolute inset-0 rounded-lg border-2 border-primary dark:border-primary-fixed-dim pointer-events-none"></div>
+</label>
+<!-- Role Card 2 -->
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-surface-container p-4 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors focus-within:ring-2 focus-within:ring-primary dark:focus-within:ring-primary-fixed-dim opacity-70 hover:opacity-100">
+<input class="sr-only" name="role" type="radio" value="approver"/>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Approver</span>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">radio_button_unchecked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">Reviews and approves pending Purchase Orders.</span>
+</div>
+</label>
+<!-- Role Card 3 -->
+<label class="relative flex cursor-pointer rounded-lg border border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-surface-container p-4 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors focus-within:ring-2 focus-within:ring-primary dark:focus-within:ring-primary-fixed-dim opacity-70 hover:opacity-100">
+<input class="sr-only" name="role" type="radio" value="admin"/>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface">Admin</span>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">radio_button_unchecked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant">Full system access, including configuration.</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Conditional Field: Approval Limit (shown for Approver) -->
+<div class="space-y-1 bg-surface-container-low dark:bg-surface-container p-4 rounded-lg border border-outline-variant/50 dark:border-outline/50">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary dark:text-secondary-fixed-dim text-[16px]">info</span>
+<label class="block font-title-sm text-title-sm text-on-surface dark:text-inverse-on-surface" for="approvalLimit">Approval Limit</label>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-outline-variant mb-3">Required when assigning the Approver role. Orders above this limit will require higher-level authorization.</p>
+<div class="relative w-full md:w-1/2">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant">$</span>
+<input class="w-full bg-surface-container-lowest dark:bg-surface-container-highest border border-outline-variant dark:border-outline rounded pl-8 pr-3 py-2 font-data-mono text-data-mono text-on-surface dark:text-inverse-on-surface focus:border-primary dark:focus:border-primary-fixed-dim focus:ring-1 focus:ring-primary dark:focus:ring-primary-fixed-dim transition-colors" disabled="" id="approvalLimit" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-6 border-t border-outline-variant dark:border-outline flex items-center justify-end gap-4">
+<button class="font-title-sm text-title-sm text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container px-4 py-2 rounded transition-colors" type="button">
+                            Cancel
+                        </button>
+<button class="bg-primary dark:bg-primary-fixed-dim text-on-primary dark:text-on-primary-fixed px-6 py-2 rounded font-title-sm text-title-sm hover:opacity-90 transition-opacity flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                            Save User
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</body></html>

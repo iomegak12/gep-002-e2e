@@ -1,0 +1,106 @@
+/* Design tokens. RGB triplets are used so Tailwind can apply alpha via "/ <alpha>". */
+
+:root {
+  /* Light theme */
+  --color-background: 250 249 246;
+  --color-surface: 255 255 255;
+  --color-surface-container-lowest: 255 255 255;
+  --color-surface-container-low: 247 246 243;
+  --color-surface-container: 241 240 236;
+  --color-surface-container-high: 234 233 228;
+  --color-surface-container-highest: 226 224 219;
+  --color-surface-variant: 234 233 228;
+
+  --color-on-background: 28 30 35;
+  --color-on-surface: 28 30 35;
+  --color-on-surface-variant: 92 96 104;
+
+  --color-outline: 168 170 175;
+  --color-outline-variant: 220 219 214;
+
+  --color-primary: 184 130 25;          /* warm amber, AA on white */
+  --color-on-primary: 255 255 255;
+  --color-primary-container: 255 235 196;
+  --color-on-primary-container: 99 70 9;
+
+  --color-secondary: 79 109 168;
+  --color-on-secondary: 255 255 255;
+  --color-secondary-container: 220 226 240;
+  --color-on-secondary-container: 28 38 65;
+
+  --color-tertiary: 232 177 76;
+  --color-on-tertiary: 28 30 35;
+  --color-tertiary-container: 255 240 207;
+  --color-on-tertiary-container: 99 70 9;
+
+  --color-error: 196 64 64;
+  --color-on-error: 255 255 255;
+  --color-error-container: 250 222 222;
+  --color-on-error-container: 122 30 30;
+
+  --color-success: 56 142 96;
+  --color-on-success: 255 255 255;
+  --color-success-container: 220 240 226;
+  --color-on-success-container: 22 76 44;
+
+  --color-warning: 200 130 30;
+  --color-on-warning: 255 255 255;
+
+  --color-info: 70 120 200;
+  --color-on-info: 255 255 255;
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Warm near-black canvas + amber accent. Mirrors gep-front-end/docs/mocks/tokens.css. */
+  --color-background: 15 17 21;          /* #0F1115 */
+  --color-surface: 26 29 35;             /* #1A1D23 */
+  --color-surface-container-lowest: 20 23 28; /* #14171C */
+  --color-surface-container-low: 26 29 35;    /* #1A1D23 */
+  --color-surface-container: 31 35 42;        /* #1F232A */
+  --color-surface-container-high: 34 38 45;   /* #22262D */
+  --color-surface-container-highest: 38 42 48;/* #262A30 */
+  --color-surface-variant: 31 35 42;
+
+  --color-on-background: 244 240 232;    /* #F4F0E8 */
+  --color-on-surface: 244 240 232;
+  --color-on-surface-variant: 142 148 160; /* #8E94A0 */
+
+  --color-outline: 58 63 71;             /* #3A3F47 */
+  --color-outline-variant: 38 42 48;     /* #262A30 */
+
+  /* Amber accent acts as the primary brand color in dark mode. */
+  --color-primary: 232 177 76;           /* #E8B14C */
+  --color-on-primary: 26 19 8;           /* #1A1308 */
+  --color-primary-container: 59 41 14;
+  --color-on-primary-container: 255 195 110; /* #FFC36E */
+
+  --color-secondary: 111 169 246;        /* #6FA9F6 */
+  --color-on-secondary: 11 20 33;
+  --color-secondary-container: 22 36 60;
+  --color-on-secondary-container: 191 213 250;
+
+  --color-tertiary: 255 195 110;         /* #FFC36E */
+  --color-on-tertiary: 26 19 8;
+  --color-tertiary-container: 76 51 17;
+  --color-on-tertiary-container: 255 218 158;
+
+  --color-error: 234 91 91;              /* #EA5B5B */
+  --color-on-error: 26 7 7;
+  --color-error-container: 76 25 25;
+  --color-on-error-container: 250 184 184;
+
+  --color-success: 92 198 137;           /* #5CC689 */
+  --color-on-success: 8 26 16;
+  --color-success-container: 22 56 36;
+  --color-on-success-container: 178 232 198;
+
+  --color-warning: 232 177 76;
+  --color-on-warning: 26 19 8;
+
+  --color-info: 111 169 246;
+  --color-on-info: 11 20 33;
+
+  color-scheme: dark;
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S22 — Create PO · Step 3 Delivery — Order Oasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<!-- S22 Create PO Wizard — Step 3 of 4 (Delivery & terms). -->
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div class="brand-name">Order Oasis<span class="subtle">SCM Platform</span></div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <a class="nav-item" href="#">▣ Dashboard</a>
+      <a class="nav-item" href="#">▤ Suppliers</a>
+      <a class="nav-item active" href="#">▦ Purchase orders</a>
+      <a class="nav-item" href="#">◴ Approvals</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="#">◌ Users</a>
+      <a class="nav-item" href="#">⚑ Pending suppliers <span class="badge">7</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <span class="breadcrumbs"><a class="crumb" href="#">Purchase orders</a><span class="sep">›</span><span class="crumb active">New PO</span></span>
+      <span class="spacer"></span>
+      <div class="search"><input type="text" placeholder="Search…"></div>
+      <button class="icon-btn">?</button>
+      <button class="icon-btn"><span class="dot"></span>⌕</button>
+      <div class="user-chip"><span class="avatar">PR</span><span><span class="name">Priya R.</span><br><span class="role">Buyer</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1>Create purchase order</h1>
+          <div class="lede">Step 3 of 4 — delivery address, expected date, and payment terms.</div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-ghost" href="#">Cancel</a>
+          <button class="btn btn-secondary">Save draft &amp; exit</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 20px;">
+        <div class="stepper">
+          <div class="step done"><div class="dot">✓</div> Supplier</div>
+          <div class="bar done"></div>
+          <div class="step done"><div class="dot">✓</div> Line items</div>
+          <div class="bar done"></div>
+          <div class="step active"><div class="dot">3</div> Delivery &amp; terms</div>
+          <div class="bar"></div>
+          <div class="step"><div class="dot">4</div> Review &amp; submit</div>
+        </div>
+      </div>
+
+      <div class="grid col-12">
+        <div class="span-8" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>Delivery address</h3></div>
+            <div class="field-row">
+              <div class="field" style="grid-column:1/-1;">
+                <label>Use saved address</label>
+                <select class="select">
+                  <option>Warehouse 3 — MIDC Industrial Area, Pune</option>
+                  <option>Warehouse 1 — Sriperumbudur, Chennai</option>
+                  <option>HQ — Bengaluru</option>
+                  <option>Custom address (fill below)</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Street <span class="req">*</span></label>
+              <input class="input" value="Warehouse 3, MIDC Industrial Area">
+            </div>
+            <div class="field-row cols-4">
+              <div class="field"><label>City <span class="req">*</span></label><input class="input" value="Pune"></div>
+              <div class="field"><label>State <span class="req">*</span></label><input class="input" value="Maharashtra"></div>
+              <div class="field"><label>Country <span class="req">*</span></label><select class="select"><option>IN — India</option></select></div>
+              <div class="field"><label>Postal code <span class="req">*</span></label><input class="input mono" value="411019"></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header"><h3>Schedule &amp; terms</h3></div>
+            <div class="field-row cols-3">
+              <div class="field">
+                <label>Expected delivery <span class="req">*</span></label>
+                <input class="input" value="2026-06-15">
+                <span class="help">Must be on or after today.</span>
+              </div>
+              <div class="field">
+                <label>Currency <span class="req">*</span></label>
+                <select class="select"><option>INR — Indian Rupee</option><option>USD — US Dollar</option><option>EUR — Euro</option></select>
+              </div>
+              <div class="field">
+                <label>Payment terms <span class="req">*</span></label>
+                <select class="select"><option>NET 30</option><option>NET 45</option><option>NET 60</option><option>Immediate</option><option>Advance 50/50</option></select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Notes for supplier</label>
+              <textarea class="textarea" placeholder="Optional. Visible to the supplier on dispatch.">Urgent — Q2 production run. Please prioritise dispatch from Coimbatore stock if available.</textarea>
+            </div>
+          </section>
+        </div>
+
+        <div class="span-4" style="display:flex;flex-direction:column;gap:var(--widget-gap);">
+          <section class="card">
+            <div class="card-header"><h3>PO recap</h3></div>
+            <div class="dl">
+              <dt>Supplier</dt><dd>Acme Industrial</dd>
+              <dt>Lines</dt><dd>2</dd>
+              <dt>Subtotal</dt><dd class="mono">INR 870,250.00</dd>
+              <dt>Tax</dt><dd class="mono">INR 156,645.00</dd>
+              <dt>Total</dt><dd class="mono" style="color:var(--accent);font-weight:700;">INR 1,026,895.00</dd>
+            </div>
+          </section>
+          <section class="card">
+            <div class="alert info">
+              <div>
+                <div class="alert-title">Why expected delivery matters</div>
+                <div class="alert-body">Used by the supplier scorecard to compute on-time delivery rate. Buyers should pick a realistic date.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <button class="btn btn-secondary">← Back: Line items</button>
+        <span class="t-muted t-body-sm">All required fields complete on this step</span>
+        <button class="btn btn-primary">Next: Review &amp; submit →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mock-banner">Mock · S22 step 3</div>
+</body>
+</html>
