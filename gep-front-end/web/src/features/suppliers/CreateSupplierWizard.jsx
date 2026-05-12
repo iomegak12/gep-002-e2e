@@ -6,6 +6,7 @@ import { Card, CardHeader, CardBody } from '@/components/primitives/Card';
 import { Pill } from '@/components/primitives/Pill';
 import { supplierApi } from '@/api/supplierApi';
 import { supplierCreateSchema, supplierDefaults } from '@/lib/schemas/supplierSchema';
+import { ERR, isErrorCode, getErrorMessage } from '@/lib/apiError';
 import {
   IdentityStep,
   ContactAndAddressStep,
@@ -69,11 +70,13 @@ export function CreateSupplierWizard() {
       navigate(`/suppliers/${created.id}`);
     },
     onError: (err) => {
-      const code = err?.response?.data?.code;
-      if (code === 'DUPLICATE_RESOURCE') {
+      // Contract: gep-back-end/tests/src/tests/supplier/crud.spec.js
+      if (isErrorCode(err, ERR.DUPLICATE_RESOURCE)) {
         toast.error('That supplier code is already in use. Pick a different one.');
+      } else if (isErrorCode(err, ERR.VALIDATION_FAILED)) {
+        toast.error(getErrorMessage(err, 'Some fields are invalid. Please review and retry.'));
       } else {
-        toast.error('Could not create supplier. Check the form and try again.');
+        toast.error(getErrorMessage(err, 'Could not create supplier. Please try again.'));
       }
     },
   });

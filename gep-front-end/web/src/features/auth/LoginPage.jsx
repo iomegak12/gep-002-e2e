@@ -28,6 +28,7 @@ import { authApi } from '@/api/authApi';
 import { qk } from '@/api/queryKeys';
 import { useAuthStore } from '@/stores/authStore';
 import { loginSchema } from '@/lib/schemas/authSchemas';
+import { ERR, getErrorCode, getErrorMessage } from '@/lib/apiError';
 
 export function LoginPage() {
   const [showPwd, setShowPwd] = useState(false);
@@ -102,8 +103,17 @@ export function LoginPage() {
       const from = params.get('from');
       navigate(from && from.startsWith('/') ? from : '/', { replace: true });
     },
-    onError: () => {
-      setServerError('Email or password is incorrect. Try again or contact your administrator.');
+    onError: (err) => {
+      // Contract: gep-back-end/tests/src/tests/iam/login.spec.js
+      // AUTH_FAILED (401) for wrong creds, VALIDATION_FAILED (400) for missing fields.
+      const code = getErrorCode(err);
+      if (code === ERR.AUTH_FAILED) {
+        setServerError('Email or password is incorrect. Try again or contact your administrator.');
+      } else if (code === ERR.VALIDATION_FAILED) {
+        setServerError('Please fill in both your email and password.');
+      } else {
+        setServerError(getErrorMessage(err, 'Sign-in failed. Please try again.'));
+      }
     },
   });
 

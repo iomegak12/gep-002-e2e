@@ -10,6 +10,7 @@ import { Input } from '@/components/primitives/Input';
 import { Button } from '@/components/primitives/Button';
 import { authApi } from '@/api/authApi';
 import { adminResetPasswordSchema } from '@/lib/schemas/authSchemas';
+import { getErrorMessage } from '@/lib/apiError';
 
 function PasswordInput({ id, invalid, ...props }) {
   const [show, setShow] = useState(false);
@@ -55,17 +56,21 @@ export function ResetPasswordModal({ open, onClose, user, onSuccess }) {
   }, [open, reset]);
 
   const mutation = useMutation({
+    // POST /api/v1/auth/users/{id}/reset-password expects { password }, returns 204.
+    // Contract: gep-back-end/tests/src/tests/iam/users-admin.spec.js
     mutationFn: (payload) => authApi.resetUserPassword(user.id, payload),
     onSuccess: () => {
       toast.success(`Temporary password set for ${user?.full_name || user?.email}.`);
       onSuccess?.();
       onClose?.();
     },
-    onError: () => toast.error('Could not reset password. Please try again.'),
+    onError: (err) => {
+      toast.error(getErrorMessage(err, 'Could not reset password. Please try again.'));
+    },
   });
 
   function onSubmit(values) {
-    mutation.mutate({ new_password: values.new_password });
+    mutation.mutate({ password: values.new_password });
   }
 
   return (

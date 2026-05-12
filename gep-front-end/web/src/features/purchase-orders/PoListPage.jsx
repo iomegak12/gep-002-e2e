@@ -26,6 +26,7 @@ import {
 } from '@/constants/poStatus';
 import { useAuthStore } from '@/stores/authStore';
 import { can } from '@/lib/permissions';
+import { ROLES } from '@/constants/roles';
 
 const SCREEN_KEY = 'pos.list';
 const KANBAN_COLUMNS = [
@@ -47,7 +48,9 @@ export function PoListPage() {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const [view, setView] = useViewMode(SCREEN_KEY, 'grid');
-  const [scope, setScope] = useState('mine');
+  // Buyers default to their own POs; approvers/admins oversee everyone's by default.
+  const defaultScope = user?.roles?.includes(ROLES.BUYER) ? 'mine' : 'all';
+  const [scope, setScope] = useState(defaultScope);
 
   const [q, setQ] = useState('');
   const [status, setStatus] = useState('');

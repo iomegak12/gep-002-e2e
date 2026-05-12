@@ -15,6 +15,29 @@ import { PO_TRANSITIONS, PO_STATUS } from '@/constants/poStatus';
 import { REASONS } from '@/constants/reasons';
 import { ROLES } from '@/constants/roles';
 import { useAuthStore } from '@/stores/authStore';
+import { ERR, isErrorCode, getErrorMessage } from '@/lib/apiError';
+
+/**
+ * Map common PO transition errors to user-friendly messages.
+ * Contract: gep-back-end/tests/src/tests/po/state-machine.spec.js
+ *           gep-back-end/tests/src/tests/po/approval-limits.spec.js
+ *           gep-back-end/tests/src/tests/po/rbac.spec.js
+ */
+function poTransitionMessage(err, fallback) {
+  if (isErrorCode(err, ERR.APPROVAL_LIMIT_EXCEEDED)) {
+    return 'This PO exceeds your approval limit.';
+  }
+  if (isErrorCode(err, ERR.INVALID_STATUS_TRANSITION)) {
+    return 'That action is not allowed from the PO’s current status.';
+  }
+  if (isErrorCode(err, ERR.INVALID_STATE_FOR_EDIT)) {
+    return 'This PO is no longer editable.';
+  }
+  if (isErrorCode(err, ERR.INSUFFICIENT_ROLE)) {
+    return 'You do not have permission to perform this action.';
+  }
+  return getErrorMessage(err, fallback);
+}
 
 /**
  * Role-switched PO action bar.
@@ -58,12 +81,18 @@ export function POStatusActions({ po, compact = false }) {
 
   const submit = useMutation({
     mutationFn: () => poApi.submit(po.id),
-    onSuccess: () => {
-      toast.success('PO submitted for approval');
+    onSuccess: (result) => {
+      // Submit may auto-approve when total_amount <= server threshold.
+      // Contract: gep-back-end/tests/src/tests/po/state-machine.spec.js
+      if (result?.status === PO_STATUS.APPROVED && result?.auto_approved) {
+        toast.success('PO auto-approved (total within threshold)');
+      } else {
+        toast.success('PO submitted for approval');
+      }
       invalidate();
       setOpen(null);
     },
-    onError: () => toast.error('Could not submit PO.'),
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not submit PO.')),
   });
   const approve = useMutation({
     mutationFn: () => poApi.approve(po.id),
@@ -72,11 +101,7 @@ export function POStatusActions({ po, compact = false }) {
       invalidate();
       setOpen(null);
     },
-    onError: (err) => {
-      const detail = err?.response?.data?.detail || err?.response?.data?.message;
-      const overLimit = String(detail || '').toLowerCase().includes('limit');
-      toast.error(overLimit ? 'PO total exceeds your approval limit.' : 'Could not approve PO.');
-    },
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not approve PO.')),
   });
   const reject = useMutation({
     mutationFn: (reason) => poApi.reject(po.id, { reason }),
@@ -85,7 +110,7 @@ export function POStatusActions({ po, compact = false }) {
       invalidate();
       setOpen(null);
     },
-    onError: () => toast.error('Could not reject PO.'),
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not reject PO.')),
   });
   const revise = useMutation({
     mutationFn: () => poApi.revise(po.id),
@@ -94,7 +119,7 @@ export function POStatusActions({ po, compact = false }) {
       invalidate();
       setOpen(null);
     },
-    onError: () => toast.error('Could not revise PO.'),
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not revise PO.')),
   });
   const fulfill = useMutation({
     mutationFn: () => poApi.fulfill(po.id, { actual_delivery_date: fulfillDate }),
@@ -103,7 +128,7 @@ export function POStatusActions({ po, compact = false }) {
       invalidate();
       setOpen(null);
     },
-    onError: () => toast.error('Could not fulfill PO.'),
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not fulfill PO.')),
   });
   const close = useMutation({
     mutationFn: () => poApi.close(po.id),
@@ -112,7 +137,7 @@ export function POStatusActions({ po, compact = false }) {
       invalidate();
       setOpen(null);
     },
-    onError: () => toast.error('Could not close PO.'),
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not close PO.')),
   });
   const cancel = useMutation({
     mutationFn: (reason) => poApi.cancel(po.id, reason ? { reason } : {}),
@@ -121,7 +146,7 @@ export function POStatusActions({ po, compact = false }) {
       invalidate();
       setOpen(null);
     },
-    onError: () => toast.error('Could not cancel PO.'),
+    onError: (err) => toast.error(poTransitionMessage(err, 'Could not cancel PO.')),
   });
 
   if (!po) return null;

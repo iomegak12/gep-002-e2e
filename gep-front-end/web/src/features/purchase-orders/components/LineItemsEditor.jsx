@@ -105,7 +105,7 @@ export function LineItemsEditor({ currency = 'INR' }) {
                       min="0"
                       className="text-right"
                       invalid={Boolean(rowErr.quantity)}
-                      {...register(`line_items.${i}.quantity`)}
+                      {...register(`line_items.${i}.quantity`, { valueAsNumber: true })}
                     />
                   </td>
                   <td className="px-2 py-2 align-top">
@@ -127,7 +127,7 @@ export function LineItemsEditor({ currency = 'INR' }) {
                       min="0"
                       className="text-right"
                       invalid={Boolean(rowErr.unit_price)}
-                      {...register(`line_items.${i}.unit_price`)}
+                      {...register(`line_items.${i}.unit_price`, { valueAsNumber: true })}
                     />
                   </td>
                   <td className="px-2 py-2 align-top">
@@ -137,7 +137,7 @@ export function LineItemsEditor({ currency = 'INR' }) {
                       min="0"
                       max="100"
                       className="text-right"
-                      {...register(`line_items.${i}.tax_rate`)}
+                      {...register(`line_items.${i}.tax_rate`, { valueAsNumber: true })}
                     />
                   </td>
                   <td className="px-2 py-2 text-right align-middle text-on-surface">

@@ -15,6 +15,16 @@ import { CreateSupplierWizard } from '@/features/suppliers/CreateSupplierWizard'
 import { EditSupplierPage } from '@/features/suppliers/EditSupplierPage';
 import { PendingSupplierApprovalsPage } from '@/features/suppliers/PendingSupplierApprovalsPage';
 import { SupplierAggregationsPage } from '@/features/suppliers/SupplierAggregationsPage';
+import { PoListPage } from '@/features/purchase-orders/PoListPage';
+import { PoDetailPage } from '@/features/purchase-orders/PoDetailPage';
+import { CreatePoWizard } from '@/features/purchase-orders/CreatePoWizard';
+import { EditPoPage } from '@/features/purchase-orders/EditPoPage';
+import { ApprovalQueuePage } from '@/features/approvals/ApprovalQueuePage';
+import { SpendAnalyticsPage } from '@/features/analytics/SpendAnalyticsPage';
+import { OperationsPage } from '@/features/analytics/OperationsPage';
+import { UserListPage } from '@/features/users/UserListPage';
+import { CreateUserPage } from '@/features/users/CreateUserPage';
+import { EditUserPage } from '@/features/users/EditUserPage';
 import { NotFoundPage } from '@/features/errors/NotFoundPage';
 import { ForbiddenPage } from '@/features/errors/ForbiddenPage';
 import { ErrorPage } from '@/features/errors/ErrorPage';
@@ -51,12 +61,12 @@ export function AppRoutes() {
             }
           />
 
-          <Route path="analytics/spend" element={<Placeholder title="Spend analytics" />} />
+          <Route path="analytics/spend" element={<SpendAnalyticsPage />} />
           <Route
             path="analytics/operations"
             element={
               <RequireRole roles={[ROLES.APPROVER, ROLES.ADMIN]}>
-                <Placeholder title="Operations" />
+                <OperationsPage />
               </RequireRole>
             }
           />
@@ -89,21 +99,21 @@ export function AppRoutes() {
             }
           />
 
-          <Route path="purchase-orders" element={<Placeholder title="Purchase orders" />} />
+          <Route path="purchase-orders" element={<PoListPage />} />
           <Route
             path="purchase-orders/new"
             element={
-              <RequireRole roles={[ROLES.BUYER]}>
-                <Placeholder title="Create purchase order" />
+              <RequireRole roles={[ROLES.BUYER, ROLES.ADMIN]}>
+                <CreatePoWizard />
               </RequireRole>
             }
           />
-          <Route path="purchase-orders/:id" element={<Placeholder title="Purchase order" />} />
+          <Route path="purchase-orders/:id" element={<PoDetailPage />} />
           <Route
             path="purchase-orders/:id/edit"
             element={
-              <RequireRole roles={[ROLES.BUYER]}>
-                <Placeholder title="Edit purchase order" />
+              <RequireRole roles={[ROLES.BUYER, ROLES.ADMIN]}>
+                <EditPoPage />
               </RequireRole>
             }
           />
@@ -112,7 +122,7 @@ export function AppRoutes() {
             path="approvals"
             element={
               <RequireRole roles={[ROLES.APPROVER, ROLES.ADMIN]}>
-                <Placeholder title="Approval queue" />
+                <ApprovalQueuePage />
               </RequireRole>
             }
           />
@@ -121,7 +131,7 @@ export function AppRoutes() {
             path="users"
             element={
               <RequireRole roles={[ROLES.ADMIN]}>
-                <Placeholder title="Users" />
+                <UserListPage />
               </RequireRole>
             }
           />
@@ -129,7 +139,7 @@ export function AppRoutes() {
             path="users/new"
             element={
               <RequireRole roles={[ROLES.ADMIN]}>
-                <Placeholder title="Create user" />
+                <CreateUserPage />
               </RequireRole>
             }
           />
@@ -137,7 +147,7 @@ export function AppRoutes() {
             path="users/:id/edit"
             element={
               <RequireRole roles={[ROLES.ADMIN]}>
-                <Placeholder title="Edit user" />
+                <EditUserPage />
               </RequireRole>
             }
           />

@@ -9,6 +9,7 @@ export const authApi = {
   logout: () => authClient.post(`${BASE}/logout`).then((r) => r.data),
 
   listUsers: (params) => authClient.get(`${BASE}/users`, { params }).then((r) => r.data),
+  getUser: (id) => authClient.get(`${BASE}/users/${id}`).then((r) => r.data),
   createUser: (payload) => authClient.post(`${BASE}/users`, payload).then((r) => r.data),
   updateUser: (id, payload) => authClient.patch(`${BASE}/users/${id}`, payload).then((r) => r.data),
   resetUserPassword: (id, payload) =>

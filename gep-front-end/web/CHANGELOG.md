@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Phase 4 purchase orders & approvals: PO List (S20) with Grid / Card / Kanban views, "My POs / All POs" scope toggle, status / amount / date-range filters and KPI strip. PO Detail (S21/S31) is a single page with a role-switched action bar (Submit / Revise / Fulfill / Close / Cancel for buyers; Approve / Reject for approvers; both for admins) wired to `ConfirmDialog`, `ReasonDialog` and a custom fulfillment-date modal. Status timeline visualises DRAFT → SUBMITTED → APPROVED → FULFILLED → CLOSED with REJECTED / CANCELLED shown as a banner. Create PO Wizard (S22) — 4 steps with live subtotal / tax / grand total in the line-items editor and a final review summary. Edit PO (S23) — header-level update for DRAFT POs only. Approval Queue (S30) with checkbox bulk approve, single-row Approve / Reject actions, and approver-limit filtering.
+- Reusable PO widgets: `SupplierTypeahead` (ACTIVE-only async combobox, hydrates from a supplier id), `LineItemsEditor` (dynamic table with per-row live totals using `useWatch`), `POStatusBadge`, `POStatusActions` (role-switched action bar with all transition modals), `POCard`, `usePOColumns`.
+
+### Added
 - Phase 3 suppliers: Supplier Directory (S10) with Grid / Card / Kanban views, filter chips, KPI strip, server-side pagination. Supplier Detail + Scorecard (S11) with admin status-action buttons (Approve / Deactivate / Reactivate / Blacklist) wired to `ReasonDialog` and `ConfirmDialog`. Create Supplier Wizard (S12) with 4 steps (Identity → Contact & address → Commercial → Compliance & review). Edit Supplier (S13) reuses the wizard with supplier_code locked. Pending Supplier Approvals worklist (S54). Supplier Aggregations (S41) with Recharts pie + bar charts for category / country / status / top rated.
 - Reusable data components: `DataTable` (TanStack Table v8), `Pagination`, `EmptyState`, `ErrorState`, `FilterBar`, `KpiStrip`.
 - Reusable view components: `ViewSwitcher`, `GridView`, `CardView`, `KanbanBoard`, and `useViewMode` hook (URL `?view=` wins, localStorage falls back).

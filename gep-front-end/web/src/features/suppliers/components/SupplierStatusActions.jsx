@@ -9,6 +9,21 @@ import { supplierApi } from '@/api/supplierApi';
 import { qk } from '@/api/queryKeys';
 import { SUPPLIER_TRANSITIONS } from '@/constants/supplierStatus';
 import { REASONS } from '@/constants/reasons';
+import { ERR, isErrorCode, getErrorMessage } from '@/lib/apiError';
+
+/**
+ * Map common transition errors to user-friendly messages.
+ * Contract: gep-back-end/tests/src/tests/supplier/transitions.spec.js
+ */
+function transitionMessage(err, fallback) {
+  if (isErrorCode(err, ERR.INVALID_STATUS_TRANSITION)) {
+    return 'That status change is not allowed from the supplier’s current state.';
+  }
+  if (isErrorCode(err, ERR.INSUFFICIENT_ROLE)) {
+    return 'You do not have permission to change this supplier’s status.';
+  }
+  return getErrorMessage(err, fallback);
+}
 
 /**
  * Renders the set of action buttons available for a supplier's current status,
@@ -34,7 +49,7 @@ export function SupplierStatusActions({ supplier, onChange, compact = false }) {
       onChange?.('ACTIVE');
       setOpen(null);
     },
-    onError: () => toast.error('Could not approve supplier.'),
+    onError: (err) => toast.error(transitionMessage(err, 'Could not approve supplier.')),
   });
 
   const reactivate = useMutation({
@@ -45,7 +60,7 @@ export function SupplierStatusActions({ supplier, onChange, compact = false }) {
       onChange?.('ACTIVE');
       setOpen(null);
     },
-    onError: () => toast.error('Could not reactivate supplier.'),
+    onError: (err) => toast.error(transitionMessage(err, 'Could not reactivate supplier.')),
   });
 
   const deactivate = useMutation({
@@ -56,7 +71,7 @@ export function SupplierStatusActions({ supplier, onChange, compact = false }) {
       onChange?.('INACTIVE');
       setOpen(null);
     },
-    onError: () => toast.error('Could not deactivate supplier.'),
+    onError: (err) => toast.error(transitionMessage(err, 'Could not deactivate supplier.')),
   });
 
   const blacklist = useMutation({
@@ -67,7 +82,7 @@ export function SupplierStatusActions({ supplier, onChange, compact = false }) {
       onChange?.('BLACKLISTED');
       setOpen(null);
     },
-    onError: () => toast.error('Could not blacklist supplier.'),
+    onError: (err) => toast.error(transitionMessage(err, 'Could not blacklist supplier.')),
   });
 
   if (!allowed.length) return null;

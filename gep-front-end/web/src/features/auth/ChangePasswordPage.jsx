@@ -12,6 +12,7 @@ import { Pill } from '@/components/primitives/Pill';
 import { authApi } from '@/api/authApi';
 import { useAuthStore } from '@/stores/authStore';
 import { changePasswordSchema } from '@/lib/schemas/authSchemas';
+import { ERR, getErrorCode, getErrorMessage } from '@/lib/apiError';
 import { ROLE_LABELS } from '@/constants/roles';
 
 function PasswordInput({ id, invalid, register, name, ...props }) {
@@ -59,11 +60,13 @@ export function ChangePasswordPage() {
       reset();
     },
     onError: (err) => {
-      const status = err?.response?.status;
-      if (status === 400 || status === 401) {
+      const code = getErrorCode(err);
+      if (code === ERR.AUTH_FAILED) {
         toast.error('Current password is incorrect.');
+      } else if (code === ERR.VALIDATION_FAILED) {
+        toast.error(getErrorMessage(err, 'Password does not meet requirements.'));
       } else {
-        toast.error('Could not update password. Please try again.');
+        toast.error(getErrorMessage(err, 'Could not update password. Please try again.'));
       }
     },
   });

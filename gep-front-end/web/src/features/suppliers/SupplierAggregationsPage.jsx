@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import {
   BarChart,
   Bar,
@@ -14,8 +13,12 @@ import {
 import { Card, CardHeader, CardBody } from '@/components/primitives/Card';
 import { Skeleton } from '@/components/primitives/Skeleton';
 import { ErrorState } from '@/components/data/ErrorState';
-import { supplierApi } from '@/api/supplierApi';
-import { qk } from '@/api/queryKeys';
+import {
+  useSupplierByCategory,
+  useSupplierByCountry,
+  useSupplierByStatus,
+  useSupplierTopRated,
+} from '@/features/analytics/useAggregations';
 import { SUPPLIER_CATEGORY_LABELS } from '@/constants/supplierCatalog';
 import { SUPPLIER_STATUS_LABELS } from '@/constants/supplierStatus';
 import { SupplierStatusBadge } from './components/SupplierStatusBadge';
@@ -62,22 +65,12 @@ function toBarData(arr, keyName = 'name', labelMap) {
 }
 
 export function SupplierAggregationsPage() {
-  const byCategory = useQuery({
-    queryKey: qk.suppliers.byCategory,
-    queryFn: supplierApi.aggregationsByCategory,
-  });
-  const byCountry = useQuery({
-    queryKey: qk.suppliers.byCountry,
-    queryFn: supplierApi.aggregationsByCountry,
-  });
-  const byStatus = useQuery({
-    queryKey: qk.suppliers.byStatus,
-    queryFn: supplierApi.aggregationsByStatus,
-  });
-  const topRated = useQuery({
-    queryKey: qk.suppliers.topRated({ limit: 10 }),
-    queryFn: () => supplierApi.topRated({ limit: 10 }),
-  });
+  // Hooks unwrap the { data: [...], generated_at } envelope returned by the
+  // supplier service — see useAggregations.js / pickList().
+  const byCategory = useSupplierByCategory();
+  const byCountry = useSupplierByCountry();
+  const byStatus = useSupplierByStatus();
+  const topRated = useSupplierTopRated({ limit: 10 });
 
   const categoryData = toBarData(byCategory.data, 'category', SUPPLIER_CATEGORY_LABELS);
   const countryData = toBarData(byCountry.data, 'country');
