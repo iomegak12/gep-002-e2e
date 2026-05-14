@@ -1,0 +1,20 @@
+{
+  "name": "gep-scm-ui-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright UI test suite for the GEP-SCM web app",
+  "scripts": {
+    "test": "playwright test",
+    "test:login": "playwright test 01-login-logout",
+    "test:suppliers": "playwright test 02-suppliers",
+    "test:pos": "playwright test 03-purchase-orders",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "dotenv": "^16.4.5"
+  }
+}

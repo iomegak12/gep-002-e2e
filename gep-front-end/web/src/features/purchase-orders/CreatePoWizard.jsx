@@ -62,7 +62,7 @@ export function CreatePoWizard() {
       navigate(`/purchase-orders/${created.id}`);
     },
     onError: (err) => {
-      // Contract: gep-back-end/tests/src/tests/po/create.spec.js
+      // Contract: tests/api/src/tests/po/create.spec.js
       if (isErrorCode(err, ERR.VALIDATION_FAILED)) {
         toast.error(getErrorMessage(err, 'Some PO fields are invalid. Please review.'));
       } else if (isErrorCode(err, ERR.INSUFFICIENT_ROLE)) {

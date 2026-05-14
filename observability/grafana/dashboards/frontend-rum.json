@@ -1,0 +1,21 @@
+{
+  "uid": "gep-rum",
+  "title": "GEP — Frontend RUM (Faro)",
+  "tags": ["gep", "rum", "frontend"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {"from": "now-1h", "to": "now"},
+  "panels": [
+    {"type": "logs", "title": "Recent JS errors", "gridPos": {"x": 0, "y": 0, "w": 24, "h": 8}, "datasource": {"type": "loki", "uid": "loki"}, "options": {"showLabels": false, "showTime": true, "wrapLogMessage": true}, "targets": [{"expr": "{app=\"gep-web\"} | json | kind=\"exception\" or kind=\"error\""}]},
+    {"type": "stat", "title": "LCP (p75)", "gridPos": {"x": 0, "y": 8, "w": 6, "h": 5}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "quantile_over_time(0.75, {app=\"gep-web\"} | json | name=\"largest_contentful_paint\" | unwrap value [10m])"}], "fieldConfig": {"defaults": {"unit": "ms"}}},
+    {"type": "stat", "title": "INP (p75)", "gridPos": {"x": 6, "y": 8, "w": 6, "h": 5}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "quantile_over_time(0.75, {app=\"gep-web\"} | json | name=\"interaction_to_next_paint\" | unwrap value [10m])"}], "fieldConfig": {"defaults": {"unit": "ms"}}},
+    {"type": "stat", "title": "CLS (p75)", "gridPos": {"x": 12, "y": 8, "w": 6, "h": 5}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "quantile_over_time(0.75, {app=\"gep-web\"} | json | name=\"cumulative_layout_shift\" | unwrap value [10m])"}]},
+    {"type": "stat", "title": "TTFB (p75)", "gridPos": {"x": 18, "y": 8, "w": 6, "h": 5}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "quantile_over_time(0.75, {app=\"gep-web\"} | json | name=\"time_to_first_byte\" | unwrap value [10m])"}], "fieldConfig": {"defaults": {"unit": "ms"}}},
+    {"type": "timeseries", "title": "Page load events/min", "gridPos": {"x": 0, "y": 13, "w": 12, "h": 8}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "sum(count_over_time({app=\"gep-web\"} | json | kind=\"event\" | name=\"page_load\" [1m]))"}]},
+    {"type": "timeseries", "title": "Unique sessions/5m", "gridPos": {"x": 12, "y": 13, "w": 12, "h": 8}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "count(count_over_time({app=\"gep-web\"} | json | line_format \"{{.session_id}}\" [5m]))"}]},
+    {"type": "timeseries", "title": "Errors by route", "gridPos": {"x": 0, "y": 21, "w": 12, "h": 8}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "sum by (page_url) (count_over_time({app=\"gep-web\"} | json | kind=\"exception\" [5m]))"}]},
+    {"type": "timeseries", "title": "Browser breakdown", "gridPos": {"x": 12, "y": 21, "w": 12, "h": 8}, "datasource": {"type": "loki", "uid": "loki"}, "targets": [{"expr": "sum by (browser_name) (count_over_time({app=\"gep-web\"} | json [5m]))"}]}
+  ]
+}

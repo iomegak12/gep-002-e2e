@@ -104,7 +104,7 @@ export function LoginPage() {
       navigate(from && from.startsWith('/') ? from : '/', { replace: true });
     },
     onError: (err) => {
-      // Contract: gep-back-end/tests/src/tests/iam/login.spec.js
+      // Contract: tests/api/src/tests/iam/login.spec.js
       // AUTH_FAILED (401) for wrong creds, VALIDATION_FAILED (400) for missing fields.
       const code = getErrorCode(err);
       if (code === ERR.AUTH_FAILED) {

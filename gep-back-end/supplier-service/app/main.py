@@ -31,6 +31,13 @@ app.add_middleware(
 async def correlation_mw(request: Request, call_next):
     cid = request.headers.get("x-correlation-id") or f"req_{uuid.uuid4()}"
     request.state.correlation_id = cid
+    try:
+        from opentelemetry import trace as _otel_trace
+        _span = _otel_trace.get_current_span()
+        if _span and _span.is_recording():
+            _span.set_attribute("app.correlation_id", cid)
+    except Exception:
+        pass
     response = await call_next(request)
     response.headers["X-Correlation-Id"] = cid
     return response

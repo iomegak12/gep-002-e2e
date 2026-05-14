@@ -1,0 +1,24 @@
+#cloud-config
+package_update: true
+package_upgrade: false
+
+write_files:
+  - path: /opt/gep/docker-compose.yml
+    permissions: "0644"
+    owner: root:root
+    content: |
+${compose_yaml_indented}
+
+runcmd:
+  - [ bash, -lc, "install -d -m 0755 /etc/apt/keyrings" ]
+  - [ bash, -lc, "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg" ]
+  - [ bash, -lc, "chmod a+r /etc/apt/keyrings/docker.gpg" ]
+  - [ bash, -lc, "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable\" > /etc/apt/sources.list.d/docker.list" ]
+  - [ bash, -lc, "apt-get update -y" ]
+  - [ bash, -lc, "DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates curl gnupg docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin" ]
+  - [ bash, -lc, "systemctl enable --now docker" ]
+  - [ bash, -lc, "usermod -aG docker ${admin_username}" ]
+  - [ bash, -lc, "cd /opt/gep && docker compose -f docker-compose.yml pull" ]
+  - [ bash, -lc, "cd /opt/gep && docker compose -f docker-compose.yml up -d" ]
+
+final_message: "GEP stack provisioning complete after $UPTIME seconds."

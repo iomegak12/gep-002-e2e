@@ -1,0 +1,4 @@
+# One supplier_code per line.  Blank lines and lines starting with '#' are ignored.
+# Use codes that exist in the running stack (see seed output or the Suppliers list page).
+# Examples (replace with your real seeded codes):
+GlobalSteel UK

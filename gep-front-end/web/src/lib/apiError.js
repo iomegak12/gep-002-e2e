@@ -4,8 +4,8 @@
  * The backend wraps every error as:
  *   { error: { code: string, message: string, correlation_id: string } }
  *
- * Source of truth: gep-back-end/tests/src/helpers/assert.js#expectErrorEnvelope
- * and the *.spec.js files under gep-back-end/tests/src/tests.
+ * Source of truth: tests/api/src/helpers/assert.js#expectErrorEnvelope
+ * and the *.spec.js files under tests/api/src/tests.
  *
  * Known codes (NOT exhaustive — only what the UI explicitly reacts to):
  */

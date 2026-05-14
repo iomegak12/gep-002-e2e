@@ -1,0 +1,18 @@
+{
+  "uid": "gep-db",
+  "title": "GEP — Database Activity (Postgres + Mongo)",
+  "tags": ["gep", "db"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {"from": "now-1h", "to": "now"},
+  "panels": [
+    {"type": "timeseries", "title": "DB operations/sec by system", "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "sum by (db_system) (rate(db_client_operation_duration_seconds_count[5m]))", "legendFormat": "{{db_system}}"}]},
+    {"type": "timeseries", "title": "DB p95 latency by system", "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "fieldConfig": {"defaults": {"unit": "s"}}, "targets": [{"expr": "histogram_quantile(0.95, sum by (le, db_system) (rate(db_client_operation_duration_seconds_bucket[5m])))", "legendFormat": "{{db_system}}"}]},
+    {"type": "timeseries", "title": "Postgres ops by service", "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "sum by (service_name) (rate(db_client_operation_duration_seconds_count{db_system=\"postgresql\"}[5m]))", "legendFormat": "{{service_name}}"}]},
+    {"type": "timeseries", "title": "Mongo ops by operation", "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "sum by (db_operation) (rate(db_client_operation_duration_seconds_count{db_system=\"mongodb\"}[5m]))", "legendFormat": "{{db_operation}}"}]},
+    {"type": "timeseries", "title": "Postgres container CPU", "gridPos": {"x": 0, "y": 16, "w": 12, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "fieldConfig": {"defaults": {"unit": "percentunit"}}, "targets": [{"expr": "rate(container_cpu_usage_seconds_total{name=\"gep-postgres\"}[1m])"}]},
+    {"type": "timeseries", "title": "Mongo container CPU", "gridPos": {"x": 12, "y": 16, "w": 12, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "fieldConfig": {"defaults": {"unit": "percentunit"}}, "targets": [{"expr": "rate(container_cpu_usage_seconds_total{name=\"gep-mongo\"}[1m])"}]}
+  ]
+}

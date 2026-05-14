@@ -1,0 +1,260 @@
+<html><head><meta charset="utf-8"/><title>GEP-SCM API Tests (all)</title><style type="text/css">html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+body {
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+.jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/** SUMMARY */
+#summary {
+  color: #333;
+  margin: 2rem 0;
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 2rem;
+  background: #eee;
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: #4f8a10;
+  border-left: 0.4rem solid #4f8a10;
+  padding-left: 0.5rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: #d8000c;
+  border-left: 0.4rem solid #d8000c;
+  padding-left: 0.5rem;
+}
+.summary-pending {
+  color: #9f6000;
+  border-left: 0.4rem solid #9f6000;
+  padding-left: 0.5rem;
+}
+.summary-empty {
+  color: #999;
+  border-left: 0.4rem solid #999;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+.test-result.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.test-result.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #d8000c;
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 2rem;
+}
+.suite-container > input[type="checkbox"] {
+  position: absolute;
+  left: -100vw;
+}
+.suite-container label {
+  display: block;
+}
+.suite-container .suite-tests {
+  overflow-y: hidden;
+  height: 0;
+}
+.suite-container > input[type="checkbox"]:checked ~ .suite-tests {
+  height: auto;
+  overflow: visible;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: #eee;
+  color: #777;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+  background-color: #d8000c;
+  color: #fff;
+}
+.suite-info:before {
+  content: "\2303";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transform: rotate(0deg);
+}
+.suite-container > input[type="checkbox"]:checked ~ label .suite-info:before {
+  transform: rotate(180deg);
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #efefef;
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: #777;
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><div class="jesthtml-content"><header><h1 id="title">GEP-SCM API Tests (all)</h1></header><div id="metadata-container"><div id="timestamp">Started: 2026-05-14 21:27:59</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (21)</div><div class="summary-passed ">21 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (83)</div><div class="summary-passed ">83 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></div><div id="suite-1" class="suite-container"><input id="collapsible-0" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-0"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\supplier\transitions.spec.js</div><div class="suite-time">1.256s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: state transitions</div><div class="test-title">approve: PENDING_APPROVAL → ACTIVE</div><div class="test-status">passed</div><div class="test-duration">0.048s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: state transitions</div><div class="test-title">deactivate then reactivate</div><div class="test-status">passed</div><div class="test-duration">0.047s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: state transitions</div><div class="test-title">blacklist requires reason and lands in BLACKLISTED</div><div class="test-status">passed</div><div class="test-duration">0.04s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: state transitions</div><div class="test-title">invalid transition (approve already-ACTIVE) returns 409 INVALID_STATUS_TRANSITION</div><div class="test-status">passed</div><div class="test-duration">0.026s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: state transitions</div><div class="test-title">non-admin cannot approve: 403 INSUFFICIENT_ROLE</div><div class="test-status">passed</div><div class="test-duration">0.018s</div></div></div></div></div><div id="suite-2" class="suite-container"><input id="collapsible-1" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-1"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\aggregations.spec.js</div><div class="suite-time">1.644s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: aggregations</div><div class="test-title">GET /aggregations/by-status</div><div class="test-status">passed</div><div class="test-duration">0.034s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: aggregations</div><div class="test-title">GET /aggregations/spend-by-supplier (limit + period)</div><div class="test-status">passed</div><div class="test-duration">0.027s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: aggregations</div><div class="test-title">GET /aggregations/spend-by-category (cross-service enrichment)</div><div class="test-status">passed</div><div class="test-duration">0.073s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: aggregations</div><div class="test-title">GET /aggregations/monthly-spend</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: aggregations</div><div class="test-title">GET /aggregations/pending-approvals (respects approver_limit)</div><div class="test-status">passed</div><div class="test-duration">0.023s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: aggregations</div><div class="test-title">GET /aggregations/cycle-time</div><div class="test-status">passed</div><div class="test-duration">0.032s</div></div></div></div></div><div id="suite-3" class="suite-container"><input id="collapsible-2" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-2"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\create.spec.js</div><div class="suite-time">1.696s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: POST /purchase-orders</div><div class="test-title">creates a PO in DRAFT with auto-generated po_number and supplier_snapshot</div><div class="test-status">passed</div><div class="test-duration">0.098s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: POST /purchase-orders</div><div class="test-title">GET /:id returns the PO</div><div class="test-status">passed</div><div class="test-duration">0.057s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: POST /purchase-orders</div><div class="test-title">GET /:id unknown returns 404</div><div class="test-status">passed</div><div class="test-duration">0.015s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: POST /purchase-orders</div><div class="test-title">rejects PO with no line_items (validation)</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: POST /purchase-orders</div><div class="test-title">rejects without auth: 401</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div></div></div><div id="suite-4" class="suite-container"><input id="collapsible-3" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-3"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\line-items.spec.js</div><div class="suite-time">1.882s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: nested line items</div><div class="test-title">POST a new line item recomputes totals</div><div class="test-status">passed</div><div class="test-duration">0.156s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: nested line items</div><div class="test-title">GET line items returns the list</div><div class="test-status">passed</div><div class="test-duration">0.062s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: nested line items</div><div class="test-title">PATCH updates a line item</div><div class="test-status">passed</div><div class="test-duration">0.067s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: nested line items</div><div class="test-title">DELETE removes a line item</div><div class="test-status">passed</div><div class="test-duration">0.04s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: nested line items</div><div class="test-title">line-item add blocked once PO is not DRAFT (INVALID_STATE_FOR_EDIT)</div><div class="test-status">passed</div><div class="test-duration">0.042s</div></div></div></div></div><div id="suite-5" class="suite-container"><input id="collapsible-4" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-4"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\approval-limits.spec.js</div><div class="suite-time">1.973s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: approval-limit enforcement</div><div class="test-title">low-limit approver hitting a high-value PO → 403 APPROVAL_LIMIT_EXCEEDED</div><div class="test-status">passed</div><div class="test-duration">0.051s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: approval-limit enforcement</div><div class="test-title">high-limit approver succeeds on the same PO</div><div class="test-status">passed</div><div class="test-duration">0.039s</div></div></div></div></div><div id="suite-6" class="suite-container"><input id="collapsible-5" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-5"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\iam\users-admin.spec.js</div><div class="suite-time">2.054s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">POST /users creates a user (201)</div><div class="test-status">passed</div><div class="test-duration">0.219s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">POST /users duplicate email returns 409 DUPLICATE_RESOURCE</div><div class="test-status">passed</div><div class="test-duration">0.018s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">POST /users as buyer returns 403 INSUFFICIENT_ROLE</div><div class="test-status">passed</div><div class="test-duration">0.011s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">GET /users paginates</div><div class="test-status">passed</div><div class="test-duration">0.017s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">GET /users/:id returns the created user</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">GET /users/:id unknown id returns 404 USER_NOT_FOUND</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">PATCH /users/:id updates roles + approval_limit</div><div class="test-status">passed</div><div class="test-duration">0.02s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">POST /users/:id/reset-password returns 204</div><div class="test-status">passed</div><div class="test-duration">0.641s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">PATCH is_active=false makes the user fail login</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: admin user management</div><div class="test-title">Admin endpoints require auth (401 AUTH_REQUIRED)</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div></div></div><div id="suite-7" class="suite-container"><input id="collapsible-6" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-6"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\state-machine.spec.js</div><div class="suite-time">2.155s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">submit on low-value PO auto-approves (total ≤ threshold)</div><div class="test-status">passed</div><div class="test-duration">0.039s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">submit on high-value PO goes to SUBMITTED (not auto-approved)</div><div class="test-status">passed</div><div class="test-duration">0.03s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">approve a SUBMITTED PO as high-limit approver</div><div class="test-status">passed</div><div class="test-duration">0.037s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">reject moves a SUBMITTED PO to REJECTED</div><div class="test-status">passed</div><div class="test-duration">0.034s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">fulfill an APPROVED PO with actual_delivery_date</div><div class="test-status">passed</div><div class="test-duration">0.036s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">close a FULFILLED PO</div><div class="test-status">passed</div><div class="test-duration">0.041s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">cancel a DRAFT PO</div><div class="test-status">passed</div><div class="test-duration">0.022s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">revise a REJECTED PO back to DRAFT</div><div class="test-status">passed</div><div class="test-duration">0.033s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: state machine</div><div class="test-title">invalid transition (approve a DRAFT) → 409 INVALID_STATUS_TRANSITION</div><div class="test-status">passed</div><div class="test-duration">0.016s</div></div></div></div></div><div id="suite-8" class="suite-container"><input id="collapsible-7" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-7"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\rbac.spec.js</div><div class="suite-time">0.973s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: role-based access</div><div class="test-title">APPROVER cannot create a PO (403)</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: role-based access</div><div class="test-title">BUYER cannot approve a PO (403)</div><div class="test-status">passed</div><div class="test-duration">0.027s</div></div></div></div></div><div id="suite-9" class="suite-container"><input id="collapsible-8" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-8"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\cross-service\po-against-blacklisted-supplier.spec.js</div><div class="suite-time">0.721s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: PO against non-ACTIVE supplier</div><div class="test-title">blacklisted supplier → 422 SUPPLIER_NOT_ACTIVE</div><div class="test-status">passed</div><div class="test-duration">0.612s</div></div></div></div></div><div id="suite-10" class="suite-container"><input id="collapsible-9" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-9"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\cross-service\correlation-id-propagation.spec.js</div><div class="suite-time">0.564s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: correlation-id propagation</div><div class="test-title">client-supplied X-Correlation-Id is echoed back on PO create</div><div class="test-status">passed</div><div class="test-duration">0.484s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: correlation-id propagation</div><div class="test-title">error responses also carry the correlation_id in the envelope</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div></div></div><div id="suite-11" class="suite-container"><input id="collapsible-10" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-10"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\iam\login.spec.js</div><div class="suite-time">0.916s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: POST /api/v1/auth/login</div><div class="test-title">logs in seed buyer and returns access_token + user</div><div class="test-status">passed</div><div class="test-duration">0.262s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: POST /api/v1/auth/login</div><div class="test-title">returns approval_limit for approver users</div><div class="test-status">passed</div><div class="test-duration">0.19s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: POST /api/v1/auth/login</div><div class="test-title">rejects wrong password with 401 AUTH_FAILED</div><div class="test-status">passed</div><div class="test-duration">0.348s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: POST /api/v1/auth/login</div><div class="test-title">rejects unknown email with 401 AUTH_FAILED</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: POST /api/v1/auth/login</div><div class="test-title">rejects missing body with 400 VALIDATION_FAILED</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div></div></div><div id="suite-12" class="suite-container"><input id="collapsible-11" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-11"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\supplier\scorecard.spec.js</div><div class="suite-time">0.628s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: scorecard</div><div class="test-title">GET /:id/scorecard returns metrics + trend stub</div><div class="test-status">passed</div><div class="test-duration">0.56s</div></div></div></div></div><div id="suite-13" class="suite-container"><input id="collapsible-12" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-12"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\supplier\search-and-aggregations.spec.js</div><div class="suite-time">0.46s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: search &amp; aggregations</div><div class="test-title">GET /search returns matches against seeded suppliers</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: search &amp; aggregations</div><div class="test-title">GET /aggregations/by-category returns grouped counts</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: search &amp; aggregations</div><div class="test-title">GET /aggregations/by-country returns groups</div><div class="test-status">passed</div><div class="test-duration">0.011s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: search &amp; aggregations</div><div class="test-title">GET /aggregations/by-status returns groups</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: search &amp; aggregations</div><div class="test-title">GET /aggregations/top-rated respects limit clamp</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div></div></div><div id="suite-14" class="suite-container"><input id="collapsible-13" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-13"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\list-and-search.spec.js</div><div class="suite-time">0.384s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: list &amp; search</div><div class="test-title">GET /purchase-orders is paginated</div><div class="test-status">passed</div><div class="test-duration">0.013s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: list &amp; search</div><div class="test-title">GET /purchase-orders filters by status</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: list &amp; search</div><div class="test-title">GET /purchase-orders/search returns matches</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div></div></div><div id="suite-15" class="suite-container"><input id="collapsible-14" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-14"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\po\health.spec.js</div><div class="suite-time">0.087s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">po: GET /health</div><div class="test-title">returns 200 ok:true</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div></div></div><div id="suite-16" class="suite-container"><input id="collapsible-15" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-15"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\iam\health.spec.js</div><div class="suite-time">0.083s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: GET /health</div><div class="test-title">returns 200 ok:true</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div></div></div><div id="suite-17" class="suite-container"><input id="collapsible-16" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-16"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\supplier\health.spec.js</div><div class="suite-time">0.08s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: GET /health</div><div class="test-title">returns 200 ok:true</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div></div></div><div id="suite-18" class="suite-container"><input id="collapsible-17" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-17"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\cross-service\po-against-unknown-supplier.spec.js</div><div class="suite-time">0.349s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: PO against unknown supplier UUID</div><div class="test-title">returns 422 SUPPLIER_NOT_FOUND</div><div class="test-status">passed</div><div class="test-duration">0.285s</div></div></div></div></div><div id="suite-19" class="suite-container"><input id="collapsible-18" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-18"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\cross-service\jwt-cross-service.spec.js</div><div class="suite-time">0.321s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: JWT issued by IAM is accepted by other services</div><div class="test-title">buyer token works against supplier-service</div><div class="test-status">passed</div><div class="test-duration">0.248s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: JWT issued by IAM is accepted by other services</div><div class="test-title">buyer token works against po-service</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: JWT issued by IAM is accepted by other services</div><div class="test-title">tampered token rejected by supplier-service (401 TOKEN_INVALID)</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">cross-service: JWT issued by IAM is accepted by other services</div><div class="test-title">tampered token rejected by po-service (401 TOKEN_INVALID)</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div></div></div><div id="suite-20" class="suite-container"><input id="collapsible-19" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-19"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\supplier\crud.spec.js</div><div class="suite-time">0.763s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">POST creates a supplier in PENDING_APPROVAL</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">POST duplicate supplier_code returns 409 DUPLICATE_RESOURCE</div><div class="test-status">passed</div><div class="test-duration">0.011s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">GET /:id returns the created supplier</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">GET /:id unknown returns 404 SUPPLIER_NOT_FOUND</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">PATCH updates a supplier</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">GET / paginates and supports filters</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">DELETE soft-deletes (admin only)</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">supplier: CRUD /api/v1/suppliers</div><div class="test-title">Unauthenticated request returns 401 AUTH_REQUIRED</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div></div></div><div id="suite-21" class="suite-container"><input id="collapsible-20" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-20"><div class="suite-info"><div class="suite-path">C:\000 - GEP - S02 - 002\e2e-testing-mo-iac\gep-002-e2e\tests\api\src\tests\iam\me.spec.js</div><div class="suite-time">3.332s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: /me</div><div class="test-title">GET /me returns the current user</div><div class="test-status">passed</div><div class="test-duration">0.496s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: /me</div><div class="test-title">GET /me without token returns 401 AUTH_REQUIRED</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: /me</div><div class="test-title">GET /me with garbage token returns 401 TOKEN_INVALID</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: /me</div><div class="test-title">POST /logout returns 204</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: /me &gt; PATCH /me/password</div><div class="test-title">changes password when current_password matches</div><div class="test-status">passed</div><div class="test-duration">1.134s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">iam: /me &gt; PATCH /me/password</div><div class="test-title">rejects wrong current_password with 400 INVALID_CURRENT_PASSWORD</div><div class="test-status">passed</div><div class="test-duration">0.339s</div></div></div></div></div></div></body></html>

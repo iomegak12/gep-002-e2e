@@ -13,7 +13,7 @@ import { ERR, isErrorCode, getErrorMessage } from '@/lib/apiError';
 
 /**
  * Map common transition errors to user-friendly messages.
- * Contract: gep-back-end/tests/src/tests/supplier/transitions.spec.js
+ * Contract: tests/api/src/tests/supplier/transitions.spec.js
  */
 function transitionMessage(err, fallback) {
   if (isErrorCode(err, ERR.INVALID_STATUS_TRANSITION)) {

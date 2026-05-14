@@ -1,0 +1,36 @@
+// Grafana Alloy config: receives Faro Web SDK posts from the browser and
+// fans them out to Loki (logs/events) and Tempo (traces).
+
+faro.receiver "frontend" {
+  server {
+    listen_address = "0.0.0.0"
+    listen_port    = 12347
+    cors_allowed_origins = ["*"]
+  }
+
+  sourcemaps {}
+
+  output {
+    logs   = [loki.write.frontend.receiver]
+    traces = [otelcol.exporter.otlp.tempo.input]
+  }
+}
+
+loki.write "frontend" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+  external_labels = {
+    app          = "gep-web",
+    source       = "faro",
+  }
+}
+
+otelcol.exporter.otlp "tempo" {
+  client {
+    endpoint = "tempo:4317"
+    tls {
+      insecure = true
+    }
+  }
+}

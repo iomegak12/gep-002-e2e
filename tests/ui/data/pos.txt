@@ -1,0 +1,4 @@
+# One PO number per line (format: PO-YYYY-NNNNN).  Blank lines and '#' comments ignored.
+# Use PO numbers that exist in the running stack (see the Purchase Orders list page).
+# Examples (replace with your real seeded numbers):
+PO-2026-00012

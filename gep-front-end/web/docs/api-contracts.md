@@ -1,7 +1,7 @@
 # API contracts — quick reference
 
 > **Source of truth:** the Jest integration suite in
-> `gep-back-end/tests/src/tests/**/*.spec.js`. Before changing any request /
+> `tests/api/src/tests/**/*.spec.js`. Before changing any request /
 > response handling in the UI, open the relevant spec — it shows the exact
 > wire shape and the error codes the backend returns.
 
@@ -9,11 +9,11 @@
 
 | File | What to look for |
 |---|---|
-| `gep-back-end/tests/src/helpers/http.js` | Plain axios client per service (`iam`, `supplier`, `po`). |
-| `gep-back-end/tests/src/helpers/auth.js` | Token bootstrap and login flow used by every spec. |
-| `gep-back-end/tests/src/helpers/fixtures.js` | Canonical PO and Supplier payload shapes. |
-| `gep-back-end/tests/src/helpers/assert.js` | `expectErrorEnvelope` and `expectPaginated` — these define the envelopes. |
-| `gep-back-end/tests/src/helpers/env.js` | Base URLs and `approvalThreshold` (auto-approve cutoff). |
+| `tests/api/src/helpers/http.js` | Plain axios client per service (`iam`, `supplier`, `po`). |
+| `tests/api/src/helpers/auth.js` | Token bootstrap and login flow used by every spec. |
+| `tests/api/src/helpers/fixtures.js` | Canonical PO and Supplier payload shapes. |
+| `tests/api/src/helpers/assert.js` | `expectErrorEnvelope` and `expectPaginated` — these define the envelopes. |
+| `tests/api/src/helpers/env.js` | Base URLs and `approvalThreshold` (auto-approve cutoff). |
 
 ## Response envelopes
 
@@ -194,7 +194,7 @@ All return `[]` or `{ data: [...] }` — be defensive. Spec:
 
 ## Workflow for the UI when adding a new endpoint
 
-1. Find the matching spec under `gep-back-end/tests/src/tests/`.
+1. Find the matching spec under `tests/api/src/tests/`.
 2. Mirror the request shape from `fixtures.js` (PO) or the spec itself
    (`makePoPayload`, `makeSupplierPayload`).
 3. Add an entry to `src/api/<service>Api.js`.

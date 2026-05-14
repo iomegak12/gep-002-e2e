@@ -66,7 +66,7 @@ export function EditPoPage() {
       navigate(`/purchase-orders/${id}`);
     },
     onError: (err) => {
-      // Contract: gep-back-end/tests/src/tests/po/line-items.spec.js (INVALID_STATE_FOR_EDIT)
+      // Contract: tests/api/src/tests/po/line-items.spec.js (INVALID_STATE_FOR_EDIT)
       if (isErrorCode(err, ERR.INVALID_STATE_FOR_EDIT)) {
         toast.error('This PO is no longer in Draft and cannot be edited.');
       } else if (isErrorCode(err, ERR.VALIDATION_FAILED)) {

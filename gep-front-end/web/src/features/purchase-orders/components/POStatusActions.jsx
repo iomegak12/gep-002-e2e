@@ -19,9 +19,9 @@ import { ERR, isErrorCode, getErrorMessage } from '@/lib/apiError';
 
 /**
  * Map common PO transition errors to user-friendly messages.
- * Contract: gep-back-end/tests/src/tests/po/state-machine.spec.js
- *           gep-back-end/tests/src/tests/po/approval-limits.spec.js
- *           gep-back-end/tests/src/tests/po/rbac.spec.js
+ * Contract: tests/api/src/tests/po/state-machine.spec.js
+ *           tests/api/src/tests/po/approval-limits.spec.js
+ *           tests/api/src/tests/po/rbac.spec.js
  */
 function poTransitionMessage(err, fallback) {
   if (isErrorCode(err, ERR.APPROVAL_LIMIT_EXCEEDED)) {
@@ -83,7 +83,7 @@ export function POStatusActions({ po, compact = false }) {
     mutationFn: () => poApi.submit(po.id),
     onSuccess: (result) => {
       // Submit may auto-approve when total_amount <= server threshold.
-      // Contract: gep-back-end/tests/src/tests/po/state-machine.spec.js
+      // Contract: tests/api/src/tests/po/state-machine.spec.js
       if (result?.status === PO_STATUS.APPROVED && result?.auto_approved) {
         toast.success('PO auto-approved (total within threshold)');
       } else {

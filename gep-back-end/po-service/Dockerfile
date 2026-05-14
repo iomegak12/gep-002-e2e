@@ -9,4 +9,4 @@ COPY scripts ./scripts
 RUN npx prisma generate
 ENV NODE_ENV=production
 EXPOSE 3003
-CMD ["sh", "-c", "node scripts/ensure-db.js && npx prisma db push --skip-generate --accept-data-loss && node src/main.js"]
+CMD ["sh", "-c", "node scripts/ensure-db.js && npx prisma db push --skip-generate --accept-data-loss && node --require ./src/tracing.js src/main.js"]

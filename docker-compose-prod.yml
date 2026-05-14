@@ -1,0 +1,356 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gep-postgres
+    environment:
+      POSTGRES_USER: gep
+      POSTGRES_PASSWORD: gep
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: gep-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  iam:
+    image: iomega/gep-iam:latest
+    container_name: gep-iam
+    environment:
+      PORT: 3001
+      DATABASE_URL: postgres://gep:gep@postgres:5432/iam
+      JWT_SECRET: dev-super-secret-change-me
+      JWT_ISSUER: gep-iam
+      ACCESS_TOKEN_TTL_SECONDS: 3600
+      CORS_ORIGINS: http://localhost:8080
+      BOOTSTRAP_ADMIN_EMAIL: admin@demo.local
+      BOOTSTRAP_ADMIN_PASSWORD: Passw0rd!
+      OTEL_SERVICE_NAME: iam
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=prod,service.namespace=gep
+      OTEL_TRACES_SAMPLER: parentbased_traceidratio
+      OTEL_TRACES_SAMPLER_ARG: "0.1"
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+      OTEL_LOGS_EXPORTER: otlp
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - otel-collector
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  supplier-service:
+    image: iomega/gep-supplier-service:latest
+    container_name: gep-supplier-service
+    environment:
+      PORT: 3002
+      MONGODB_URL: mongodb://mongo:27017
+      MONGODB_DB: gep_supplier
+      JWT_SECRET: dev-super-secret-change-me
+      JWT_ISSUER: gep-iam
+      JWT_AUDIENCE: gep-supplier
+      CORS_ORIGINS: http://localhost:8080
+      OTEL_SERVICE_NAME: supplier-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=prod,service.namespace=gep
+      OTEL_TRACES_SAMPLER: parentbased_traceidratio
+      OTEL_TRACES_SAMPLER_ARG: "0.1"
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+      OTEL_PYTHON_LOG_CORRELATION: "true"
+      OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED: "true"
+      OTEL_LOGS_EXPORTER: otlp
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongo
+      - otel-collector
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  po-service:
+    image: iomega/gep-po-service:latest
+    container_name: gep-po-service
+    environment:
+      PORT: 3003
+      DATABASE_URL: postgres://gep:gep@postgres:5432/po
+      JWT_SECRET: dev-super-secret-change-me
+      JWT_ISSUER: gep-iam
+      JWT_AUDIENCE: gep-po
+      SUPPLIER_SERVICE_URL: http://supplier-service:3002/api/v1
+      DEFAULT_APPROVAL_THRESHOLD: 10000
+      CORS_ORIGINS: http://localhost:8080
+      OTEL_SERVICE_NAME: po-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=prod,service.namespace=gep
+      OTEL_TRACES_SAMPLER: parentbased_traceidratio
+      OTEL_TRACES_SAMPLER_ARG: "0.1"
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+      OTEL_LOGS_EXPORTER: otlp
+    ports:
+      - "3003:3003"
+    depends_on:
+      - postgres
+      - supplier-service
+      - otel-collector
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  seed:
+    image: iomega/gep-seed:latest
+    container_name: gep-seed
+    environment:
+      AUTH_SERVICE_URL: http://iam:3001/api/v1
+      SUPPLIER_SERVICE_URL: http://supplier-service:3002/api/v1
+      PO_SERVICE_URL: http://po-service:3003/api/v1
+    depends_on:
+      - iam
+      - supplier-service
+      - po-service
+    networks:
+      - gep-network
+    restart: "no"
+
+  web:
+    image: iomega/gep-web:latest
+    container_name: gep-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+      - mongo
+      - iam
+      - supplier-service
+      - po-service
+      - alloy
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: gep-cloudbeaver
+    ports:
+      - "8978:8978"
+    volumes:
+      - cloudbeaver_data:/opt/cloudbeaver/workspace
+    depends_on:
+      - postgres
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: gep-mongo-express
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_CONFIG_BASICAUTH: "false"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  # ============================================================
+  # Observability stack (prod)
+  # ============================================================
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.111.0
+    container_name: gep-otel-collector
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./observability/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml:ro
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+      - "13133:13133"
+    networks:
+      - gep-network
+    restart: unless-stopped
+    depends_on:
+      - tempo
+      - jaeger
+      - loki
+
+  prometheus:
+    image: prom/prometheus:v2.55.0
+    container_name: gep-prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-remote-write-receiver"
+      - "--enable-feature=exemplar-storage"
+      - "--storage.tsdb.retention.time=15d"
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: gep-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_FEATURE_TOGGLES_ENABLE: "traceqlEditor,traceToMetrics,traceqlSearch"
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - gep-network
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+      - loki
+      - tempo
+
+  loki:
+    image: grafana/loki:3.2.0
+    container_name: gep-loki
+    command: ["-config.file=/etc/loki/loki-config.yaml"]
+    volumes:
+      - ./observability/loki/loki-config.yaml:/etc/loki/loki-config.yaml:ro
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:3.2.0
+    container_name: gep-promtail
+    command: ["-config.file=/etc/promtail/promtail-config.yaml"]
+    volumes:
+      - ./observability/promtail/promtail-config.yaml:/etc/promtail/promtail-config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - promtail_positions:/tmp
+    networks:
+      - gep-network
+    restart: unless-stopped
+    depends_on:
+      - loki
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.76.0
+    container_name: gep-jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+      SPAN_STORAGE_TYPE: memory
+      QUERY_BASE_PATH: /
+    ports:
+      - "16686:16686"
+      - "14250:14250"
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  tempo:
+    image: grafana/tempo:2.6.0
+    container_name: gep-tempo
+    command: ["-config.file=/etc/tempo/tempo.yaml"]
+    volumes:
+      - ./observability/tempo/tempo.yaml:/etc/tempo/tempo.yaml:ro
+      - tempo_data:/var/tempo
+    ports:
+      - "3200:3200"
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  alloy:
+    image: grafana/alloy:v1.4.2
+    container_name: gep-alloy
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - /etc/alloy/config.alloy
+    volumes:
+      - ./observability/alloy/config.alloy:/etc/alloy/config.alloy:ro
+    ports:
+      - "12345:12345"
+      - "12347:12347"
+    networks:
+      - gep-network
+    restart: unless-stopped
+    depends_on:
+      - loki
+      - tempo
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: gep-cadvisor
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8082:8080"
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    container_name: gep-node-exporter
+    # Same as dev: minimal config works on Docker Desktop + plain Linux VMs.
+    # For deeper host visibility on a dedicated Linux host, re-add:
+    #   pid: host
+    #   volumes: ["/:/host:ro,rslave"]
+    #   command: ["--path.rootfs=/host"]
+    command:
+      - "--path.procfs=/proc"
+      - "--path.sysfs=/sys"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    ports:
+      - "9100:9100"
+    networks:
+      - gep-network
+    restart: unless-stopped
+
+networks:
+  gep-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  mongodata:
+  cloudbeaver_data:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  tempo_data:
+  promtail_positions:

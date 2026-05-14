@@ -1,0 +1,15 @@
+{
+  "uid": "gep-traces",
+  "title": "GEP — Traces Hub",
+  "tags": ["gep", "traces"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {"from": "now-15m", "to": "now"},
+  "panels": [
+    {"type": "text", "title": "External UIs", "gridPos": {"x": 0, "y": 0, "w": 24, "h": 3}, "options": {"mode": "html", "content": "<div style='padding:8px;font-family:sans-serif;font-size:14px'><a href='http://localhost:16686' target='_blank'>Jaeger UI</a> &nbsp;|&nbsp; <a href='http://localhost:3200' target='_blank'>Tempo</a> &nbsp;|&nbsp; <a href='/explore?left=%7B%22datasource%22:%22tempo%22%7D' target='_blank'>Grafana Explore (Tempo)</a></div>"}},
+    {"type": "traces", "title": "Recent traces (Tempo search)", "gridPos": {"x": 0, "y": 3, "w": 24, "h": 12}, "datasource": {"type": "tempo", "uid": "tempo"}, "targets": [{"queryType": "search", "limit": 50}]},
+    {"type": "nodeGraph", "title": "Service map", "gridPos": {"x": 0, "y": 15, "w": 24, "h": 10}, "datasource": {"type": "tempo", "uid": "tempo"}, "targets": [{"queryType": "serviceMap"}]}
+  ]
+}

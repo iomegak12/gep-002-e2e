@@ -57,7 +57,7 @@ export function ResetPasswordModal({ open, onClose, user, onSuccess }) {
 
   const mutation = useMutation({
     // POST /api/v1/auth/users/{id}/reset-password expects { password }, returns 204.
-    // Contract: gep-back-end/tests/src/tests/iam/users-admin.spec.js
+    // Contract: tests/api/src/tests/iam/users-admin.spec.js
     mutationFn: (payload) => authApi.resetUserPassword(user.id, payload),
     onSuccess: () => {
       toast.success(`Temporary password set for ${user?.full_name || user?.email}.`);

@@ -7,4 +7,4 @@ COPY src ./src
 COPY migrations ./migrations
 ENV NODE_ENV=production
 EXPOSE 3001
-CMD ["node", "src/server.js"]
+CMD ["node", "--require", "./src/tracing.js", "src/server.js"]

@@ -28,7 +28,7 @@ export function CreateUserPage() {
       navigate('/users');
     },
     onError: (err) => {
-      // Contract: gep-back-end/tests/src/tests/iam/users-admin.spec.js
+      // Contract: tests/api/src/tests/iam/users-admin.spec.js
       if (isErrorCode(err, ERR.DUPLICATE_RESOURCE)) {
         toast.error('That email is already in use.');
       } else if (isErrorCode(err, ERR.VALIDATION_FAILED)) {

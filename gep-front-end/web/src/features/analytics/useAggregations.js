@@ -7,7 +7,7 @@ import { qk } from '@/api/queryKeys';
  * Normalisers for the aggregation envelopes. The PO service wraps everything
  * as { data, generated_at, period?, year? }, while `/aggregations/pending-approvals`
  * is a scalar { count, total_value }. Source of truth:
- *   gep-back-end/tests/src/tests/po/aggregations.spec.js
+ *   tests/api/src/tests/po/aggregations.spec.js
  */
 
 function pickList(payload) {

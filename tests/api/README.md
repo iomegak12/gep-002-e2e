@@ -15,7 +15,7 @@ Coverage is **happy path for every endpoint + key error cases** (401 / 403 / 404
 
 1. The full stack is running and **seeded**:
    ```bash
-   cd back-end
+   cd gep-back-end
    docker compose up --build
    ```
    Wait until the `seed` container exits with code 0 — that's how we know the demo users / suppliers / POs exist.
@@ -25,7 +25,7 @@ Coverage is **happy path for every endpoint + key error cases** (401 / 403 / 404
 ## Run
 
 ```bash
-cd back-end/tests
+cd tests/api
 cp .env.example .env        # adjust if you bind to non-default host ports
 npm install
 npm test

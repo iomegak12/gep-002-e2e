@@ -3,12 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/main.js",
-    "start:dev": "node --watch src/main.js",
+    "start": "node --require ./src/tracing.js src/main.js",
+    "start:dev": "node --require ./src/tracing.js --watch src/main.js",
     "prisma:generate": "prisma generate",
     "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.60.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.205.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.205.0",
+    "@opentelemetry/host-metrics": "^0.36.0",
+    "@opentelemetry/resources": "^2.0.0",
+    "@opentelemetry/sdk-metrics": "^2.0.0",
+    "@opentelemetry/sdk-node": "^0.205.0",
+    "@opentelemetry/semantic-conventions": "^1.28.0",
     "@prisma/client": "^5.20.0",
     "axios": "^1.7.7",
     "express": "^4.21.1",

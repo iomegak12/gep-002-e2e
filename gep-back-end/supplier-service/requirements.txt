@@ -6,3 +6,19 @@ pydantic[email]==2.9.2
 email-validator==2.2.0
 pydantic-settings==2.5.2
 python-jose[cryptography]==3.3.0
+
+# --- OpenTelemetry (May 2026 verified coordinated set) ---
+# Core SDK on 1.x stable, contrib/instrumentations on matching 0.62b1 beta.
+# DO NOT mix beta versions across these lines — entry-points break.
+opentelemetry-api==1.41.1
+opentelemetry-sdk==1.41.1
+opentelemetry-distro==0.62b1
+opentelemetry-exporter-otlp-proto-grpc==1.41.1
+opentelemetry-exporter-otlp-proto-http==1.41.1
+opentelemetry-instrumentation==0.62b1
+opentelemetry-instrumentation-asgi==0.62b1
+opentelemetry-instrumentation-fastapi==0.62b1
+opentelemetry-instrumentation-httpx==0.62b1
+opentelemetry-instrumentation-pymongo==0.62b1
+opentelemetry-instrumentation-logging==0.62b1
+opentelemetry-instrumentation-system-metrics==0.62b1

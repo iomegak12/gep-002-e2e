@@ -70,7 +70,7 @@ export function CreateSupplierWizard() {
       navigate(`/suppliers/${created.id}`);
     },
     onError: (err) => {
-      // Contract: gep-back-end/tests/src/tests/supplier/crud.spec.js
+      // Contract: tests/api/src/tests/supplier/crud.spec.js
       if (isErrorCode(err, ERR.DUPLICATE_RESOURCE)) {
         toast.error('That supplier code is already in use. Pick a different one.');
       } else if (isErrorCode(err, ERR.VALIDATION_FAILED)) {

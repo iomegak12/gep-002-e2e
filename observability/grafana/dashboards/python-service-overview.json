@@ -1,0 +1,19 @@
+{
+  "uid": "gep-python-overview",
+  "title": "GEP — Python Service Overview (supplier-service)",
+  "tags": ["gep", "python"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {"from": "now-1h", "to": "now"},
+  "panels": [
+    {"type": "timeseries", "title": "Process CPU %", "gridPos": {"x": 0, "y": 0, "w": 12, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "fieldConfig": {"defaults": {"unit": "percentunit"}}, "targets": [{"expr": "process_runtime_cpython_cpu_utilization{service_name=\"supplier-service\"}"}]},
+    {"type": "timeseries", "title": "Process RSS", "gridPos": {"x": 12, "y": 0, "w": 12, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "fieldConfig": {"defaults": {"unit": "bytes"}}, "targets": [{"expr": "process_runtime_cpython_memory_bytes{service_name=\"supplier-service\",type=\"rss\"}"}]},
+    {"type": "timeseries", "title": "Active threads", "gridPos": {"x": 0, "y": 7, "w": 8, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "process_runtime_cpython_thread_count{service_name=\"supplier-service\"}"}]},
+    {"type": "timeseries", "title": "GC collections by gen", "gridPos": {"x": 8, "y": 7, "w": 8, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "rate(process_runtime_cpython_gc_count_bytes_total{service_name=\"supplier-service\"}[5m])", "legendFormat": "gen {{generation}}"}]},
+    {"type": "timeseries", "title": "Open file descriptors", "gridPos": {"x": 16, "y": 7, "w": 8, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "system_network_connections{service_name=\"supplier-service\"}"}]},
+    {"type": "timeseries", "title": "FastAPI request duration p95", "gridPos": {"x": 0, "y": 14, "w": 12, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "fieldConfig": {"defaults": {"unit": "s"}}, "targets": [{"expr": "histogram_quantile(0.95, sum by (le, http_route) (rate(http_server_request_duration_seconds_bucket{service_name=\"supplier-service\"}[5m])))", "legendFormat": "{{http_route}}"}]},
+    {"type": "timeseries", "title": "MongoDB ops/sec", "gridPos": {"x": 12, "y": 14, "w": 12, "h": 7}, "datasource": {"type": "prometheus", "uid": "prometheus"}, "targets": [{"expr": "sum by (db_operation) (rate(db_client_operation_duration_seconds_count{service_name=\"supplier-service\"}[5m]))", "legendFormat": "{{db_operation}}"}]}
+  ]
+}
